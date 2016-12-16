@@ -1,23 +1,28 @@
->core
-| >framework
+>core //root
+| >framework //main game logic
 | | -Runtime
 | | -Manager	
 | | 
-| >spawn	
-| | >world
+| >spawn //renderable objects
+| | >world //map and tile objects
 | | | -Map
 | | | -Node
-| | | -Vector3
 | | | 
-| | >entities
+| | >entities //player and entity objects
 | | | -Entity
 | | | -Mob
 | | | -Nob
 | | |
-	
-	
-	
-	
-	
-	
+| >util //utilities
+| | -Vector3
+| | 	
+
+
+
+
+
+Sprites
+| type_part_state_direction
+|Example: wizard_legs_running_south
+
 	
