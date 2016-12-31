@@ -3,7 +3,7 @@ package com.project.duo.client;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
-import com.project.duo.Runtime;
+import com.project.duo.framework.Runtime;
 
 public class HtmlLauncher extends GwtApplication {
 

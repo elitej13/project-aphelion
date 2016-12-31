@@ -1,10 +1,8 @@
 package com.project.duo;
 
-import android.os.Bundle;
-
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.project.duo.Runtime;
+import com.project.duo.framework.Runtime;
 
 public class AndroidLauncher extends AndroidApplication {
 	@Override

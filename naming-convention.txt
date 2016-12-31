@@ -1,7 +1,7 @@
 >core //root
 | >framework //main game logic
 | | -Runtime
-| | -Manager	
+| | -Game
 | | 
 | >spawn //renderable objects
 | | >world //map and tile objects
