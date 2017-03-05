@@ -2,42 +2,40 @@ package com.project.duo.framework;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Buttons;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.project.duo.spawn.Puppet;
-import com.project.duo.util.Direction;
-public class Runtime extends ApplicationAdapter {
+import com.project.duo.input.InputManager;
+public class Master extends ApplicationAdapter {
 	
 	//-1 Exiting, 0 Main menu, 1 Game
 	private static int state;
 
-	private Game game;
-	private MainMenu main;
+	private GameManager game;
+	private MenuManager main;
+	private InputManager input;
 	private SpriteBatch sb;
-	
 	
 	@Override
 	public void create () {
-		game = new Game();
-		main = new MainMenu(game);
+		input = new InputManager();
+		game = new GameManager();
+		main = new MenuManager();
 		sb = new SpriteBatch();
 	}
 
 	
 	public void update() {
-		if(state == -1) {
+		if(Master.state == -1) {
 			Gdx.app.exit();
-		}else if(state == 0) {
+		}else if(Master.state == 0) {
 			main.update();
-		}else if(state == 1) {
-			game.update();
+		}else if(Master.state == 1) {
+			game.update(input);
 		}
 	}
 	public static void setState(int state){
 		if(state >= -1 && state <= 1) 
-			Runtime.state = state;
+			Master.state = state;
 		else 
 			System.out.println("Error changing state.");
 	}

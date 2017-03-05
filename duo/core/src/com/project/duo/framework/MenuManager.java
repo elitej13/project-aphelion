@@ -15,14 +15,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 
-public class MainMenu {
+public class MenuManager {
 	
-//	private Game game;
 	private Stage stage;
 	private Skin skin;
 	
-	public MainMenu(Game game) {
-//		this.game = game;
+	public MenuManager() {
 		stage = new Stage();
 		skin = new Skin();
 		Gdx.input.setInputProcessor(stage);
@@ -59,13 +57,13 @@ public class MainMenu {
 		start.addListener(new ChangeListener() {
 			public void changed (ChangeEvent event, Actor actor) {
 				start.setText(" Starting... ");
-				Runtime.setState(1);
+				Master.setState(1);
 			}
 		});
 		exit.addListener(new ChangeListener() {
 			public void changed (ChangeEvent event, Actor actor) {
 				exit.setText(" Exiting... ");
-				Runtime.setState(-1);
+				Master.setState(-1);
 			}
 		});
 //	table.add(new Image(skin.newDrawable("white", Color.RED))).size(256);
