@@ -19,6 +19,7 @@ public class Level {
 //		loadEntities();
 	}
 	
+	//Pixmap.getPixel gives an RGBA8888 value shifting it right gives the rgb value with 8 bits per value and the remaining 8 bits at 0
 	public void loadTiles() {
 		Texture texture = new Texture(Gdx.files.internal(tilePath));
 		texture.getTextureData().prepare();
@@ -27,11 +28,12 @@ public class Level {
 		HEIGHT = texture.getHeight();
 		tiles = new int[WIDTH * HEIGHT];
 		for(int y = 0; y < HEIGHT; y++) {
-			for(int x = 0; x < HEIGHT; x++) {
-				tiles[x + (y * WIDTH)] =  map.getPixel(x, y);
+			for(int x = 0; x < WIDTH; x++) {
+				tiles[x + (y * WIDTH)] =  (map.getPixel(x, y) >> 8);
 			}
 		}
 	}
+	
 	public void loadEntities() {
 		Texture texture = new Texture(Gdx.files.internal(entityPath));
 		Pixmap map = texture.getTextureData().consumePixmap();
@@ -39,8 +41,8 @@ public class Level {
 		HEIGHT = texture.getHeight();
 		entities = new int[WIDTH * HEIGHT];
 		for(int y = 0; y < HEIGHT; y++) {
-			for(int x = 0; x < HEIGHT; x++) {
-				entities[x + (y * WIDTH)] =  map.getPixel(x, y);
+			for(int x = 0; x < WIDTH; x++) {
+				entities[x + (y * WIDTH)] =  (map.getPixel(x, y) >> 8);
 			}
 		}
 	}

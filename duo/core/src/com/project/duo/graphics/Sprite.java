@@ -17,8 +17,8 @@ public class Sprite {
 	
 	
 	public static TextureRegion default_grass_0 = new TextureRegion(Sprite.tilesheet, 	0, 0, 64, 64);
-	public static TextureRegion default_dirt_0 = new TextureRegion(Sprite.tilesheet, 	0, 1, 64, 64);
-	public static TextureRegion default_brick_0 = new TextureRegion(Sprite.tilesheet, 	0, 2, 64, 64);
+	public static TextureRegion default_dirt_0 = new TextureRegion(Sprite.tilesheet, 	0, 64, 64, 64);
+	public static TextureRegion default_brick_0 = new TextureRegion(Sprite.tilesheet, 	0, 128, 64, 64);
 	
 
 	

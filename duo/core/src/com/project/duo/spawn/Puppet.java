@@ -29,9 +29,9 @@ public class Puppet {
 	}
 	
 	
-	public void render(SpriteBatch sb, Vector2 position) {
-		float x = position.x;
-		float y = position.y;
+	public void render(SpriteBatch sb, Vector2 offset, Vector2 position) {
+		float x = position.x + offset.x;
+		float y = position.y + offset.y;
 		
 		if(hat != null)
 			sb.draw(hat, x, y + 32);

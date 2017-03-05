@@ -25,12 +25,17 @@ public class Master extends ApplicationAdapter {
 
 	
 	public void update() {
+//		FPS counter
+//		System.out.println(Gdx.graphics.getFramesPerSecond());
+		
+		
+		input.update();
 		if(Master.state == -1) {
 			Gdx.app.exit();
 		}else if(Master.state == 0) {
 			main.update();
 		}else if(Master.state == 1) {
-			game.update(input);
+			game.update();
 		}
 	}
 	public static void setState(int state){
@@ -61,7 +66,8 @@ public class Master extends ApplicationAdapter {
 	
 	@Override
 	public void dispose () {
-		game.dispose();
+		
+//		game.dispose(); //do stuff in place of thiss
 		main.dispose();
 		sb.dispose();
 	}
