@@ -1,5 +1,6 @@
 package com.project.duo.spawn.entities;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
@@ -9,7 +10,9 @@ public class EntityManager {
 	public Vector2 deltaOffset;
 	
 	public EntityManager() {
-		player = new Player(0, 0);
+		float x = Gdx.graphics.getWidth();
+		float y = Gdx.graphics.getHeight();
+		player = new Player(x / 2, y / 2);
 		deltaOffset = new Vector2();
 	}
 	
@@ -31,5 +34,8 @@ public class EntityManager {
 		player.render(sb, c0, c1);
 	}
 	
+	public Player getPlayer() {
+		return player;
+	}
 	
 }

@@ -28,10 +28,10 @@ public class MapManager {
 	public void render(SpriteBatch sb, Vector2 c0, Vector2 c1) {
 		int tileSize = 64;
 		for(int y = (int) c0.y; y < c1.y + 64; y += tileSize) {
-			if(y < 0) continue;
+			if(y < 0 || y / 64 >= currentLevel.HEIGHT) continue;
 			for(int x = (int) c0.x; x < c1.x + 64; x += tileSize) {
-				if(x < 0) continue;
-				int index = (x / 64) + ((y / 64) * 64);
+				if(x < 0 || x / 64 >= currentLevel.WIDTH) continue;
+				int index = (int) (Math.floor(x / 64) + (Math.floor(y / 64) * 64));
 				int currentPixel = currentLevel.tiles[index];
 				if(currentPixel == col_grass) {
 					sb.draw(Sprite.default_grass_0, (x - (x % 64)) - c0.x, (y - (y % 64)) - c0.y);

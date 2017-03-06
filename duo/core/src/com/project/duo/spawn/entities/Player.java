@@ -8,18 +8,22 @@ public class Player extends Entity {
 
 	
 	//testing purposes - not permanent
-	int speed = 5;
+	int speed = 3;
+	double health, maxHealth;
 	
 	
 	public Player(float x, float y) {
 		super(x, y);
 		puppet = new Puppet();
+		health = 600;
+		maxHealth = 600;
 	}
 
 	public void update() {
 		for(int i = 0; i < speed; i++){
 			updateMove();
 		}
+//		if(health > 0)health--;
 	}
 	
 	
@@ -45,5 +49,9 @@ public class Player extends Entity {
 				move(Direction.EAST);
 			}
 		}
+	}
+	
+	public double getHealthProportion() {
+		return health / maxHealth;
 	}
 }

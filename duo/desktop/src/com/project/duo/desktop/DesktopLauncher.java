@@ -6,8 +6,8 @@ import com.project.duo.framework.Master;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.width = 990;
-		config.height = 540;
+		config.width = 1600;
+		config.height = 900;
 		new LwjglApplication(new Master(), config);
 		
 	}
