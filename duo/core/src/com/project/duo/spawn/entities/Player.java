@@ -13,8 +13,7 @@ public class Player extends Entity {
 	
 	
 	public Player(float x, float y) {
-		super(x, y);
-		puppet = new Puppet();
+		super(x, y, 64, 64);
 		health = 600;
 		maxHealth = 600;
 	}

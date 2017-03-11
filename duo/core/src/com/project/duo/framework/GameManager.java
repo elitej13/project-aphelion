@@ -16,15 +16,16 @@ public class GameManager {
 	private UIManager ui;
 	private Vector2 resolution;
 	private Vector2 c0, c1;
-	private Rectangle bounds;
+//	private Rectangle screen;
 	private boolean isPaused;
 	
 	public GameManager() {
 		resolution = new Vector2(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+//		screen = new Rectangle(0, 0, resolution.x, resolution.y);
 		c0 = new Vector2(0, 0);
 		c1 = new Vector2(resolution);
 		map = new MapManager();
-		ent = new EntityManager();
+		ent = new EntityManager(map.mapPixelSize);
 		ui = new UIManager(ent.getPlayer());
 	}
 	
@@ -32,11 +33,11 @@ public class GameManager {
 	public void update() {
 		if(!isPaused) {
 			ent.update();
+//			screen.setPosition(screen.x + ent.deltaOffset.x, screen.y + ent.deltaOffset.y);
 			c0.add(ent.deltaOffset);
 			c1.add(ent.deltaOffset);
 		}
 		if(InputManager.checkForPause()) {
-			System.out.println(true);
 			isPaused = !isPaused;
 			ui.setPause(isPaused);
 		}

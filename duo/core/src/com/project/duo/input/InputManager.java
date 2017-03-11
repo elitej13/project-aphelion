@@ -11,12 +11,12 @@ public class InputManager {
 	public InputManager() {
 	//In here set up a way to branch based on medium of input.
 	
-	
 	}
 	
 	
 //	TODO: Fix the SHIT out of this! Gamepad support, key binding support, etc
 	public void update() {
+		
 		InputManager.up = Gdx.input.isKeyPressed(Input.Keys.W) | Gdx.input.isKeyPressed(Input.Keys.UP);
 		InputManager.down = Gdx.input.isKeyPressed(Input.Keys.S) | Gdx.input.isKeyPressed(Input.Keys.DOWN);
 		InputManager.left = Gdx.input.isKeyPressed(Input.Keys.A) | Gdx.input.isKeyPressed(Input.Keys.LEFT);
