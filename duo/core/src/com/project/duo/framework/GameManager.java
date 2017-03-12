@@ -2,7 +2,6 @@ package com.project.duo.framework;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.project.duo.input.InputManager;
 import com.project.duo.spawn.entities.EntityManager;
@@ -25,7 +24,7 @@ public class GameManager {
 		c0 = new Vector2(0, 0);
 		c1 = new Vector2(resolution);
 		map = new MapManager();
-		ent = new EntityManager(map.mapPixelSize);
+		ent = new EntityManager(map);
 		ui = new UIManager(ent.getPlayer());
 	}
 	

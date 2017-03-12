@@ -3,7 +3,6 @@ package com.project.duo.spawn;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.project.duo.graphics.Sprite;
 
 public class Puppet {
@@ -34,15 +33,15 @@ public class Puppet {
 		float y = position.y - offset.y;
 		
 		if(hat != null)
-			sb.draw(hat, x, y + 32);
+			sb.draw(hat, x, y + 96);
 		if(head != null)
-			sb.draw(head, x, y);
+			sb.draw(head, x, y + 64);
 		if(torso != null)
-			sb.draw(torso, x, y - 32);
+			sb.draw(torso, x, y + 32);
 		if(arms != null)
-			sb.draw(arms, x, y - 32);
+			sb.draw(arms, x, y + 32);
 		if(legs != null)
-			sb.draw(legs, x, y - 64);
+			sb.draw(legs, x, y);
 	}
 
 

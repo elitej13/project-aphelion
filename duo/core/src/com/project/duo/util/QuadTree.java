@@ -10,16 +10,16 @@ public class QuadTree {
 	private QuadBranch NE, NW, SW, SE;
 	private Rectangle N, W, S, E;
 	
-	public QuadTree(Vector2 mapPixelSize) {
-		float width = mapPixelSize.x;
-		float height = mapPixelSize.y;
+	public QuadTree(MapManager map) {
+		float width = map.mapPixelSize.x;
+		float height = map.mapPixelSize.y;
 		float bW = width / 2;
 		float bH = height / 2;
 		int offset = MapManager.tileSize * 2;
-		SW = new QuadBranch(0, 0, bW, bH);
-		NW = new QuadBranch(0, bH, bW, bH);
-		SE = new QuadBranch(bW, 0, bW, bH);
-		NE = new QuadBranch(bW, bH, bW, bH);
+		SW = new QuadBranch(map, 0, 0, bW, bH);
+		NW = new QuadBranch(map, 0, bH, bW, bH);
+		SE = new QuadBranch(map, bW, 0, bW, bH);
+		NE = new QuadBranch(map, bW, bH, bW, bH);
 		W = new Rectangle(0, bH - offset, bW, offset * 2);
 		S = new Rectangle(bW - offset, 0, offset * 2, bH);
 		N = new Rectangle(bW - offset, bH, offset * 2, bH);
@@ -28,7 +28,7 @@ public class QuadTree {
 	
 	public void addEntity(Entity e) {
 		boolean north = false, south = false, east = false, west = false;
-		e.clearCollidables();
+		e.clearBranches();
 		if(N.overlaps(e.body)) {
 			NE.addEntity(e, 0);
 			NW.addEntity(e, 1);

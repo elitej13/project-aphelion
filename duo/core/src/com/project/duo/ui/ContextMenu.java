@@ -11,7 +11,6 @@ public class ContextMenu {
 	
 	private Texture bkgd;
 	private Vector2 resolution;
-	private double fill;
 	
 	public ContextMenu() {
 		resolution = new Vector2(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());

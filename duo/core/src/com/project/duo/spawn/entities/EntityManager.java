@@ -1,11 +1,13 @@
 package com.project.duo.spawn.entities;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.project.duo.spawn.world.MapManager;
 import com.project.duo.util.QuadTree;
 
 public class EntityManager {
@@ -17,15 +19,15 @@ public class EntityManager {
 	public List<Entity> renderable;
 	
 	
-	public EntityManager(Vector2 mapPixelSize) {
+	public EntityManager(MapManager map) {
 		float x = Gdx.graphics.getWidth();
 		float y = Gdx.graphics.getHeight();
 		deltaOffset = new Vector2();
 		renderable = new ArrayList<Entity>();
-		quad = new QuadTree(mapPixelSize);
+		quad = new QuadTree(map);
 		
 		player = new Player(x / 2, y / 2);
-		dummy = new Entity(100, 100, 64, 64);
+		dummy = new Entity(100, 100, 32, 32);
 		
 		addEntity(player);
 		addEntity(dummy);
@@ -40,6 +42,8 @@ public class EntityManager {
 		x = player.body.x - x;
 		y = player.body.y - y;
 		deltaOffset.set(x, y);
+		
+		Collections.sort(renderable);
 	}
 	
 	//TODO: give conditionals to renderable add

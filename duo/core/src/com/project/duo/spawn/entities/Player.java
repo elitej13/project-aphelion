@@ -1,19 +1,18 @@
 package com.project.duo.spawn.entities;
 
 import com.project.duo.input.InputManager;
-import com.project.duo.spawn.Puppet;
 import com.project.duo.util.Direction;
 
 public class Player extends Entity {
 
 	
 	//testing purposes - not permanent
-	int speed = 3;
+	int speed = 6;
 	double health, maxHealth;
 	
 	
 	public Player(float x, float y) {
-		super(x, y, 64, 64);
+		super(x, y, 32, 32);
 		health = 600;
 		maxHealth = 600;
 	}
