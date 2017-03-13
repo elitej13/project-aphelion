@@ -43,6 +43,7 @@ public class EntityManager {
 		y = player.body.y - y;
 		deltaOffset.set(x, y);
 		
+		quad.update();
 		Collections.sort(renderable);
 	}
 	

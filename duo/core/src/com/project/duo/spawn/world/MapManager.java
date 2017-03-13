@@ -33,6 +33,8 @@ public class MapManager {
 			for(int xi = -1; xi <= 1; xi++) {
 				if(x + xi >= 0 && y + yi >= 0 && x + xi < w && y + yi < h) {
 					tiles[(xi + 1) + ((yi + 1) * 3)] = currentLevel.collidable[(x + xi) + ((y + yi) * w)];
+				}else {
+					tiles[(xi + 1) + ((yi + 1) * 3)] = new Rectangle((x + xi) * MapManager.tileSize, (y + yi) * MapManager.tileSize, MapManager.tileSize, MapManager.tileSize);
 				}
 			}
 		}

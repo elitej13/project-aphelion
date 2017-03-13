@@ -20,6 +20,33 @@ public class QuadBranch {
 		bounds = new Rectangle(x0, y0, width, height);
 	}
 	
+	public List<Entity> getOutOfBounds() {
+		List<Entity> entities = new ArrayList<Entity>();
+		for(Entity e : leaves) {
+			if(!(e.body.overlaps(bounds))) {
+				entities.add(e);
+			}
+		}
+		for(Entity e : entities) {
+			leaves.remove(e);
+		}
+		
+		return entities;
+	}
+	
+//	DEBUGGING PURPOSES
+	public void printAll() {
+		System.out.println(leaves);
+	}
+	
+	public boolean isOnBranch(Entity e) {
+		for(Entity entity : leaves) {
+			if(e.equals(entity))
+				return true;
+		}
+		return false;
+	}
+	
 	public boolean overlaps(Rectangle body){
 		return bounds.overlaps(body);
 	}

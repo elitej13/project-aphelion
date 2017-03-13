@@ -1,5 +1,9 @@
 package com.project.duo.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.project.duo.spawn.entities.Entity;
@@ -9,6 +13,7 @@ public class QuadTree {
 	
 	private QuadBranch NE, NW, SW, SE;
 	private Rectangle N, W, S, E;
+	private float timer;
 	
 	public QuadTree(MapManager map) {
 		float width = map.mapPixelSize.x;
@@ -25,7 +30,46 @@ public class QuadTree {
 		N = new Rectangle(bW - offset, bH, offset * 2, bH);
 		E = new Rectangle(bW, bH - offset, bW, offset * 2);
 	}
+//	TODO : fine tune this time of the offset
+	public void update() {
+		if(timer < 1f) {
+			timer += Gdx.graphics.getDeltaTime();
+		}else {
+			timer = 0;
+			sortEntities();
+			SW.printAll();
+			NW.printAll();
+			SE.printAll();
+			NE.printAll();
+		}
+	}
 	
+	private void sortEntities() {
+		List<Entity> entities = new ArrayList<Entity>();
+		List<Entity> safe = new ArrayList<Entity>();
+		entities.addAll(SW.getOutOfBounds());
+		entities.addAll(NW.getOutOfBounds());
+		entities.addAll(SE.getOutOfBounds());
+		entities.addAll(NE.getOutOfBounds());
+		for(Entity e : entities) {
+			if(SW.isOnBranch(e)) {
+				safe.add(e);
+			}else if(NW.isOnBranch(e)) {
+				safe.add(e);
+			}else if(SE.isOnBranch(e)) {
+				safe.add(e);
+			}else if(NE.isOnBranch(e)) {
+				safe.add(e);
+			}
+		}
+		for(Entity e : safe) {
+			while(entities.remove(e));
+		}
+		for(Entity e : entities) {
+			addEntity(e);
+		}
+	}
+
 	public void addEntity(Entity e) {
 		boolean north = false, south = false, east = false, west = false;
 		e.clearBranches();
