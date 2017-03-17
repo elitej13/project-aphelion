@@ -1,7 +1,7 @@
-package com.project.duo.ui;
+package com.ephemerality.aphelion.ui;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.project.duo.spawn.entities.Player;
+import com.ephemerality.aphelion.spawn.entities.Player;
 
 public class UIManager {
 	

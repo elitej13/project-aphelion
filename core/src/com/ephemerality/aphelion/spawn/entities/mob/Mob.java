@@ -1,10 +1,10 @@
-package com.project.duo.spawn.entities.mob;
+package com.ephemerality.aphelion.spawn.entities.mob;
 
 import com.badlogic.gdx.math.Rectangle;
-import com.project.duo.spawn.entities.Entity;
-import com.project.duo.spawn.puppets.MobPuppet;
-import com.project.duo.util.Direction;
-import com.project.duo.util.QuadBranch;
+import com.ephemerality.aphelion.spawn.entities.Entity;
+import com.ephemerality.aphelion.spawn.puppets.MobPuppet;
+import com.ephemerality.aphelion.util.Direction;
+import com.ephemerality.aphelion.util.QuadBranch;
 
 public class Mob extends Entity{
 

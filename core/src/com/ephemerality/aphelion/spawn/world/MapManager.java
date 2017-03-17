@@ -1,9 +1,9 @@
-package com.project.duo.spawn.world;
+package com.ephemerality.aphelion.spawn.world;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.project.duo.graphics.Sprite;
+import com.ephemerality.aphelion.graphics.Sprite;
 
 public class MapManager {
 	

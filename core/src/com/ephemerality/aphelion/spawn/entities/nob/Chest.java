@@ -1,7 +1,7 @@
-package com.project.duo.spawn.entities.nob;
+package com.ephemerality.aphelion.spawn.entities.nob;
 
-import com.project.duo.graphics.Sprite;
-import com.project.duo.spawn.puppets.NobPuppet;
+import com.ephemerality.aphelion.graphics.Sprite;
+import com.ephemerality.aphelion.spawn.puppets.NobPuppet;
 
 public class Chest extends Nob{
 

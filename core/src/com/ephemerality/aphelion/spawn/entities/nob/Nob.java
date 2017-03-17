@@ -1,6 +1,6 @@
-package com.project.duo.spawn.entities.nob;
+package com.ephemerality.aphelion.spawn.entities.nob;
 
-import com.project.duo.spawn.entities.Entity;
+import com.ephemerality.aphelion.spawn.entities.Entity;
 
 public class Nob extends Entity{
 

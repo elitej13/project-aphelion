@@ -1,4 +1,4 @@
-package com.project.duo.spawn.world;
+package com.ephemerality.aphelion.spawn.world;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap;

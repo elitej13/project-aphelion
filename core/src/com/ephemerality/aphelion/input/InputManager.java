@@ -1,4 +1,4 @@
-package com.project.duo.input;
+package com.ephemerality.aphelion.input;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;

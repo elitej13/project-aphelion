@@ -1,4 +1,4 @@
-package com.project.duo.graphics;
+package com.ephemerality.aphelion.graphics;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;

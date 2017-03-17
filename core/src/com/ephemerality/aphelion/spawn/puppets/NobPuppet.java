@@ -1,4 +1,4 @@
-package com.project.duo.spawn.puppets;
+package com.ephemerality.aphelion.spawn.puppets;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;

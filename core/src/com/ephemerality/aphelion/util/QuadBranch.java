@@ -1,14 +1,14 @@
-package com.project.duo.util;
+package com.ephemerality.aphelion.util;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.project.duo.spawn.entities.Entity;
-import com.project.duo.spawn.entities.mob.Mob;
-import com.project.duo.spawn.entities.nob.Nob;
-import com.project.duo.spawn.world.MapManager;
+import com.ephemerality.aphelion.spawn.entities.Entity;
+import com.ephemerality.aphelion.spawn.entities.mob.Mob;
+import com.ephemerality.aphelion.spawn.entities.nob.Nob;
+import com.ephemerality.aphelion.spawn.world.MapManager;
 
 public class QuadBranch {
 

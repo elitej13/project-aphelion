@@ -1,4 +1,4 @@
-package com.project.duo.input;
+package com.ephemerality.aphelion.input;
 
 public class Keyboard {
 

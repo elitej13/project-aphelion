@@ -1,4 +1,4 @@
-package com.project.duo.ui;
+package com.ephemerality.aphelion.ui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap;

@@ -1,12 +1,12 @@
-package com.project.duo.framework;
+package com.ephemerality.aphelion.framework;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.project.duo.input.InputManager;
-import com.project.duo.spawn.entities.EntityManager;
-import com.project.duo.spawn.world.MapManager;
-import com.project.duo.ui.UIManager;
+import com.ephemerality.aphelion.input.InputManager;
+import com.ephemerality.aphelion.spawn.entities.EntityManager;
+import com.ephemerality.aphelion.spawn.world.MapManager;
+import com.ephemerality.aphelion.ui.UIManager;
 
 public class GameManager {
 	

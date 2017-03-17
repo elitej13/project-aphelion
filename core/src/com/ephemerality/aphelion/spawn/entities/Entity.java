@@ -1,10 +1,10 @@
-package com.project.duo.spawn.entities;
+package com.ephemerality.aphelion.spawn.entities;
 
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.project.duo.spawn.puppets.Puppet;
+import com.ephemerality.aphelion.spawn.puppets.Puppet;
 
 public class Entity implements Comparable<Entity>{
 	

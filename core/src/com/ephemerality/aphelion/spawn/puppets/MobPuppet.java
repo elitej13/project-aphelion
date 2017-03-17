@@ -1,9 +1,9 @@
-package com.project.duo.spawn.puppets;
+package com.ephemerality.aphelion.spawn.puppets;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.project.duo.graphics.Sprite;
+import com.ephemerality.aphelion.graphics.Sprite;
 
 public class MobPuppet extends Puppet{
 	

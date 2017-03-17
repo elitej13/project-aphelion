@@ -1,4 +1,4 @@
-package com.project.duo.spawn.entities;
+package com.ephemerality.aphelion.spawn.entities;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,10 +7,10 @@ import java.util.List;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.project.duo.spawn.entities.mob.Mob;
-import com.project.duo.spawn.entities.nob.Chest;
-import com.project.duo.spawn.world.MapManager;
-import com.project.duo.util.QuadTree;
+import com.ephemerality.aphelion.spawn.entities.mob.Mob;
+import com.ephemerality.aphelion.spawn.entities.nob.Chest;
+import com.ephemerality.aphelion.spawn.world.MapManager;
+import com.ephemerality.aphelion.util.QuadTree;
 
 public class EntityManager {
 	

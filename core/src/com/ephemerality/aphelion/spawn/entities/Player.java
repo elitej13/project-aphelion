@@ -1,8 +1,8 @@
-package com.project.duo.spawn.entities;
+package com.ephemerality.aphelion.spawn.entities;
 
-import com.project.duo.input.InputManager;
-import com.project.duo.spawn.entities.mob.Mob;
-import com.project.duo.util.Direction;
+import com.ephemerality.aphelion.input.InputManager;
+import com.ephemerality.aphelion.spawn.entities.mob.Mob;
+import com.ephemerality.aphelion.util.Direction;
 
 public class Player extends Mob {
 
