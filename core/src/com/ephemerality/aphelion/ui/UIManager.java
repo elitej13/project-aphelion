@@ -1,33 +1,28 @@
 package com.ephemerality.aphelion.ui;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.ephemerality.aphelion.spawn.entities.Player;
+import com.ephemerality.aphelion.graphics.ScreenManager;
 
 public class UIManager {
 	
-	
-	private Player player;
 	private ContextMenu menu;
 	private Overlay ui;
 	private boolean isPaused;
 	
-	public UIManager(Player player) {
-		this.player = player;
+	public UIManager() {
 		ui = new Overlay();
 		menu = new ContextMenu();
 	}
 	
+	
 	public void update() {
-		ui.update(player);
+		
 	}
 	
-	
-	
-	public void render(SpriteBatch sb) {
+	public void render(ScreenManager screen) {
 		if(!isPaused) {
-			ui.render(sb);			
+			ui.render(screen.getSpriteBatch());			
 		}else {
-			menu.render(sb);
+			menu.render(screen.getSpriteBatch());
 		}
 	}
 	

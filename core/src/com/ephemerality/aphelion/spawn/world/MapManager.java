@@ -1,9 +1,9 @@
 package com.ephemerality.aphelion.spawn.world;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.ephemerality.aphelion.graphics.Sprite;
+import com.ephemerality.aphelion.graphics.ScreenManager;
+import com.ephemerality.aphelion.graphics.SpriteSheet;
 
 public class MapManager {
 	
@@ -41,33 +41,32 @@ public class MapManager {
 		return tiles;
 	}
 	
+	
+//	TODO: Set these as ID's with the respective tile object
 	public static final int col_grass = 0x4A7108;
 	public static final int col_dirt = 0x7B4F03;
 	public static final int col_brick = 0x282828;
 	public static final int col_wood = 0xFFB47918;
 	
-	//TODO: Set these as ID's with the respective tile object
-	public void render(SpriteBatch sb, Vector2 c0, Vector2 c1) {
+	
+	public void render(ScreenManager screen) {
 		int tileSize = MapManager.tileSize;
-		for(int y = (int) c0.y; y < c1.y + 64; y += tileSize) {
-			if(y < 0 || y >> 6 >= currentLevel.HEIGHT) continue;
-			for(int x = (int) c0.x; x < c1.x + 64; x += tileSize) {
-				if(x < 0 || x >> 6 >= currentLevel.WIDTH) continue;
-				int index = (int) (Math.floor(x >> 6) + (Math.floor(y >> 6) * 64));
+		for(int y = 0; y < currentLevel.HEIGHT; y++) {
+			for(int x = 0; x < currentLevel.WIDTH; x++) {
+				int index = x + (y * currentLevel.WIDTH);
 				int currentPixel = currentLevel.tiles[index];
 				if(currentPixel == col_grass) {
-					sb.draw(Sprite.default_grass_0, (x - (x % 64)) - c0.x, (y - (y % 64)) - c0.y);
+					screen.getSpriteBatch().draw(SpriteSheet.default_grass_0, x * tileSize, y * tileSize);
 				}else if(currentPixel == col_dirt) {
-					sb.draw(Sprite.default_dirt_0, (x - (x % 64)) - c0.x, (y - (y % 64)) - c0.y);
+					screen.getSpriteBatch().draw(SpriteSheet.default_dirt_0, x * tileSize, y * tileSize);
 				}else if(currentPixel == col_brick) {
-					sb.draw(Sprite.default_brick_0, (x - (x % 64)) - c0.x, (y - (y % 64)) - c0.y);
+					screen.getSpriteBatch().draw(SpriteSheet.default_brick_0,  x * tileSize, y * tileSize);
 				}else if(currentPixel == col_wood) {
-					sb.draw(Sprite.default_wood_0, (x - (x % 64)) - c0.x, (y - (y % 64)) - c0.y);
+					screen.getSpriteBatch().draw(SpriteSheet.default_wood_0,  x * tileSize, y * tileSize);
 				}
 			}
 		}
 	}
-	
 	
 	public Vector2 getMapSize() {
 		return mapPixelSize;

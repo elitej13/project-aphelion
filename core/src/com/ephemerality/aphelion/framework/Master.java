@@ -2,19 +2,9 @@ package com.ephemerality.aphelion.framework;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.brashmonkey.spriter.Data;
-import com.brashmonkey.spriter.Drawer;
-import com.brashmonkey.spriter.Player;
-import com.brashmonkey.spriter.SCMLReader;
-import com.brashmonkey.spriter.LibGdx.LibGdxDrawer;
-import com.brashmonkey.spriter.LibGdx.LibGdxLoader;
+import com.ephemerality.aphelion.graphics.ScreenManager;
 import com.ephemerality.aphelion.input.InputManager;
 
 
@@ -23,18 +13,11 @@ public class Master extends ApplicationAdapter {
 	//-1 Exiting, 0 Main menu, 1 Game
 	
 	static int state;
+	ScreenManager screen;
 	GameManager game;
 	MenuManager main;
-	InputManager input;
-	SpriteBatch sb;
-	
-	
-	OrthographicCamera cam;
-	ShapeRenderer renderer;
+	InputManager input;	
 	FPSLogger fpslog;
-	Drawer<Sprite> drawer;
-	Player player;
-	LibGdxLoader loader;
 	
 	
 	
@@ -42,27 +25,10 @@ public class Master extends ApplicationAdapter {
 	public void create () {
 		super.create();
 		
+		screen = new ScreenManager();
 		input = new InputManager();
-		game = new GameManager();
 		main = new MenuManager();
-		sb = new SpriteBatch();
-		
-		
-		
-
-		cam = new OrthographicCamera();
-		cam.zoom = 1f;
-		renderer = new ShapeRenderer();
-		FileHandle handle = Gdx.files.internal("monster/basic_002.scml");
-		Data data = new SCMLReader(handle.read()).getData();
-
-		loader = new LibGdxLoader(data);
-		loader.load(handle.file());
-
-		drawer = new LibGdxDrawer(loader, sb, renderer);
-
-		player = new Player(data.getEntity(0));
-		player.setAnimation(1);
+		game = new GameManager(screen);
 		fpslog = new FPSLogger();
 	}
 
@@ -76,6 +42,7 @@ public class Master extends ApplicationAdapter {
 		}else if(Master.state == 1) {
 			game.update();
 		}
+		screen.update();
 	}
 	
 	public static void setState(int state){
@@ -91,12 +58,7 @@ public class Master extends ApplicationAdapter {
 //	Start of Experimental	//
 	public void resize(int width, int height) {
 		super.resize(width, height);
-		
-		cam.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		cam.position.set(0, 0, 0f);
-		cam.update();
-		renderer.setProjectionMatrix(cam.combined);
-		sb.setProjectionMatrix(cam.combined);
+		screen.resize();
 	}
 //	End of Experimental	//
 	
@@ -105,25 +67,22 @@ public class Master extends ApplicationAdapter {
 	@Override
 	public void render () {
 //	TODO : Have update on a fixed timer		
-//		update();
-
-		player.update();
-//		Gdx.gl.glClearColor(0, 0, 0, 1); 
+		update();
+		
+		
+		Gdx.gl.glClearColor(0, 0, 0, 1); 
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-//		sb.enableBlending();
+		screen.getSpriteBatch().enableBlending();
 
 		fpslog.log();
-		sb.begin();
-//		if(state == 0) {
-//			main.render(sb);
-//		}else if(state == 1) {
-//			game.render(sb);
-//		}
+		screen.getSpriteBatch().begin();
+		if(state == 0) {
+			main.render(screen.getSpriteBatch());
+		}else if(state == 1) {
+			game.render(screen);
+		}
 		
-		
-
-		drawer.draw(player);
-		sb.end();
+		screen.getSpriteBatch().end();
 		
 		
 	}
@@ -131,8 +90,8 @@ public class Master extends ApplicationAdapter {
 	@Override
 	public void dispose () {
 		
-//		game.dispose(); //do stuff in place of thiss
+//		game.dispose(); //do stuff in place of this: save, close assets, etc..
 		main.dispose();
-		sb.dispose();
+		screen.dispose();
 	}
 }

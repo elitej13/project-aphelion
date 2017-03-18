@@ -1,6 +1,7 @@
 package com.ephemerality.aphelion.spawn.entities.mob;
 
 import com.badlogic.gdx.math.Rectangle;
+import com.ephemerality.aphelion.graphics.ScreenManager;
 import com.ephemerality.aphelion.spawn.entities.Entity;
 import com.ephemerality.aphelion.spawn.puppets.MobPuppet;
 import com.ephemerality.aphelion.util.Direction;
@@ -9,13 +10,21 @@ import com.ephemerality.aphelion.util.QuadBranch;
 public class Mob extends Entity{
 
 	public QuadBranch branch0, branch1, branch2, branch3;
+	protected boolean moving, movingChangedThisFrame;
+	protected Direction dir;
 	
-	public Mob(float x, float y, int w, int h) {
+	public Mob(ScreenManager screen, float x, float y, int w, int h) {
 		super(x, y, w, h, true);
-		puppet = new MobPuppet(w, h);
+		puppet = new MobPuppet(screen, w, h);
+		puppet.setPosition(x, y);
 	}
-	public void move(Direction dir) {
-		Rectangle body = projectMove(dir);
+	
+	/**
+	 * 
+	 * @return True if moving was successful.
+	 */
+	public boolean move() {
+		Rectangle body = projectMove();
 		boolean collided = false;
 		if(branch0 != null) {
 			collided = branch0.checkCollisions(this, body);
@@ -30,10 +39,11 @@ public class Mob extends Entity{
 			collided = branch0.checkCollisions(this, body);
 		}
 		if(collided == false) {
-			movePosition(dir);
+			movePosition();
 		}
+		return !collided;
 	}
-	public void movePosition(Direction dir) {
+	public void movePosition() {
 		if(dir == Direction.NORTH) {
 			body.setPosition(body.x, body.y + 1);
 		}else if(dir == Direction.SOUTH) {
@@ -47,7 +57,7 @@ public class Mob extends Entity{
 			body.setPosition(body.x + 1, body.y);
 		}
 	}
-	public Rectangle projectMove(Direction dir) {
+	public Rectangle projectMove() {
 		Rectangle projected = null;
 		if(dir == Direction.NORTH) {
 			projected = new Rectangle(body.getX(), body.getY() + 1, body.width, body.height);

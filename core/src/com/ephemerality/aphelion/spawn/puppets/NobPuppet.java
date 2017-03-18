@@ -1,8 +1,7 @@
 package com.ephemerality.aphelion.spawn.puppets;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
+import com.ephemerality.aphelion.graphics.ScreenManager;
 
 public class NobPuppet extends Puppet {
 
@@ -19,12 +18,16 @@ public class NobPuppet extends Puppet {
 	}
 
 	@Override
-	public void render(SpriteBatch sb, Vector2 offset, Vector2 position) {
-		float x = position.x - offset.x;
-		float y = position.y - offset.y;
-		
+	public void render(ScreenManager screen) {
+		float x = 0;
+		float y = 0;
 		if(sprite != null)
-			sb.draw(sprite, x, y);
+			screen.getSpriteBatch().draw(sprite, x, y);
+	}
+
+	@Override
+	public void setPosition(float x, float y) {
+		
 	}
 	
 	

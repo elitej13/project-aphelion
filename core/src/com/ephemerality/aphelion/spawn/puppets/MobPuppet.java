@@ -1,48 +1,64 @@
 package com.ephemerality.aphelion.spawn.puppets;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
-import com.ephemerality.aphelion.graphics.Sprite;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.brashmonkey.spriter.Data;
+import com.brashmonkey.spriter.Drawer;
+import com.brashmonkey.spriter.Player;
+import com.brashmonkey.spriter.SCMLReader;
+import com.brashmonkey.spriter.LibGdx.LibGdxDrawer;
+import com.brashmonkey.spriter.LibGdx.LibGdxLoader;
+import com.ephemerality.aphelion.graphics.ScreenManager;
 
 public class MobPuppet extends Puppet{
+
+	Player player;
+	Drawer<Sprite> drawer;
+	ShapeRenderer renderer;
 	
-	private TextureRegion hat;
-	private TextureRegion head;
-	private TextureRegion arms;
-	private TextureRegion torso;
-	private TextureRegion legs;
-	
-	
-	public MobPuppet(int w, int h) {
+	public MobPuppet(ScreenManager screen, int w, int h) {
 		super(w, h);
-		hat = Sprite.default_hat_idle;
-		head = Sprite.default_head_idle;
-		arms = Sprite.default_arms_idle;
-		torso = Sprite.default_torso_idle;
-		legs = Sprite.default_legs_idle;
+
+		FileHandle handle = Gdx.files.internal("monster/basic_002.scml");
+		Data data = new SCMLReader(handle.read()).getData();
+		LibGdxLoader loader = new LibGdxLoader(data);
+		
+		renderer = new ShapeRenderer();
+		loader.load(handle.file());
+		drawer = new LibGdxDrawer(loader, screen.getSpriteBatch(), renderer);
+		
+		player = new Player(data.getEntity(0));
+		player.setScale(0.35f);
 	}
 	
+	
+	public void setAnimation(String anim) {
+		player.setAnimation(anim);
+	}
+	public void flipX() {
+		player.flipX();
+	}
+	public boolean flippedX() {
+		if(player.flippedX() == 1)
+			return false;
+		return true;
+	}
+	
+	
+	@Override
 	public void update() {
-		
-			
-		
+		player.update();
+	}
+	
+	public void setPosition(float x, float y) {
+		player.setPosition(x, y);
 	}
 	
 	
-	public void render(SpriteBatch sb, Vector2 offset, Vector2 position) {
-		float x = position.x - offset.x;
-		float y = position.y - offset.y;
-		
-		if(hat != null)
-			sb.draw(hat, x, y + 96);
-		if(head != null)
-			sb.draw(head, x, y + 64);
-		if(torso != null)
-			sb.draw(torso, x, y + 32);
-		if(arms != null)
-			sb.draw(arms, x, y + 32);
-		if(legs != null)
-			sb.draw(legs, x, y);
+	public void render(ScreenManager screen) {
+		drawer.draw(player);
 	}
+
 }

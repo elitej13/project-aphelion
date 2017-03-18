@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.ephemerality.aphelion.spawn.entities.Player;
 
 public class Overlay {
 	
@@ -20,14 +19,6 @@ public class Overlay {
 		healthBar.setColor(1f, 0, 0, 0.75f);
 		healthBar.fillRectangle(0, 0, 200, 10);
 		health = new Texture(healthBar);
-	}
-	
-	
-	
-	
-	
-	public void update(Player player) {
-		fill = player.getHealthProportion();
 	}
 	
 	
