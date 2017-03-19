@@ -7,6 +7,7 @@ import java.util.List;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.ephemerality.aphelion.graphics.ScreenManager;
+import com.ephemerality.aphelion.spawn.entities.mob.Mob;
 import com.ephemerality.aphelion.spawn.world.MapManager;
 import com.ephemerality.aphelion.util.QuadTree;
 
@@ -19,7 +20,7 @@ public class EntityManager {
 	private Player player;
 	
 //	For DEBUGGING purposes
-//	private Mob dummy;
+	private Mob dummy;
 //	private Chest chest;
 	
 	
@@ -33,11 +34,11 @@ public class EntityManager {
 		quad = new QuadTree(map);
 		
 		player = new Player(screen, x / 2, y / 2);
-//		dummy = new Mob(screen, 100, 100, 32, 32);
+		dummy = new Mob(screen, 100, 100, 32, 32);
 //		chest = new Chest(200, 200);
 		
 		addEntity(player);
-//		addEntity(dummy);
+		addEntity(dummy);
 //		addEntity(chest);
 	}
 	
@@ -51,13 +52,17 @@ public class EntityManager {
 	
 //	TODO: give conditionals to entities for scripts...etc
 	public void addEntity(Entity e) {
-		entities.add(e);
 		quad.addEntity(e);
+		entities.add(e);
 	}
 	
 	
 	public void render(ScreenManager screen) {
 		for(Entity e : entities) e.render(screen);
+		
+		
+//		DEBUGGINB purposes	//
+//		quad.render(screen);
 	}
 	
 	public Player getPlayer() {

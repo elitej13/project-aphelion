@@ -51,8 +51,19 @@ public class MapManager {
 	
 	public void render(ScreenManager screen) {
 		int tileSize = MapManager.tileSize;
-		for(int y = 0; y < currentLevel.HEIGHT; y++) {
-			for(int x = 0; x < currentLevel.WIDTH; x++) {
+		Rectangle bounds = screen.getBounds();
+		int x0 = (int) Math.floor(bounds.x / tileSize);
+		int y0 = (int) Math.floor(bounds.y / tileSize);
+		int x1 = x0 + (int) Math.ceil(bounds.width / tileSize);
+		int y1 = y0 + (int) Math.ceil(bounds.height / tileSize);
+		for(int y = y0; y <= y1; y++) {
+			while(y < 0) y++;
+			if(y >= currentLevel.HEIGHT)
+				break;
+			for(int x = x0; x <= x1; x++) {
+				while(x < 0) x++;
+				if(x >= currentLevel.WIDTH)
+					continue;
 				int index = x + (y * currentLevel.WIDTH);
 				int currentPixel = currentLevel.tiles[index];
 				if(currentPixel == col_grass) {

@@ -1,10 +1,14 @@
 package com.ephemerality.aphelion.util;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.ephemerality.aphelion.graphics.ScreenManager;
+import com.ephemerality.aphelion.graphics.SpriteSheet;
 import com.ephemerality.aphelion.spawn.entities.Entity;
 import com.ephemerality.aphelion.spawn.entities.mob.Mob;
 import com.ephemerality.aphelion.spawn.entities.nob.Nob;
@@ -12,15 +16,15 @@ import com.ephemerality.aphelion.spawn.world.MapManager;
 
 public class QuadBranch {
 
-	private List<Nob> leaves;
-	private List<Mob> bugs;
+	private Set<Nob> leaves;
+	private Set<Mob> bugs;
 	private Rectangle bounds;
 	private MapManager map;
 	
 	public QuadBranch(MapManager map, float x0, float y0, float width, float height) {
 		this.map = map;
-		leaves = new ArrayList<Nob>();
-		bugs = new ArrayList<Mob>();
+		leaves = new HashSet<Nob>();
+		bugs = new HashSet<Mob>();
 		bounds = new Rectangle(x0, y0, width, height);
 	}
 	
@@ -93,8 +97,22 @@ public class QuadBranch {
 			m.branch3 = this;
 		}
 	}
+	
+	
+	public Set<Mob> getAndRemoveAllBugs() {
+		Set<Mob> mobs = new HashSet<Mob>();
+		mobs.addAll(bugs);
+		bugs.removeAll(bugs);
+		return mobs;
+	}
+	public void removeMob(Mob m) {
+		bugs.remove(m);
+	}
 	public void addNob(Nob n) {
 		leaves.add(n);
 	}
-	
+
+	public void render(ScreenManager screen) {
+		screen.getSpriteBatch().draw(SpriteSheet.rectangle, bounds.x, bounds.y, bounds.width, bounds.height);
+	}
 }

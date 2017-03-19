@@ -1,10 +1,13 @@
 package com.ephemerality.aphelion.util;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
+import com.ephemerality.aphelion.graphics.ScreenManager;
+import com.ephemerality.aphelion.graphics.SpriteSheet;
 import com.ephemerality.aphelion.spawn.entities.Entity;
 import com.ephemerality.aphelion.spawn.entities.mob.Mob;
 import com.ephemerality.aphelion.spawn.entities.nob.Nob;
@@ -21,7 +24,7 @@ public class QuadTree {
 		float height = map.mapPixelSize.y;
 		float bW = width / 2;
 		float bH = height / 2;
-		int offset = MapManager.tileSize * 2;
+		int offset = MapManager.tileSize * 4;
 		SW = new QuadBranch(map, 0, 0, bW, bH);
 		NW = new QuadBranch(map, 0, bH, bW, bH);
 		SE = new QuadBranch(map, bW, 0, bW, bH);
@@ -33,7 +36,7 @@ public class QuadTree {
 	}
 //	TODO : fine tune this time of the offset
 	public void update() {
-		if(timer < 1f) {
+		if(timer < 0.5f) {
 			timer += Gdx.graphics.getDeltaTime();
 		}else {
 			timer = 0;
@@ -46,29 +49,19 @@ public class QuadTree {
 	}
 	
 	private void sortEntities() {
-		List<Mob> mobs = new ArrayList<Mob>();
-		List<Mob> safe = new ArrayList<Mob>();
-		mobs.addAll(SW.getOutOfBounds());
-		mobs.addAll(NW.getOutOfBounds());
-		mobs.addAll(SE.getOutOfBounds());
-		mobs.addAll(NE.getOutOfBounds());
-		for(Mob m : mobs) {
-			if(SW.isOnBranch(m)) {
-				safe.add(m);
-			}else if(NW.isOnBranch(m)) {
-				safe.add(m);
-			}else if(SE.isOnBranch(m)) {
-				safe.add(m);
-			}else if(NE.isOnBranch(m)) {
-				safe.add(m);
-			}
-		}
-		for(Mob m : safe) {
-			while(mobs.remove(m));
-		}
-		for(Mob m : mobs) {
+		Set<Mob> mobs = new HashSet<Mob>();
+		mobs.addAll(SW.getAndRemoveAllBugs());
+		mobs.addAll(NW.getAndRemoveAllBugs());
+		mobs.addAll(SE.getAndRemoveAllBugs());
+		mobs.addAll(NE.getAndRemoveAllBugs());
+//		System.out.println("mobs" + mobs);
+		
+		Iterator<Mob> iter = mobs.iterator();
+		
+		while(iter.hasNext()) {
+			Mob m = iter.next();
 			addMob(m);
-		}
+		}		
 	}
 
 	public void addEntity(Entity e) {
@@ -139,8 +132,8 @@ public class QuadTree {
 				SE.addMob(m, 0);
 			}else if(SW.overlaps(m.body)) {
 				SW.addMob(m, 0);
-			}else if(NE.overlaps(m.body)) {
-				NE.addMob(m, 0);
+			}else if(NW.overlaps(m.body)) {
+				NW.addMob(m, 0);
 			}
 		}
 	}
@@ -154,6 +147,16 @@ public class QuadTree {
 		}else if(NE.overlaps(n.body)) {
 			NE.addNob(n);
 		}
+	}
+	public void render(ScreenManager screen) {
+		screen.getSpriteBatch().draw(SpriteSheet.rectangle, N.x, N.y, N.width, N.height);
+		screen.getSpriteBatch().draw(SpriteSheet.rectangle, S.x, S.y, S.width, S.height);
+		screen.getSpriteBatch().draw(SpriteSheet.rectangle, E.x, E.y, E.width, E.height);
+		screen.getSpriteBatch().draw(SpriteSheet.rectangle, W.x, W.y, W.width, W.height);
+		NE.render(screen);
+		NW.render(screen);
+		SE.render(screen);
+		SW.render(screen);
 	}
 	
 }

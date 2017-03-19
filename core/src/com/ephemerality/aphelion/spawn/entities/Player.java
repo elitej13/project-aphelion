@@ -11,10 +11,10 @@ public class Player extends Mob {
 	ScreenManager screen;
 	
 	//testing purposes - not permanent
-	int speed = 6;
+	int speed = 10;
 	
 	public Player(ScreenManager screen, float x, float y) {
-		super(screen, x, y, 64, 64);
+		super(screen, x, y, 128, 64);
 		this.screen = screen;		
 		screen.setPosition(x, y);
 	}

@@ -26,4 +26,7 @@ public class SpriteSheet {
 //	Item Sprites	//
 	public static TextureRegion wood_box_0 = new TextureRegion(SpriteSheet.itemsheet, 	0, 0, 64, 64);
 	
+	
+//	DEBUGGING Sprites	//
+	public static TextureRegion rectangle = new TextureRegion(SpriteSheet.tilesheet, 576, 0, 64, 64);
 }

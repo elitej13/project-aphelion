@@ -71,6 +71,7 @@ public class Mob extends Entity{
 			System.out.println("Unhandeled direction, assuming EAST");
 			projected = new Rectangle(body.getX() + 1, body.getY(), body.width, body.height);
 		}
+//		System.out.println(this + body.toString());
 		return projected;
 	}
 	
