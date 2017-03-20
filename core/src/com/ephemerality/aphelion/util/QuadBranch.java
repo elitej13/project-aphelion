@@ -71,12 +71,20 @@ public class QuadBranch {
 			if(body.overlaps(e.body))
 				return true;
 		}
-		for(Rectangle r : map.getSurroundingTiles(body.getPosition(new Vector2()))) {
-			if(r == null)
-				continue;
-			if(body.overlaps(r)) {
-				return true;
+		Vector2 position = body.getPosition(new Vector2());
+		for(int y = (int) body.height; y > 0; y -= MapManager.tileSize) {
+			position.x = body.x;
+			for(int x = (int) body.width; x > 0; x -= MapManager.tileSize) {
+				for(Rectangle r : map.getSurroundingTiles(position)) {
+					if(r == null)
+						continue;
+					if(body.overlaps(r)) {
+						return true;
+					}
+				}
+				position.add(MapManager.tileSize, 0);
 			}
+			position.add(0, MapManager.tileSize);
 		}
 		return false;
 	}

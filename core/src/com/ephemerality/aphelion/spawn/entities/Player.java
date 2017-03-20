@@ -66,29 +66,33 @@ public class Player extends Mob {
 		if(!(up && down)){
 			if(up) {
 				dir = Direction.NORTH;
-				moved = move();
-				if(moved)
-					screen.translate(dir);
+				if(move()) {
+					screen.translate(dir);					
+					moved = true;
+				}
 			}
 			if(down) {
 				dir = Direction.SOUTH;
-				moved = move();
-				if(moved)
+				if(move()) {
 					screen.translate(dir);
+					moved = true;
+				}
 			}
 		}
 		if(!(left && right)){
 			if(left) {
 				dir = Direction.WEST;
-				moved = move();
-				if(moved)
+				if(move()) {
 					screen.translate(dir);
+					moved = true;
+				}
 			}
 			if(right) {
 				dir = Direction.EAST;
-				moved = move();	
-				if(moved)
+				if(move()) {
 					screen.translate(dir);	
+					moved = true;
+				}
 			}
 		}
 		return moved;

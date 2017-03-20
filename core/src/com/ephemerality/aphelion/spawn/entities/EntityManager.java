@@ -34,7 +34,7 @@ public class EntityManager {
 		quad = new QuadTree(map);
 		
 		player = new Player(screen, x / 2, y / 2);
-		dummy = new Mob(screen, 100, 100, 32, 32);
+		dummy = new Mob(screen, 200, 200, 128, 64);
 //		chest = new Chest(200, 200);
 		
 		addEntity(player);

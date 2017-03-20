@@ -20,7 +20,6 @@ public class Mob extends Entity{
 	}
 	
 	/**
-	 * 
 	 * @return True if moving was successful.
 	 */
 	public boolean move() {

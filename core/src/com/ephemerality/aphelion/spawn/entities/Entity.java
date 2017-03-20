@@ -24,7 +24,7 @@ public class Entity implements Comparable<Entity>{
 	
 	public void render(ScreenManager screen) {
 		if(renderable) 
-//			For DEBUGGING purposes, each entity should declare renderable and should be correlated to whether the puppter is null or not
+//			For DEBUGGING purposes, each entity should declare renderable and should be correlated to whether the puppet is null or not
 			if(puppet != null)
 				puppet.render(screen);
 		screen.getSpriteBatch().draw(SpriteSheet.rectangle, body.x, body.y, body.width, body.height);
