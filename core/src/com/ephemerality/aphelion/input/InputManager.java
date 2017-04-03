@@ -3,8 +3,6 @@ package com.ephemerality.aphelion.input;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.ephemerality.aphelion.util.Notification;
 
 public class InputManager {
 	
@@ -45,15 +43,15 @@ public class InputManager {
 			return true;
 		}else return false;
 	}
-	public static Notification checkForMenuUpdate() {
-		if(Gdx.input.isKeyPressed(Input.Keys.W) | Gdx.input.isKeyPressed(Input.Keys.UP))
-			return Notification.UP;
-		if(Gdx.input.isKeyPressed(Input.Keys.S) | Gdx.input.isKeyPressed(Input.Keys.DOWN))
-			return Notification.DOWN;
-		if(Gdx.input.isKeyPressed(Input.Keys.A) | Gdx.input.isKeyPressed(Input.Keys.LEFT))
-			return Notification.LEFT;
-		if(Gdx.input.isKeyPressed(Input.Keys.D) | Gdx.input.isKeyPressed(Input.Keys.RIGHT))
-			return Notification.RIGHT;
-		return null;
-	}
+//	public static Notification checkForMenuUpdate() {
+//		if(Gdx.input.isKeyPressed(Input.Keys.W) | Gdx.input.isKeyPressed(Input.Keys.UP))
+//			return Notification.UP;
+//		if(Gdx.input.isKeyPressed(Input.Keys.S) | Gdx.input.isKeyPressed(Input.Keys.DOWN))
+//			return Notification.DOWN;
+//		if(Gdx.input.isKeyPressed(Input.Keys.A) | Gdx.input.isKeyPressed(Input.Keys.LEFT))
+//			return Notification.LEFT;
+//		if(Gdx.input.isKeyPressed(Input.Keys.D) | Gdx.input.isKeyPressed(Input.Keys.RIGHT))
+//			return Notification.RIGHT;
+//		return null;
+//	}
 }

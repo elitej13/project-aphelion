@@ -16,7 +16,6 @@ public class Master extends ApplicationAdapter {
 	ScreenManager screen;
 	GameManager game;
 	MenuManager main;
-	InputManager input;	
 	FPSLogger fpslog;
 	
 	
@@ -24,9 +23,8 @@ public class Master extends ApplicationAdapter {
 	@Override
 	public void create () {
 		super.create();
-		
+		InputManager.init();
 		screen = new ScreenManager();
-		input = new InputManager();
 		main = new MenuManager();
 		game = new GameManager(screen);
 		fpslog = new FPSLogger();
@@ -34,7 +32,7 @@ public class Master extends ApplicationAdapter {
 
 	
 	public void update() {		
-		input.update();
+		InputManager.update();
 		if(Master.state == -1) {
 			Gdx.app.exit();
 		}else if(Master.state == 0) {
