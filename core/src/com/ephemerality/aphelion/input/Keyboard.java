@@ -13,6 +13,7 @@ public class Keyboard {
 		InputManager.right = Gdx.input.isKeyPressed(Input.Keys.D) | Gdx.input.isKeyPressed(Input.Keys.RIGHT);
 		if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) InputManager.hasInteracted = true;
 		if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) InputManager.hasPaused = true;
+		if(Gdx.input.isKeyJustPressed(Input.Keys.SLASH)) InputManager.debug = true;
 	}
 	
 	

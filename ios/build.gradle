@@ -4,7 +4,7 @@ sourceCompatibility = '1.7'
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 ext {
-	mainClassName = "com.ephemerality.aphelion.IOSLauncher"
+	mainClassName = "com.ephemerality.aephelion.IOSLauncher"
 }
 
 launchIPhoneSimulator.dependsOn build

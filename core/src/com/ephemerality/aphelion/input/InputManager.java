@@ -1,33 +1,29 @@
 package com.ephemerality.aphelion.input;
 
-import com.badlogic.gdx.Application;
-import com.badlogic.gdx.Application.ApplicationType;
-import com.badlogic.gdx.Gdx;
-
 public class InputManager {
 	
 	public static boolean up, down, left, right;
-	public static boolean hasPaused, hasInteracted, goingBack, isSelected;
-	private static Gamepad pad;
-	private static ApplicationType Type;
+	public static boolean hasPaused, hasInteracted, goingBack, isSelected, debug;
+//	private static Gamepad pad;
+//	private static ApplicationType Type;
 	
 	public static void init() {
-		InputManager.Type = Gdx.app.getType();
-	    if(InputManager.Type == Application.ApplicationType.Desktop){
-	    	pad = new Gamepad();
-	    }
+//		InputManager.Type = Gdx.app.getType();
+//	    if(InputManager.Type == Application.ApplicationType.Desktop){
+//	    	pad = new Gamepad();
+//	    }
 	}
 	
 	
 	//	TODO: Fix the SHIT out of this! Gamepad support, key binding support, etc
 	public static void update() {
-		if(InputManager.Type == Application.ApplicationType.Desktop) {
-			if(pad.isActive) {
-				pad.update();
-			}else {
+//		if(InputManager.Type == Application.ApplicationType.Desktop) {
+//			if(pad.isActive) {
+//				pad.update();
+//			}else {
 				Keyboard.update();
-			}			
-		}
+//			}			
+//		}
 		//TODO: Handle more types
 	}
 	
@@ -40,6 +36,12 @@ public class InputManager {
 	public static boolean checkForInteract() {
 		if(InputManager.hasInteracted == true) {
 			InputManager.hasInteracted = false;
+			return true;
+		}else return false;
+	}
+	public static boolean checkForDebugKey() {
+		if(InputManager.debug == true) {
+			InputManager.debug = false;
 			return true;
 		}else return false;
 	}

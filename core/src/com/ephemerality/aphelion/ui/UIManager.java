@@ -20,9 +20,9 @@ public class UIManager {
 	
 	public void render(ScreenManager screen) {
 		if(!isPaused) {
-			ui.render(screen.getSpriteBatch());			
+			ui.render(screen);
 		}else {
-			menu.render(screen.getSpriteBatch());
+			menu.render(screen);
 		}
 	}
 	

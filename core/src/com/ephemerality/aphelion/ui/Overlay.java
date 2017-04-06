@@ -3,8 +3,8 @@ package com.ephemerality.aphelion.ui;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.ephemerality.aphelion.graphics.ScreenManager;
 
 public class Overlay {
 	
@@ -22,10 +22,10 @@ public class Overlay {
 	}
 	
 	
-	public void render(SpriteBatch sb) {
+	public void render(ScreenManager screen) {
 		int x = 10;
 		int y = (int) resolution.y - 30;
-		sb.draw(health, x, y, (int)(200 * fill), 10);
+		screen.render(health, x, y, (int)(200 * fill), 10);
 		
 	}
 	

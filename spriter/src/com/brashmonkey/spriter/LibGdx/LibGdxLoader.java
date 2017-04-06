@@ -2,8 +2,8 @@ package com.brashmonkey.spriter.LibGdx;
 
 import java.io.File;
 import java.util.HashMap;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;

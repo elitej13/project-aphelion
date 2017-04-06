@@ -54,6 +54,7 @@ public class RCDatabase extends RCBase {
 		return pointer;
 	}
 	
+	@SuppressWarnings("unlikely-arg-type")
 	public static RCDatabase Deserialize(byte[] data) {
 		int pointer = 0;
 		assert(readString(data, pointer, HEADER.length).equals(HEADER));

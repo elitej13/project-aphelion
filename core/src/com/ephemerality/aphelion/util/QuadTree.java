@@ -149,10 +149,10 @@ public class QuadTree {
 		}
 	}
 	public void render(ScreenManager screen) {
-		screen.getSpriteBatch().draw(SpriteSheet.rectangle, N.x, N.y, N.width, N.height);
-		screen.getSpriteBatch().draw(SpriteSheet.rectangle, S.x, S.y, S.width, S.height);
-		screen.getSpriteBatch().draw(SpriteSheet.rectangle, E.x, E.y, E.width, E.height);
-		screen.getSpriteBatch().draw(SpriteSheet.rectangle, W.x, W.y, W.width, W.height);
+		screen.render(SpriteSheet.rectangle, N);
+		screen.render(SpriteSheet.rectangle, S);
+		screen.render(SpriteSheet.rectangle, E);
+		screen.render(SpriteSheet.rectangle, W);
 		NE.render(screen);
 		NW.render(screen);
 		SE.render(screen);

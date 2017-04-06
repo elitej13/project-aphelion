@@ -67,13 +67,13 @@ public class MapManager {
 				int index = x + (y * currentLevel.WIDTH);
 				int currentPixel = currentLevel.tiles[index];
 				if(currentPixel == col_grass) {
-					screen.getSpriteBatch().draw(SpriteSheet.default_grass_0, x * tileSize, y * tileSize);
+					screen.render(SpriteSheet.default_grass_0, x * tileSize, y * tileSize);
 				}else if(currentPixel == col_dirt) {
-					screen.getSpriteBatch().draw(SpriteSheet.default_dirt_0, x * tileSize, y * tileSize);
+					screen.render(SpriteSheet.default_dirt_0, x * tileSize, y * tileSize);
 				}else if(currentPixel == col_brick) {
-					screen.getSpriteBatch().draw(SpriteSheet.default_brick_0,  x * tileSize, y * tileSize);
+					screen.render(SpriteSheet.default_brick_0,  x * tileSize, y * tileSize);
 				}else if(currentPixel == col_wood) {
-					screen.getSpriteBatch().draw(SpriteSheet.default_wood_0,  x * tileSize, y * tileSize);
+					screen.render(SpriteSheet.default_wood_0,  x * tileSize, y * tileSize);
 				}
 			}
 		}

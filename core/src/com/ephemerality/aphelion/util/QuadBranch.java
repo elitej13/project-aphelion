@@ -121,6 +121,6 @@ public class QuadBranch {
 	}
 
 	public void render(ScreenManager screen) {
-		screen.getSpriteBatch().draw(SpriteSheet.rectangle, bounds.x, bounds.y, bounds.width, bounds.height);
+		screen.render(SpriteSheet.rectangle, bounds);
 	}
 }

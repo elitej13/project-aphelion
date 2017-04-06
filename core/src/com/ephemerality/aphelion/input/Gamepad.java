@@ -15,7 +15,6 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ObjectMap;
 import com.badlogic.gdx.utils.Timer;
-import com.ephemerality.aphelion.util.DebugType;
 
 public class Gamepad implements ControllerListener{
 	
@@ -25,7 +24,7 @@ public class Gamepad implements ControllerListener{
 	public boolean up, down, left, right;
 	public boolean hasPaused, hasInteracted, goingBack, isSelected;
 	
-	private String TAG = DebugType.Controller.toString();
+//	private String TAG = DebugType.Controller.toString();
 	
 	public Gamepad() {
 		Controllers.addListener(this);

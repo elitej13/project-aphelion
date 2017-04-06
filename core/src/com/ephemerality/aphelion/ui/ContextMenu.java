@@ -3,8 +3,8 @@ package com.ephemerality.aphelion.ui;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.ephemerality.aphelion.graphics.ScreenManager;
 
 public class ContextMenu {
 	
@@ -28,11 +28,11 @@ public class ContextMenu {
 	}
 	
 	
-	public void render(SpriteBatch sb) {
+	public void render(ScreenManager screen) {
 		int x = (int) (resolution.x * 0.05f);
 		int y = (int) (resolution.y * 0.05f);
 		int w = (int) (resolution.x * 0.9f);
 		int h = (int) (resolution.y * 0.9f);
-		sb.draw(bkgd, x, y, w, h);
+		screen.render(bkgd, x, y, w, h);
 	}
 }

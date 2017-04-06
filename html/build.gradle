@@ -7,8 +7,8 @@ gwt {
     minHeapSize="1G"
 
     src = files(file("src/")) // Needs to be in front of "modules" below.
-    modules 'com.ephemerality.aphelion.GdxDefinition'
-    devModules 'com.ephemerality.aphelion.GdxDefinitionSuperdev'
+    modules 'com.ephemerality.aephelion.GdxDefinition'
+    devModules 'com.ephemerality.aephelion.GdxDefinitionSuperdev'
     project.webAppDirName = 'webapp'
 
     compiler {

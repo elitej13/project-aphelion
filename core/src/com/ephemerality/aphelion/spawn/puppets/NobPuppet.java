@@ -22,7 +22,7 @@ public class NobPuppet extends Puppet {
 		float x = 0;
 		float y = 0;
 		if(sprite != null)
-			screen.getSpriteBatch().draw(sprite, x, y);
+			screen.render(sprite, x, y);
 	}
 
 	@Override

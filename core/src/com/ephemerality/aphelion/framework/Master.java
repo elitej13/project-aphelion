@@ -2,10 +2,9 @@ package com.ephemerality.aphelion.framework;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.FPSLogger;
-import com.badlogic.gdx.graphics.GL20;
 import com.ephemerality.aphelion.graphics.ScreenManager;
 import com.ephemerality.aphelion.input.InputManager;
+import com.ephemerality.aphelion.util.debug.Debug;
 
 
 public class Master extends ApplicationAdapter {
@@ -15,24 +14,22 @@ public class Master extends ApplicationAdapter {
 	static int state;
 	ScreenManager screen;
 	GameManager game;
-	MenuManager main;
-	FPSLogger fpslog;
-	
-	
+	MenuManager main;	
 	
 	@Override
 	public void create () {
-		super.create();
+//		super.create();
 		InputManager.init();
+		Debug.init();
 		screen = new ScreenManager();
 		main = new MenuManager();
 		game = new GameManager(screen);
-		fpslog = new FPSLogger();
 	}
 
 	
 	public void update() {		
 		InputManager.update();
+		Debug.update();
 		if(Master.state == -1) {
 			Gdx.app.exit();
 		}else if(Master.state == 0) {
@@ -65,22 +62,15 @@ public class Master extends ApplicationAdapter {
 	@Override
 	public void render () {
 //	TODO : Have update on a fixed timer		
-		update();
-		
-		
-		Gdx.gl.glClearColor(0, 0, 0, 1); 
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		screen.getSpriteBatch().enableBlending();
-
-		fpslog.log();
-		screen.getSpriteBatch().begin();
+		update();		
+		screen.start();
 		if(state == 0) {
-			main.render(screen.getSpriteBatch());
+			main.render(screen);
 		}else if(state == 1) {
 			game.render(screen);
 		}
-		
-		screen.getSpriteBatch().end();
+		Debug.render(screen);
+		screen.finish();
 		
 		
 	}
