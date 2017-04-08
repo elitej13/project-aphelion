@@ -9,8 +9,8 @@ public class EditorRuntime {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.title = "Aphelion Editor";
 		config.backgroundFPS = 0;
-		config.width = 1000;
-		config.height = 500;
+		config.width = 1800;
+		config.height = 900;
 		new LwjglApplication(new Editor(), config);
 	}
 }

@@ -5,11 +5,11 @@ import com.ephemerality.aphelion.graphics.ScreenManager;
 
 public class NobPuppet extends Puppet {
 
-	private TextureRegion sprite;
+	private TextureRegion texture;
 	
 	public NobPuppet(int width, int height, TextureRegion sprite) {
 		super(width, height);
-		this.sprite = sprite;
+		this.texture = sprite;
 	}
 
 	@Override
@@ -21,8 +21,8 @@ public class NobPuppet extends Puppet {
 	public void render(ScreenManager screen) {
 		float x = 0;
 		float y = 0;
-		if(sprite != null)
-			screen.render(sprite, x, y);
+		if(texture != null)
+			screen.render(texture, x, y);
 	}
 
 	@Override

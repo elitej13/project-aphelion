@@ -4,22 +4,31 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.ephemerality.aphelion.graphics.ScreenManager;
 import com.ephemerality.aphelion.graphics.SpriteSheet;
+import com.ephemerality.aphelion.spawn.entities.tiles.Tile;
+import com.ephemerality.aphelion.util.FileManager;
 
 public class MapManager {
 	
 	public static int tileSize = 64;
 	
+	private Level bufferedLevel;
 	private Level currentLevel;	
 	public Vector2 mapPixelSize;
 	
 	public MapManager() {
-		currentLevel = new Level("0");
+		currentLevel = new Level(12, 12);
 		mapPixelSize = new Vector2(currentLevel.WIDTH * MapManager.tileSize, currentLevel.HEIGHT * MapManager.tileSize);
 	}
 	
-	
-	
-	public void update() {
+	public void load(String location) {
+		bufferedLevel = currentLevel;
+		currentLevel = FileManager.readLevelFromFile(location);
+	}
+	public void save(String location) {
+		FileManager.writeLevelToFile(location, currentLevel.toByteArray());
+	}
+	public void editTile(Vector2 position, short tileID) {
+		currentLevel.editTile(position, tileID);
 	}
 	
 	
@@ -42,14 +51,6 @@ public class MapManager {
 	}
 	
 	
-//	TODO: Set these as ID's with the respective tile object
-	public static final int col_grass = 0x4A7108;
-	public static final int col_dirt = 0x7B4F03;
-	public static final int col_brick = 0x282828;
-	public static final int col_wood = 0xFFB47918;
-	public static final int col_void = 0xFFFFFF;
-	
-	
 	public void render(ScreenManager screen) {
 		int tileSize = MapManager.tileSize;
 		Rectangle bounds = screen.getBounds();
@@ -66,14 +67,14 @@ public class MapManager {
 				if(x >= currentLevel.WIDTH)
 					continue;
 				int index = x + (y * currentLevel.WIDTH);
-				int currentPixel = currentLevel.tiles[index];
-				if(currentPixel == col_grass) {
+				short currentPixel = currentLevel.tiles[index];
+				if(currentPixel == Tile.GRASS_ID) {
 					screen.render(SpriteSheet.default_grass_0, x * tileSize, y * tileSize);
-				}else if(currentPixel == col_dirt) {
+				}else if(currentPixel == Tile.DIRT_ID) {
 					screen.render(SpriteSheet.default_dirt_0, x * tileSize, y * tileSize);
-				}else if(currentPixel == col_brick) {
+				}else if(currentPixel == Tile.BRICK_ID) {
 					screen.render(SpriteSheet.default_brick_0,  x * tileSize, y * tileSize);
-				}else if(currentPixel == col_wood) {
+				}else if(currentPixel == Tile.WOOD_ID) {
 					screen.render(SpriteSheet.default_wood_0,  x * tileSize, y * tileSize);
 				}
 			}

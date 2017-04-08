@@ -6,9 +6,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class SpriteSheet {
 
-	public static Texture tilesheet = new Texture(Gdx.files.internal("textures/tilesheet.png"));
-	public static Texture entitysheet = new Texture(Gdx.files.internal("textures/entitysheet.png"));
-	public static Texture itemsheet = new Texture(Gdx.files.internal("textures/itemsheet.png"));
+	public static Texture tilesheet = new Texture(Gdx.files.local("textures/tilesheet.png"));
+	public static Texture entitysheet = new Texture(Gdx.files.local("textures/entitysheet.png"));
+	public static Texture itemsheet = new Texture(Gdx.files.local("textures/itemsheet.png"));
 	
 //	Character Sprites	//
 	public static TextureRegion default_head_idle = new TextureRegion(SpriteSheet.entitysheet, 	0, 0, 	32, 32);

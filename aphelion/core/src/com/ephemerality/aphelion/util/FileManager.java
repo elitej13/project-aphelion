@@ -8,21 +8,20 @@ import com.ephemerality.aphelion.spawn.world.Level;
 
 public class FileManager {
 	
-	public static final String mapPath = "assets/maps/";
+//	public static final String mapPath = "maps/";
 	
 	public static void writeLevelToFile(String location, byte[] data) {
 		try {
-			FileHandle handle = Gdx.files.local(mapPath + location);
-			if(!handle.exists()) {
-				handle.file().createNewFile();
-			}
+			FileHandle handle = Gdx.files.absolute(location);
+			System.out.println(location);
+			handle.file().createNewFile();
 			handle.writeBytes(data, false);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	public static Level readLevelFromFile(String location) {
-		FileHandle handle = Gdx.files.local(mapPath + location);
+		FileHandle handle = Gdx.files.absolute(location);
 		System.out.println(handle.file().getAbsolutePath());;
 		byte[] data = handle.readBytes();
 		return new Level(data);
