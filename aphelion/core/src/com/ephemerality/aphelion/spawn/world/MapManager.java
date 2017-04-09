@@ -30,6 +30,10 @@ public class MapManager {
 	public void editTile(Vector2 position, short tileID) {
 		currentLevel.editTile(position, tileID);
 	}
+	public void createNewLevel(int w, int h) {
+		bufferedLevel = currentLevel;
+		currentLevel = new Level(w, h);
+	}
 	
 	
 	public Rectangle[] getSurroundingTiles(Vector2 vector) {
@@ -84,4 +88,5 @@ public class MapManager {
 	public Vector2 getMapSize() {
 		return mapPixelSize;
 	}
+
 }

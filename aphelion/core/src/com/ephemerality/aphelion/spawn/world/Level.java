@@ -40,6 +40,8 @@ public class Level {
 	
 	
 	public void editTile(Vector2 position, short tileID) {
+		if(position.x < 0 || position.x >= WIDTH || position.y < 0 || position.y >= HEIGHT)
+			return;
 		tiles[(int) (position.x + position.y * WIDTH)] = tileID;
 	}
 	

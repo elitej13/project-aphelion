@@ -7,7 +7,7 @@ import com.ephemerality.aphelion.editor.framework.Editor;
 public class EditorRuntime {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.title = "Aphelion Editor";
+		config.title = "Aphelion Editor" + " v" + Editor.version;
 		config.backgroundFPS = 0;
 		config.width = 1800;
 		config.height = 900;

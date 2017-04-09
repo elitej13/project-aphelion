@@ -13,7 +13,6 @@ public class FileManager {
 	public static void writeLevelToFile(String location, byte[] data) {
 		try {
 			FileHandle handle = Gdx.files.absolute(location);
-			System.out.println(location);
 			handle.file().createNewFile();
 			handle.writeBytes(data, false);
 		} catch (IOException e) {
