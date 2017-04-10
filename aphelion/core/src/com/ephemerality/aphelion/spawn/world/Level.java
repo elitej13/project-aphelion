@@ -17,7 +17,7 @@ public class Level {
 		HEIGHT = height;
 		tiles = new short[width * height];
 		for(short i = 0; i < tiles.length; i++) {
-			tiles[i] = Tile.BRICK_ID; 
+			tiles[i] = Tile.GRASS_ID; 
 		}
 	}
 	
@@ -38,6 +38,20 @@ public class Level {
 		}
 	}
 	
+	public void editSize(int w, int h) {
+		short[] buffer = new short[w * h];
+		for(int y = 0; y < h; y++) {
+			for(int x = 0; x < w; x++) {
+				if(y < HEIGHT && x < WIDTH) {
+					buffer[x + y * w] = tiles[x + y * w];
+				}else {
+					buffer[x + y * w] = Tile.GRASS_ID;
+				}
+			}
+		}
+		
+		
+	}
 	
 	public void editTile(Vector2 position, short tileID) {
 		if(position.x < 0 || position.x >= WIDTH || position.y < 0 || position.y >= HEIGHT)

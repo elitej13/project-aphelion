@@ -1,6 +1,8 @@
 package com.ephemerality.aphelion.editor.framework;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.ephemerality.aphelion.editor.Mouse;
 import com.ephemerality.aphelion.editor.framework.ui.GUI;
 import com.ephemerality.aphelion.graphics.ScreenManager;
@@ -10,7 +12,7 @@ import com.ephemerality.aphelion.util.debug.Debug;
 
 public class Editor extends ApplicationAdapter {
 	
-	public static final String version = "0.0.5";
+	public static final String version = "0.0.6";
 	private ScreenManager screen;
 	private GUI gui;
 	private MapManager map;
@@ -31,16 +33,19 @@ public class Editor extends ApplicationAdapter {
 		InputManager.update();
 		Debug.update();
 		mouse.update();
+		gui.update();
 	}
 	
 	@Override
 	public void render () {
+		Gdx.gl.glClearColor(0, 0, 0, 1); 
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);		
+		gui.render();
 		update();
 		screen.start();
-		map.render(screen);
 		Debug.render(screen);
+		map.render(screen);
 		screen.finish();
-		gui.render();
 	}
 	
 	@Override

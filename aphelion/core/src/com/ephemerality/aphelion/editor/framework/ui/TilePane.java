@@ -15,7 +15,7 @@ public class TilePane extends VisWindow{
 	VisTree tree;
 	
 	public TilePane () {
-		super("Tiles");
+		super("Tile Selection");
 
 		TableUtils.setSpacingDefaults(this);
 		columnDefaults(0).left();
@@ -23,7 +23,7 @@ public class TilePane extends VisWindow{
 
 		
 		int w = 150;
-		int h = Gdx.graphics.getHeight();
+		int h = Gdx.graphics.getHeight() - 25;
 		int x = Gdx.graphics.getWidth() - w;
 		int y = Gdx.graphics.getHeight() - h - 25;
 		setSize(w, h);
@@ -46,10 +46,14 @@ public class TilePane extends VisWindow{
 		Node brick = new Node(new VisLabel("Brick 0"));
 		brick.setIcon((new TextureRegionDrawable(SpriteSheet.default_brick_0)));
 		brick.setObject(new Short(Tile.BRICK_ID));
+		Node wood = new Node(new VisLabel("Wood 0"));
+		wood.setIcon((new TextureRegionDrawable(SpriteSheet.default_wood_0)));
+		wood.setObject(new Short(Tile.WOOD_ID));
 		
 		tiles.add(grass);
 		tiles.add(dirt);
 		tiles.add(brick);
+		tiles.add(wood);
 
 		entities.add(new Node(new VisLabel("item 2.1")));
 		entities.add(new Node(new VisLabel("item 2.2")));

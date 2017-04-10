@@ -2,6 +2,7 @@ package com.ephemerality.aphelion.editor.framework.ui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
@@ -21,9 +22,10 @@ public class GUI {
 	
 	final Table root;
 	Stage stage;
-	TilePane tiles;
+	TilePane tPane;
 	MenuManager menu;
 	MapManager map;
+	TileScreen tScreen;
 	
 	public GUI (ScreenManager screen, MapManager map) {
 		this.map = map;
@@ -38,6 +40,10 @@ public class GUI {
 		
 		initActors(map);
 		initDebug();
+		
+
+		Rectangle bounds = new Rectangle(tScreen.getX(), tScreen.getY(), tScreen.getWidth(), tScreen.getHeight());
+		map.setOffset(bounds);
 		
 	}
 	
@@ -62,6 +68,16 @@ public class GUI {
 
 				return false;
 			}
+		});
+	}
+	public void setTile(Vector2 position) {
+		map.editTile(position, tPane.getSelected());
+	}
+	
+	public void initActors(MapManager map) {
+		menu = new MenuManager(root, map);
+		tPane = new TilePane();
+		tScreen = new TileScreen(map, new InputListener() {
 			@Override
 			public void touchDragged (InputEvent event, float x, float y, int pointer) {
 				int xx = Math.floorDiv((int) x, MapManager.tileSize);
@@ -77,15 +93,8 @@ public class GUI {
 				return true;
 			}
 		});
-	}
-	public void setTile(Vector2 position) {
-		map.editTile(position, tiles.getSelected());
-	}
-	
-	public void initActors(MapManager map) {
-		menu = new MenuManager(root, map);
-		tiles = new TilePane();
-		stage.addActor(tiles);
+		stage.addActor(tPane);
+		stage.addActor(tScreen);
 	}
 	
 	
@@ -98,6 +107,7 @@ public class GUI {
 	public void render () {
 		stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
 		stage.draw();
+		stage.getBatch();
 	}
 	public void resize(int width, int height) {
 		if (width == 0 && height == 0) return; //see https://github.com/libgdx/libgdx/issues/3673#issuecomment-177606278
@@ -106,6 +116,12 @@ public class GUI {
 	public void dispose () {
 		VisUI.dispose();
 		stage.dispose();
+	}
+
+
+	public void update() {
+		Rectangle bounds = new Rectangle(tScreen.getX(), tScreen.getY(), tScreen.getWidth(), tScreen.getHeight());
+		map.setOffset(bounds);
 	}
 	
 }

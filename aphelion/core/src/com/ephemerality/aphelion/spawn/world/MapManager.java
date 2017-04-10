@@ -15,6 +15,8 @@ public class MapManager {
 	private Level currentLevel;	
 	public Vector2 mapPixelSize;
 	
+	public Rectangle offset;
+	
 	public MapManager() {
 		currentLevel = new Level(12, 12);
 		mapPixelSize = new Vector2(currentLevel.WIDTH * MapManager.tileSize, currentLevel.HEIGHT * MapManager.tileSize);
@@ -33,6 +35,9 @@ public class MapManager {
 	public void createNewLevel(int w, int h) {
 		bufferedLevel = currentLevel;
 		currentLevel = new Level(w, h);
+	}
+	public void editSize(int w, int h) {
+		
 	}
 	
 	
@@ -55,13 +60,42 @@ public class MapManager {
 	}
 	
 	
+//	public void render(ScreenManager screen) {
+//		int tileSize = MapManager.tileSize;
+//		Rectangle bounds = screen.getBounds();
+//		int x0 = (int) Math.floor(bounds.x / tileSize);
+//		int y0 = (int) Math.floor(bounds.y / tileSize);
+//		int x1 = x0 + (int) Math.ceil(bounds.width / tileSize);
+//		int y1 = y0 + (int) Math.ceil(bounds.height / tileSize);
+//		for(int y = y0; y <= y1; y++) {
+//			while(y < 0) y++;
+//			if(y >= currentLevel.HEIGHT)
+//				break;
+//			for(int x = x0; x <= x1; x++) {
+//				while(x < 0) x++;
+//				if(x >= currentLevel.WIDTH)
+//					continue;
+//				int index = x + (y * currentLevel.WIDTH);
+//				short currentPixel = currentLevel.tiles[index];
+//				if(currentPixel == Tile.GRASS_ID) {
+//					screen.render(SpriteSheet.default_grass_0, x * tileSize, y * tileSize);
+//				}else if(currentPixel == Tile.DIRT_ID) {
+//					screen.render(SpriteSheet.default_dirt_0, x * tileSize, y * tileSize);
+//				}else if(currentPixel == Tile.BRICK_ID) {
+//					screen.render(SpriteSheet.default_brick_0,  x * tileSize, y * tileSize);
+//				}else if(currentPixel == Tile.WOOD_ID) {
+//					screen.render(SpriteSheet.default_wood_0,  x * tileSize, y * tileSize);
+//				}
+//			}
+//		}
+//	}
 	public void render(ScreenManager screen) {
 		int tileSize = MapManager.tileSize;
 		Rectangle bounds = screen.getBounds();
 		int x0 = (int) Math.floor(bounds.x / tileSize);
 		int y0 = (int) Math.floor(bounds.y / tileSize);
-		int x1 = x0 + (int) Math.ceil(bounds.width / tileSize);
-		int y1 = y0 + (int) Math.ceil(bounds.height / tileSize);
+		int x1 = x0 + (int) Math.ceil(offset.width / tileSize);
+		int y1 = y0 + (int) Math.ceil(offset.height / tileSize);
 		for(int y = y0; y <= y1; y++) {
 			while(y < 0) y++;
 			if(y >= currentLevel.HEIGHT)
@@ -73,13 +107,13 @@ public class MapManager {
 				int index = x + (y * currentLevel.WIDTH);
 				short currentPixel = currentLevel.tiles[index];
 				if(currentPixel == Tile.GRASS_ID) {
-					screen.render(SpriteSheet.default_grass_0, x * tileSize, y * tileSize);
+					screen.render(SpriteSheet.default_grass_0, x * tileSize + offset.x, y * tileSize + offset.y);
 				}else if(currentPixel == Tile.DIRT_ID) {
-					screen.render(SpriteSheet.default_dirt_0, x * tileSize, y * tileSize);
+					screen.render(SpriteSheet.default_dirt_0, x * tileSize + offset.x, y * tileSize + offset.y);
 				}else if(currentPixel == Tile.BRICK_ID) {
-					screen.render(SpriteSheet.default_brick_0,  x * tileSize, y * tileSize);
+					screen.render(SpriteSheet.default_brick_0,  x * tileSize + offset.x, y * tileSize + offset.y);
 				}else if(currentPixel == Tile.WOOD_ID) {
-					screen.render(SpriteSheet.default_wood_0,  x * tileSize, y * tileSize);
+					screen.render(SpriteSheet.default_wood_0,  x * tileSize + offset.x, y * tileSize + offset.y);
 				}
 			}
 		}
@@ -87,6 +121,11 @@ public class MapManager {
 	
 	public Vector2 getMapSize() {
 		return mapPixelSize;
+	}
+
+	public void setOffset(Rectangle offset) {
+		this.offset = offset;
+		
 	}
 
 }
