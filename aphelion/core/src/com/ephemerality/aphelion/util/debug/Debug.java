@@ -2,10 +2,10 @@ package com.ephemerality.aphelion.util.debug;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
-import com.ephemerality.aphelion.graphics.ScreenManager;
 import com.ephemerality.aphelion.input.InputManager;
 
 public class Debug {
@@ -39,7 +39,7 @@ public class Debug {
 	}
 	
 	
-	public static void render(ScreenManager screen) {
+	public static void render(Batch batch) {
 		if(Debug.active) {
 			int fontsize = Debug.FONT_SIZE;
 			int offset = 1;
@@ -48,7 +48,7 @@ public class Debug {
 			float y = Gdx.graphics.getHeight() - 10;
 			
 //			Debug.CAPTAIN_FALCON_MECHA.draw(screen.getSpriteBatch(), "Debugging", x , y);
-			Debug.CAPTAIN_FALCON_MECHA.draw(screen.getSpriteBatch(), "FPS: " + fps, x, y - fontsize * offset++);
+			Debug.CAPTAIN_FALCON_MECHA.draw(batch, "FPS: " + fps, x, y - fontsize * offset++);
 //			Debug.CAPTAIN_FALCON_MECHA.draw(screen.getSpriteBatch(), "FPS: ", x, y - fontsize * offset++);
 		}
 	}

@@ -69,7 +69,7 @@ public class Master extends ApplicationAdapter {
 		}else if(state == 1) {
 			game.render(screen);
 		}
-		Debug.render(screen);
+		Debug.render(screen.getSpriteBatch());
 		screen.finish();
 		
 		

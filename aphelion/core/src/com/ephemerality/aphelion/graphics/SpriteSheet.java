@@ -1,8 +1,12 @@
 package com.ephemerality.aphelion.graphics;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.ephemerality.aphelion.spawn.entities.tiles.Tile;
 
 public class SpriteSheet {
 
@@ -29,4 +33,28 @@ public class SpriteSheet {
 	
 //	DEBUGGING Sprites	//
 	public static TextureRegion rectangle = new TextureRegion(SpriteSheet.tilesheet, 576, 0, 64, 64);
+	public static TextureRegion default_void_0 = new TextureRegion(new Texture(new Pixmap(64, 64, Format.RGB565)));
+	
+	
+	public static Image fetchImageFromTileID(short tileID) {
+		Image image = null;
+		if(tileID == Tile.VOID_ID) {
+			image = new Image(default_void_0);
+			image.setUserObject(new Short(Tile.VOID_ID));
+		}else if(tileID == Tile.GRASS_ID) {
+			image = new Image(default_grass_0);
+			image.setUserObject(new Short(Tile.GRASS_ID));
+		}else if(tileID == Tile.DIRT_ID) {
+			image = new Image(default_dirt_0);
+			image.setUserObject(new Short(Tile.DIRT_ID));
+		}else if(tileID == Tile.BRICK_ID) {
+			image = new Image(default_brick_0);
+			image.setUserObject(new Short(Tile.BRICK_ID));
+		}else if(tileID == Tile.WOOD_ID) {
+			image = new Image(default_wood_0);
+			image.setUserObject(new Short(Tile.WOOD_ID));
+		}
+		return image;
+	}
+	
 }

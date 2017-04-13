@@ -1,7 +1,6 @@
 package com.ephemerality.aphelion.editor;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
 
 public class Mouse  {
 	

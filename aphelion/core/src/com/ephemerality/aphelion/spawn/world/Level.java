@@ -3,7 +3,6 @@ package com.ephemerality.aphelion.spawn.world;
 import java.nio.ByteBuffer;
 
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import com.ephemerality.aphelion.spawn.entities.tiles.Tile;
 
 public class Level {
@@ -17,7 +16,10 @@ public class Level {
 		HEIGHT = height;
 		tiles = new short[width * height];
 		for(short i = 0; i < tiles.length; i++) {
-			tiles[i] = Tile.GRASS_ID; 
+			if(i % 5 == 0) tiles[i] = Tile.DIRT_ID; 
+			else if(i % 7 == 0) tiles[i] = Tile.BRICK_ID; 
+			else if(i % 9 == 0) tiles[i] = Tile.WOOD_ID; 
+			else tiles[i] = Tile.GRASS_ID;
 		}
 	}
 	
@@ -43,20 +45,20 @@ public class Level {
 		for(int y = 0; y < h; y++) {
 			for(int x = 0; x < w; x++) {
 				if(y < HEIGHT && x < WIDTH) {
-					buffer[x + y * w] = tiles[x + y * w];
+					buffer[x + y * w] = tiles[x + y * WIDTH];
 				}else {
 					buffer[x + y * w] = Tile.GRASS_ID;
 				}
 			}
 		}
-		
+		tiles = buffer;
 		
 	}
 	
-	public void editTile(Vector2 position, short tileID) {
-		if(position.x < 0 || position.x >= WIDTH || position.y < 0 || position.y >= HEIGHT)
+	public void editTile(int x, int y, short tileID) {
+		if(x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
 			return;
-		tiles[(int) (position.x + position.y * WIDTH)] = tileID;
+		tiles[x + y * WIDTH] = tileID;
 	}
 	
 	

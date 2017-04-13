@@ -73,8 +73,7 @@ public class ScreenManager {
 		}else if(dir == Direction.EAST){
 			translate(1, 0);		
 		}else {
-			System.out.println("Unhandeled direction, assuming EAST");
-			translate(0, 0);
+			System.out.println("Unhandeled direction");
 		}
 	}
 	public void render(TextureRegion texture, float x, float y) {
