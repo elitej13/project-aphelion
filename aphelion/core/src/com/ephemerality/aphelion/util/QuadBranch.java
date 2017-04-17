@@ -5,8 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.brashmonkey.spriter.Rectangle;
 import com.ephemerality.aphelion.graphics.ScreenManager;
 import com.ephemerality.aphelion.graphics.SpriteSheet;
 import com.ephemerality.aphelion.spawn.entities.Entity;

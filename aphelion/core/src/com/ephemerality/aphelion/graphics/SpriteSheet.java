@@ -35,22 +35,35 @@ public class SpriteSheet {
 	public static TextureRegion rectangle = new TextureRegion(SpriteSheet.tilesheet, 576, 0, 64, 64);
 	public static TextureRegion default_void_0 = new TextureRegion(new Texture(new Pixmap(64, 64, Format.RGB565)));
 	
+	public static TextureRegion fetchTextureRegionFromTileID(short ID) {
+		if(ID == Tile.VOID_ID) {
+			return default_void_0;
+		}else if(ID == Tile.GRASS_ID) {
+			return default_grass_0;
+		}else if(ID == Tile.DIRT_ID) {
+			return default_dirt_0;
+		}else if(ID == Tile.BRICK_ID) {
+			return default_brick_0;
+		}else if(ID == Tile.WOOD_ID) {
+			return default_wood_0;
+		}
+	}
 	
-	public static Image fetchImageFromTileID(short tileID) {
+	public static Image fetchImageFromTileID(short ID) {
 		Image image = null;
-		if(tileID == Tile.VOID_ID) {
+		if(ID == Tile.VOID_ID) {
 			image = new Image(default_void_0);
 			image.setUserObject(new Short(Tile.VOID_ID));
-		}else if(tileID == Tile.GRASS_ID) {
+		}else if(ID == Tile.GRASS_ID) {
 			image = new Image(default_grass_0);
 			image.setUserObject(new Short(Tile.GRASS_ID));
-		}else if(tileID == Tile.DIRT_ID) {
+		}else if(ID == Tile.DIRT_ID) {
 			image = new Image(default_dirt_0);
 			image.setUserObject(new Short(Tile.DIRT_ID));
-		}else if(tileID == Tile.BRICK_ID) {
+		}else if(ID == Tile.BRICK_ID) {
 			image = new Image(default_brick_0);
 			image.setUserObject(new Short(Tile.BRICK_ID));
-		}else if(tileID == Tile.WOOD_ID) {
+		}else if(ID == Tile.WOOD_ID) {
 			image = new Image(default_wood_0);
 			image.setUserObject(new Short(Tile.WOOD_ID));
 		}

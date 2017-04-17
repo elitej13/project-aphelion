@@ -94,6 +94,10 @@ public class ScreenManager {
 	public void renderFixed(TextureRegion texture, Rectangle body) {
 		sb.draw(texture, bounds.x + body.x, bounds.y + body.y, body.width, body.height);
 	}
+	public void renderFixed(TextureRegion texture, float x, float y, float scale) {
+//		TODO: verify this draw call as accurate
+		sb.draw(texture, x, y, scale);
+	}
 	
 	public void dispose() {
 		sb.dispose();

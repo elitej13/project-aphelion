@@ -15,12 +15,13 @@ public class Mob extends Entity{
 	protected Puppet puppet;
 	protected Direction dir;
 	
-	public Mob(ScreenManager screen, float x, float y, int w, int h) {
-		super(x, y, w, h, true);
+	public Mob(ScreenManager screen, float x, float y, int w, int h, short ID) {
+		super(x, y, w, h, true, ID);
 		puppet = new MobPuppet(screen, w, h);
 		puppet.setPosition(x, y);
 	}
 	
+	@Override
 	public void update() {
 		puppet.update();
 	}
@@ -89,6 +90,7 @@ public class Mob extends Entity{
 	}
 	
 	
+	@Override
 	public void render(ScreenManager screen) {
 		if(renderable) {
 			if(puppet != null) {
