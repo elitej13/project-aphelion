@@ -1,5 +1,4 @@
-# project-aphelion
-Project Aphelion
+# Project Aphelion
 
 *Warning - this is still in initial stages of development and needs a lot of work to just mantain a semblence of functionality.
 
