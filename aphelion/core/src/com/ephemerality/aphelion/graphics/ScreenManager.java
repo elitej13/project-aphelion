@@ -1,12 +1,14 @@
 package com.ephemerality.aphelion.graphics;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
 import com.ephemerality.aphelion.util.Direction;
 
 public class ScreenManager {
@@ -40,16 +42,16 @@ public class ScreenManager {
 	}
 	
 	public void start() {
-//		Gdx.gl.glClearColor(0, 0, 0, 1); 
-//		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);		
-//		sb.enableBlending();
+		Gdx.gl.glClearColor(0, 0, 0, 1); 
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);		
+		sb.enableBlending();
 		sb.begin();
 	}
 	
 	public void finish() {
-//		Rectangle scissors = new Rectangle();
-//		ScissorStack.calculateScissors(oc, sb.getTransformMatrix(), bounds, scissors);
-//		ScissorStack.pushScissors(scissors);
+		Rectangle scissors = new Rectangle();
+		ScissorStack.calculateScissors(oc, sb.getTransformMatrix(), bounds, scissors);
+		ScissorStack.pushScissors(scissors);
 		sb.end();
 	}
 	
@@ -96,7 +98,7 @@ public class ScreenManager {
 	}
 	public void renderFixed(TextureRegion texture, float x, float y, float scale) {
 //		TODO: verify this draw call as accurate
-		sb.draw(texture, x, y, scale);
+		sb.draw(texture, x, y, texture.getRegionWidth() * scale, texture.getRegionHeight() * scale);
 	}
 	
 	public void dispose() {

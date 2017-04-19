@@ -1,4 +1,4 @@
-package com.ephemerality.aphelion.spawn.entities;
+package com.ephemerality.aphelion.spawn.entities.player;
 
 import com.ephemerality.aphelion.graphics.ScreenManager;
 import com.ephemerality.aphelion.input.InputManager;
@@ -14,7 +14,7 @@ public class Player extends Mob {
 	int speed = 10;
 	
 	public Player(ScreenManager screen, float x, float y) {
-		super(screen, x, y, 128, 64);
+		super(screen, x, y, 128, 64, (short)1);
 		this.screen = screen;		
 		screen.setPosition(x, y);
 	}

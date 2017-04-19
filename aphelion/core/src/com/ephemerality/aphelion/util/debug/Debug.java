@@ -13,11 +13,11 @@ public class Debug {
 	private static boolean active;
 	
 	private static BitmapFont CAPTAIN_FALCON_MECHA;
-	private static int FONT_SIZE = 16;
+	private static int FONT_SIZE = 36;
 	
 	
 	public static void init() {
-		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.local("fonts/captain-falcon_mecha/Mecha.ttf"));
+		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/style-7_thin-pixel-7/thin_pixel-7.ttf"));
 		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
 		parameter.size = Debug.FONT_SIZE;
 		parameter.color = Color.GREEN;
@@ -39,17 +39,18 @@ public class Debug {
 	}
 	
 	
-	public static void render(Batch batch) {
+	public static void render(Batch batch, float xoffset, float yoffset) {
 		if(Debug.active) {
 			int fontsize = Debug.FONT_SIZE;
 			int offset = 1;
 			float fps = Gdx.graphics.getFramesPerSecond();
-			float x = Gdx.graphics.getWidth() - 70;
-			float y = Gdx.graphics.getHeight() - 10;
+			float x = Gdx.graphics.getWidth() - 100 + xoffset;
+			float y = Gdx.graphics.getHeight() - 10 + yoffset;
 			
-//			Debug.CAPTAIN_FALCON_MECHA.draw(screen.getSpriteBatch(), "Debugging", x , y);
+			
+			Debug.CAPTAIN_FALCON_MECHA.draw(batch, "Debugging", x , y);
 			Debug.CAPTAIN_FALCON_MECHA.draw(batch, "FPS: " + fps, x, y - fontsize * offset++);
-//			Debug.CAPTAIN_FALCON_MECHA.draw(screen.getSpriteBatch(), "FPS: ", x, y - fontsize * offset++);
+//			Debug.CAPTAIN_FALCON_MECHA.draw(batch, "FPS: ", x, y - fontsize * offset++);
 		}
 	}
 	

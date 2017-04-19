@@ -3,7 +3,7 @@ package com.ephemerality.aphelion.client;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
-import com.ephemerality.aphelion.Master;
+import com.ephemerality.aphelion.framework.Master;
 
 public class HtmlLauncher extends GwtApplication {
 

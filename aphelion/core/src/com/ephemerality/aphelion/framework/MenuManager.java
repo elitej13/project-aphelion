@@ -5,10 +5,15 @@ import com.ephemerality.aphelion.graphics.ScreenManager;
 
 public class MenuManager {
 
+	
 	private Stage stage;
 	
-	public void update() {
+	public MenuManager() {
 		stage = new Stage();
+	}
+	
+	
+	public void update() {
 	}
 	
 	

@@ -27,13 +27,13 @@ public class MapManager {
 	
 	public void load(String location) {
 		bufferedLevel = level;
-		level = FileManager.readLevelFromFile(location);
+		level = new Level(FileManager.readFromFile(location));
 		mapPixelSize = new Vector2(level.WIDTH * MapManager.tileSize, level.HEIGHT * MapManager.tileSize);
 		offset = new Vector2(0, 0);
 		recentlyReloaded = true;
 	}
 	public void save(String location) {
-		FileManager.writeLevelToFile(location, level.toByteArray());
+		FileManager.writeToFile(location, level.toByteArray());
 	}
 	public void editTile(int x, int y, short tileID) {
 		level.editTile((int)((offset.x / MapManager.tileSize) + x), (int)((offset.y / MapManager.tileSize) + y), tileID);

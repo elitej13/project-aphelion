@@ -5,8 +5,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.brashmonkey.spriter.Rectangle;
 import com.ephemerality.aphelion.graphics.ScreenManager;
 import com.ephemerality.aphelion.graphics.SpriteSheet;
 import com.ephemerality.aphelion.spawn.entities.Entity;
@@ -23,13 +23,13 @@ public class QuadBranch {
 	
 	public QuadBranch(MapManager map, float x0, float y0, float width, float height) {
 		this.map = map;
-		leaves = new HashSet<Nob>();
-		bugs = new HashSet<Mob>();
+		leaves = new HashSet<>();
+		bugs = new HashSet<>();
 		bounds = new Rectangle(x0, y0, width, height);
 	}
 	
 	public List<Mob> getOutOfBounds() {
-		List<Mob> mobs = new ArrayList<Mob>();
+		List<Mob> mobs = new ArrayList<>();
 		for(Mob m : bugs) {
 			if(!(m.body.overlaps(bounds))) {
 				mobs.add(m);
@@ -108,7 +108,7 @@ public class QuadBranch {
 	
 	
 	public Set<Mob> getAndRemoveAllBugs() {
-		Set<Mob> mobs = new HashSet<Mob>();
+		Set<Mob> mobs = new HashSet<>();
 		mobs.addAll(bugs);
 		bugs.removeAll(bugs);
 		return mobs;

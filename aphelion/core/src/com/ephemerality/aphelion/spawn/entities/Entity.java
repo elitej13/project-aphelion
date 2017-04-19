@@ -1,7 +1,7 @@
 package com.ephemerality.aphelion.spawn.entities;
 
 
-import com.brashmonkey.spriter.Rectangle;
+import com.badlogic.gdx.math.Rectangle;
 import com.ephemerality.aphelion.graphics.ScreenManager;
 import com.ephemerality.aphelion.graphics.SpriteSheet;
 import com.ephemerality.aphelion.spawn.puppets.Puppet;

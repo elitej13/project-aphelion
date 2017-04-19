@@ -11,8 +11,8 @@ public class Tile extends Nob{
 	public final static short BRICK_ID 	 = 10003;
 	public final static short WOOD_ID 	 = 10004;
 	
-	public Tile(float x, float y, int w, int h, TextureRegion texture) {
-		super(x, y, w, h, true, texture);
+	public Tile(float x, float y, int w, int h, TextureRegion texture, short ID) {
+		super(x, y, w, h, true, texture, ID);
 	}
 
 }

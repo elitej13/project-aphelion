@@ -11,7 +11,7 @@ public class Master extends ApplicationAdapter {
 	
 	//-1 Exiting, 0 Main menu, 1 Game
 	
-	static int state;
+	static int state = 1;
 	ScreenManager screen;
 	GameManager game;
 	MenuManager main;	
@@ -51,6 +51,7 @@ public class Master extends ApplicationAdapter {
 	
 	
 //	Start of Experimental	//
+	@Override
 	public void resize(int width, int height) {
 		super.resize(width, height);
 		screen.resize();
@@ -69,7 +70,7 @@ public class Master extends ApplicationAdapter {
 		}else if(state == 1) {
 			game.render(screen);
 		}
-		Debug.render(screen.getSpriteBatch());
+		Debug.render(screen.getSpriteBatch(), screen.getBounds().x, screen.getBounds().y);
 		screen.finish();
 		
 		

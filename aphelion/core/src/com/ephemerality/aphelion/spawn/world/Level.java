@@ -15,6 +15,7 @@ public class Level {
 		WIDTH = width;
 		HEIGHT = height;
 		tiles = new short[width * height];
+		collidable = new Rectangle[WIDTH * HEIGHT];
 		for(short i = 0; i < tiles.length; i++) {
 			if(i % 5 == 0) tiles[i] = Tile.DIRT_ID; 
 			else if(i % 7 == 0) tiles[i] = Tile.BRICK_ID; 

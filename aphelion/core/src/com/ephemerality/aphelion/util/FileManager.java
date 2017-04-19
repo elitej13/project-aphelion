@@ -4,13 +4,12 @@ import java.io.IOException;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
-import com.ephemerality.aphelion.spawn.world.Level;
 
 public class FileManager {
 	
 //	public static final String mapPath = "maps/";
 	
-	public static void writeLevelToFile(String location, byte[] data) {
+	public static void writeToFile(String location, byte[] data) {
 		try {
 			FileHandle handle = Gdx.files.absolute(location);
 			handle.file().createNewFile();
@@ -19,12 +18,10 @@ public class FileManager {
 			e.printStackTrace();
 		}
 	}
-	public static Level readLevelFromFile(String location) {
+	public static byte[] readFromFile(String location) {
 		FileHandle handle = Gdx.files.absolute(location);
-		System.out.println(handle.file().getAbsolutePath());;
 		byte[] data = handle.readBytes();
-		return new Level(data);
+		return data;
 	}
-	
 	
 }

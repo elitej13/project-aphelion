@@ -1,8 +1,6 @@
 package com.ephemerality.aphelion.editor.framework.ui;
 
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.ephemerality.aphelion.graphics.SpriteSheet;
@@ -74,13 +72,12 @@ public class TileScreen extends VisWindow{
 		int xx = (int) (x / MapManager.tileSize);
 		int yy = (int) (y / MapManager.tileSize);
 		
-		for(Cell<Image> cell : table.getCells()) {
+		
+		for(Cell<?> cell : table.getCells()) {
 			if(xx == cell.getActorX() / MapManager.tileSize && yy == cell.getActorY() / MapManager.tileSize) {
 				cell.setActor(SpriteSheet.fetchImageFromTileID(tileID));
 			}
 		}
-		
-			
 		map.editTile(xx, yy, tileID);
 	}
 

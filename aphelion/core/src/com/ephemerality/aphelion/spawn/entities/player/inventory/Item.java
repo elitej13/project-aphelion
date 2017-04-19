@@ -1,5 +1,6 @@
 package com.ephemerality.aphelion.spawn.entities.player.inventory;
 
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.ephemerality.aphelion.graphics.ScreenManager;
 import com.ephemerality.aphelion.graphics.SpriteSheet;
 

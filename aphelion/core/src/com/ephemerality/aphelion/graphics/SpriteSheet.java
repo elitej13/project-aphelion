@@ -47,6 +47,7 @@ public class SpriteSheet {
 		}else if(ID == Tile.WOOD_ID) {
 			return default_wood_0;
 		}
+		return default_void_0;
 	}
 	
 	public static Image fetchImageFromTileID(short ID) {
