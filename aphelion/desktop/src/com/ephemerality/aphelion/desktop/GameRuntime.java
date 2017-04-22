@@ -10,7 +10,7 @@ public class GameRuntime {
 		config.title = "Aphelion";
 		config.backgroundFPS = 0;
 		config.width = 1000;
-		config.height = 500;
+		config.height = 800;
 		new LwjglApplication(new Master(), config);
 	}
 }

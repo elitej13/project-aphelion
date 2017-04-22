@@ -14,13 +14,12 @@ import com.ephemerality.aphelion.graphics.ScreenManager;
 
 public class MobPuppet extends Puppet{
 
-	Player player;
+	Player doll;
 	Drawer<Sprite> drawer;
 	ShapeRenderer renderer;
 	
 	public MobPuppet(ScreenManager screen, int w, int h) {
 		super(w, h);
-
 		FileHandle handle = Gdx.files.internal("monster/basic_002.scml");
 		Data data = new SCMLReader(handle.read()).getData();
 		LibGdxLoader loader = new LibGdxLoader(data);
@@ -29,19 +28,19 @@ public class MobPuppet extends Puppet{
 		loader.load(handle.file());
 		drawer = new LibGdxDrawer(loader, screen.getSpriteBatch(), renderer);
 		
-		player = new Player(data.getEntity(0));
-		player.setScale(0.35f);
+		doll = new Player(data.getEntity(0));
+		doll.setScale(0.35f);
 	}
 	
 	
 	public void setAnimation(String anim) {
-		player.setAnimation(anim);
+		doll.setAnimation(anim);
 	}
 	public void flipX() {
-		player.flipX();
+		doll.flipX();
 	}
 	public boolean flippedX() {
-		if(player.flippedX() == 1)
+		if(doll.flippedX() == 1)
 			return false;
 		return true;
 	}
@@ -49,16 +48,16 @@ public class MobPuppet extends Puppet{
 	
 	@Override
 	public void update() {
-		player.update();
+		doll.update();
 	}
 	
 	public void setPosition(float x, float y) {
-		player.setPosition(x, y);
+		doll.setPosition(x, y);
 	}
 	
 	
 	public void render(ScreenManager screen) {
-		drawer.draw(player);
+		drawer.draw(doll);
 	}
 
 }

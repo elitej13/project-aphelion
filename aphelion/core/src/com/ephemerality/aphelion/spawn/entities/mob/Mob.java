@@ -24,8 +24,31 @@ public class Mob extends Entity{
 	@Override
 	public void update() {
 		puppet.update();
+		behavior();
+		updateAnim();
 	}
-	
+	public void behavior() {
+		
+	}
+	public void updateAnim() {
+		MobPuppet mp = (MobPuppet) puppet;
+		if(movingChangedThisFrame) {
+			if(moving) {
+				mp.setAnimation("run");				
+			}else {
+				mp.setAnimation("idle");
+			}
+		}
+		if(moving) {
+			if(dir == Direction.EAST && mp.flippedX())
+				mp.flipX();
+			if(dir == Direction.WEST && !mp.flippedX())
+				mp.flipX();
+			
+		}
+		mp.setPosition(body.x + 64, body.y + 64);
+		mp.update();
+	}
 	/**
 	 * @return True if moving was successful.
 	 */
@@ -59,8 +82,7 @@ public class Mob extends Entity{
 		}else if(dir == Direction.EAST){
 			body.setPosition(body.x + 1, body.y);
 		}else {
-			System.out.println("Unhandeled direction, assuming EAST");
-			body.setPosition(body.x + 1, body.y);
+			System.out.println("Unhandeled direction");
 		}
 	}
 	public Rectangle projectMove() {
@@ -74,8 +96,7 @@ public class Mob extends Entity{
 		}else if(dir == Direction.EAST) {
 			projected = new Rectangle(body.getX() + 1, body.getY(), body.width, body.height);
 		}else {
-			System.out.println("Unhandeled direction, assuming EAST");
-			projected = new Rectangle(body.getX() + 1, body.getY(), body.width, body.height);
+			System.out.println("Unhandeled direction");
 		}
 //		System.out.println(this + body.toString());
 		return projected;
@@ -92,6 +113,7 @@ public class Mob extends Entity{
 	
 	@Override
 	public void render(ScreenManager screen) {
+		super.render(screen);
 		if(renderable) {
 			if(puppet != null) {
 				puppet.render(screen);

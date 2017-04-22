@@ -36,16 +36,16 @@ public class QuadTree {
 	}
 //	TODO : fine tune this time of the offset
 	public void update() {
-		if(timer < 0.5f) {
-			timer += Gdx.graphics.getDeltaTime();
-		}else {
-			timer = 0;
+//		if(timer < 0.5f) {
+//			timer += Gdx.graphics.getDeltaTime();
+//		}else {
+//			timer = 0;
 			sortEntities();
 //			SW.printAll();
 //			NW.printAll();
 //			SE.printAll();
 //			NE.printAll();
-		}
+//		}
 	}
 	
 	private void sortEntities() {

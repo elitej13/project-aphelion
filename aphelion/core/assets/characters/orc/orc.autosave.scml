@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spriter_data scml_version="1.0" generator="BrashMonkey Spriter" generator_version="r11">
+    <folder id="0">
+        <file id="0" name="orc_0007_foot2.png" width="82" height="58" pivot_x="0" pivot_y="1"/>
+        <file id="1" name="orc_0006_foot1.png" width="99" height="62" pivot_x="0" pivot_y="1"/>
+        <file id="2" name="orc_0005_hand2.png" width="96" height="204" pivot_x="0" pivot_y="1"/>
+        <file id="3" name="orc_0004_body.png" width="178" height="290" pivot_x="0" pivot_y="1"/>
+        <file id="4" name="orc_0002_thing_!.png" width="69" height="146" pivot_x="0" pivot_y="1"/>
+        <file id="5" name="orc_0001_head.png" width="109" height="126" pivot_x="0" pivot_y="1"/>
+        <file id="6" name="orc_0000_eyes.png" width="71" height="33" pivot_x="0" pivot_y="1"/>
+        <file id="7" name="orc_0003_hand1.png" width="86" height="85" pivot_x="0" pivot_y="1"/>
+        <file id="8" name="orc_0001_head_angry.png" width="109" height="126" pivot_x="0" pivot_y="1"/>
+    </folder>
+    <entity id="0" name="entity_000">
+        <obj_info name="entity_000_object_000" realname="object_000" type="sprite">
+            <frames>
+                <i folder="0" file="1"/>
+            </frames>
+        </obj_info>
+        <obj_info name="entity_000_object_001" realname="object_001" type="sprite">
+            <frames>
+                <i folder="0" file="3"/>
+            </frames>
+        </obj_info>
+        <obj_info name="entity_000_object_002" realname="object_002" type="sprite">
+            <frames>
+                <i folder="0" file="0"/>
+            </frames>
+        </obj_info>
+        <obj_info name="entity_000_object_003" realname="object_003" type="sprite">
+            <frames>
+                <i folder="0" file="4"/>
+            </frames>
+        </obj_info>
+        <obj_info name="entity_000_object_004" realname="object_004" type="sprite">
+            <frames>
+                <i folder="0" file="5"/>
+            </frames>
+        </obj_info>
+        <obj_info name="entity_000_object_005" realname="object_005" type="sprite">
+            <frames>
+                <i folder="0" file="6"/>
+            </frames>
+        </obj_info>
+        <obj_info name="entity_000_object_006" realname="object_006" type="sprite">
+            <frames>
+                <i folder="0" file="2"/>
+            </frames>
+        </obj_info>
+        <obj_info name="entity_000_object_007" realname="object_007" type="sprite">
+            <frames>
+                <i folder="0" file="7"/>
+            </frames>
+        </obj_info>
+        <obj_info name="entity_000_object_008" realname="object_008" type="sprite">
+            <frames>
+                <i folder="0" file="1"/>
+            </frames>
+        </obj_info>
+        <obj_info name="entity_000_object_009" realname="object_009" type="sprite">
+            <frames>
+                <i folder="0" file="3"/>
+            </frames>
+        </obj_info>
+        <obj_info name="entity_000_object_010" realname="object_010" type="sprite">
+            <frames>
+                <i folder="0" file="0"/>
+            </frames>
+        </obj_info>
+        <obj_info name="entity_000_object_011" realname="object_011" type="sprite">
+            <frames>
+                <i folder="0" file="4"/>
+            </frames>
+        </obj_info>
+        <obj_info name="entity_000_object_012" realname="object_012" type="sprite">
+            <frames>
+                <i folder="0" file="8"/>
+                <i folder="0" file="5"/>
+            </frames>
+        </obj_info>
+        <obj_info name="entity_000_object_013" realname="object_013" type="sprite">
+            <frames>
+                <i folder="0" file="1"/>
+            </frames>
+        </obj_info>
+        <obj_info name="entity_000_object_014" realname="object_014" type="sprite">
+            <frames>
+                <i folder="0" file="2"/>
+            </frames>
+        </obj_info>
+        <obj_info name="entity_000_object_015" realname="object_015" type="sprite">
+            <frames>
+                <i folder="0" file="7"/>
+            </frames>
+        </obj_info>
+        <obj_info name="entity_000_bone_000" realname="bone_000" type="bone" w="200" h="10"/>
+        <obj_info name="entity_000_object_016" realname="object_016" type="sprite">
+            <frames>
+                <i folder="0" file="3"/>
+            </frames>
+        </obj_info>
+        <obj_info name="entity_000_object_017" realname="object_017" type="sprite">
+            <frames>
+                <i folder="0" file="0"/>
+            </frames>
+        </obj_info>
+        <obj_info name="entity_000_object_018" realname="object_018" type="sprite">
+            <frames>
+                <i folder="0" file="4"/>
+            </frames>
+        </obj_info>
+        <obj_info name="entity_000_object_019" realname="object_019" type="sprite">
+            <frames>
+                <i folder="0" file="5"/>
+            </frames>
+        </obj_info>
+        <obj_info name="entity_000_object_020" realname="object_020" type="sprite">
+            <frames>
+                <i folder="0" file="6"/>
+            </frames>
+        </obj_info>
+        <obj_info name="entity_000_object_021" realname="object_021" type="sprite">
+            <frames>
+                <i folder="0" file="2"/>
+            </frames>
+        </obj_info>
+        <obj_info name="entity_000_object_022" realname="object_022" type="sprite">
+            <frames>
+                <i folder="0" file="7"/>
+            </frames>
+        </obj_info>
+        <obj_info name="entity_000_object_023" realname="object_023" type="sprite">
+            <frames>
+                <i folder="0" file="1"/>
+            </frames>
+        </obj_info>
+        <obj_info name="entity_000_object_024" realname="object_024" type="sprite">
+            <frames>
+                <i folder="0" file="3"/>
+            </frames>
+        </obj_info>
+        <obj_info name="entity_000_object_025" realname="object_025" type="sprite">
+            <frames>
+                <i folder="0" file="0"/>
+            </frames>
+        </obj_info>
+        <obj_info name="entity_000_object_026" realname="object_026" type="sprite">
+            <frames>
+                <i folder="0" file="4"/>
+            </frames>
+        </obj_info>
+        <obj_info name="entity_000_object_027" realname="object_027" type="sprite">
+            <frames>
+                <i folder="0" file="5"/>
+            </frames>
+        </obj_info>
+        <obj_info name="entity_000_object_029" realname="object_029" type="sprite">
+            <frames>
+                <i folder="0" file="2"/>
+            </frames>
+        </obj_info>
+        <obj_info name="entity_000_object_030" realname="object_030" type="sprite">
+            <frames>
+                <i folder="0" file="7"/>
+            </frames>
+        </obj_info>
+        <animation id="0" name="idle" length="1000" interval="100" looping="false">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" name="object_002" folder="0" file="0" abs_x="93.000016" abs_y="-374.00001" abs_angle="0" abs_scale_x="1" abs_scale_y="1" abs_a="1" timeline="2" key="0" z_index="0"/>
+                    <object_ref id="1" name="object_000" folder="0" file="1" abs_x="192.999971" abs_y="-383.00002" abs_angle="0" abs_scale_x="1" abs_scale_y="1" abs_a="1" timeline="0" key="0" z_index="1"/>
+                    <object_ref id="2" name="object_006" folder="0" file="2" abs_x="19.000032" abs_y="-102.000044" abs_angle="0" abs_scale_x="1" abs_scale_y="1" abs_a="1" timeline="6" key="0" z_index="2"/>
+                    <object_ref id="3" name="object_001" folder="0" file="3" abs_x="119.000028" abs_y="-99.00003" abs_angle="0" abs_scale_x="1" abs_scale_y="1" abs_a="1" timeline="1" key="0" z_index="3"/>
+                    <object_ref id="4" name="object_003" folder="0" file="4" abs_x="156.999974" abs_y="-130.000052" abs_angle="0" abs_scale_x="1" abs_scale_y="1" abs_a="1" timeline="3" key="0" z_index="4"/>
+                    <object_ref id="5" name="object_004" folder="0" file="5" abs_x="119.999989" abs_y="-51.000044" abs_angle="0" abs_scale_x="1" abs_scale_y="1" abs_a="1" timeline="4" key="0" z_index="5"/>
+                    <object_ref id="6" name="object_005" folder="0" file="6" abs_x="132" abs_y="-97" abs_angle="0" abs_scale_x="1" abs_scale_y="1" abs_a="1" timeline="5" key="0" z_index="6"/>
+                    <object_ref id="7" name="object_007" folder="0" file="7" abs_x="263" abs_y="-254.999965" abs_angle="0" abs_scale_x="1" abs_scale_y="1" abs_a="1" timeline="7" key="0" z_index="7"/>
+                </key>
+                <key id="1" time="280">
+                    <object_ref id="0" timeline="2" key="1" z_index="0"/>
+                    <object_ref id="1" timeline="0" key="1" z_index="1"/>
+                    <object_ref id="2" timeline="6" key="1" z_index="2"/>
+                    <object_ref id="3" timeline="1" key="1" z_index="3"/>
+                    <object_ref id="4" timeline="3" key="1" z_index="4"/>
+                    <object_ref id="5" timeline="4" key="1" z_index="5"/>
+                    <object_ref id="6" timeline="5" key="1" z_index="6"/>
+                    <object_ref id="7" timeline="7" key="1" z_index="7"/>
+                </key>
+                <key id="2" time="320">
+                    <object_ref id="0" timeline="2" key="2" z_index="0"/>
+                    <object_ref id="1" timeline="0" key="2" z_index="1"/>
+                    <object_ref id="2" timeline="6" key="2" z_index="2"/>
+                    <object_ref id="3" timeline="1" key="2" z_index="3"/>
+                    <object_ref id="4" timeline="3" key="2" z_index="4"/>
+                    <object_ref id="5" timeline="4" key="2" z_index="5"/>
+                    <object_ref id="6" timeline="5" key="2" z_index="6"/>
+                    <object_ref id="7" timeline="7" key="2" z_index="7"/>
+                </key>
+                <key id="3" time="560">
+                    <object_ref id="0" timeline="2" key="3" z_index="0"/>
+                    <object_ref id="1" timeline="0" key="3" z_index="1"/>
+                    <object_ref id="2" timeline="6" key="3" z_index="2"/>
+                    <object_ref id="3" timeline="1" key="3" z_index="3"/>
+                    <object_ref id="4" timeline="3" key="3" z_index="4"/>
+                    <object_ref id="5" timeline="4" key="3" z_index="5"/>
+                    <object_ref id="6" timeline="5" key="3" z_index="6"/>
+                    <object_ref id="7" timeline="7" key="3" z_index="7"/>
+                </key>
+                <key id="4" time="601">
+                    <object_ref id="0" timeline="2" key="4" z_index="0"/>
+                    <object_ref id="1" timeline="0" key="4" z_index="1"/>
+                    <object_ref id="2" timeline="6" key="4" z_index="2"/>
+                    <object_ref id="3" timeline="1" key="4" z_index="3"/>
+                    <object_ref id="4" timeline="3" key="4" z_index="4"/>
+                    <object_ref id="5" timeline="4" key="4" z_index="5"/>
+                    <object_ref id="6" timeline="5" key="4" z_index="6"/>
+                    <object_ref id="7" timeline="7" key="4" z_index="7"/>
+                </key>
+                <key id="5" time="1000">
+                    <object_ref id="0" timeline="2" key="5" z_index="0"/>
+                    <object_ref id="1" timeline="0" key="5" z_index="1"/>
+                    <object_ref id="2" timeline="6" key="5" z_index="2"/>
+                    <object_ref id="3" timeline="1" key="5" z_index="3"/>
+                    <object_ref id="4" timeline="3" key="5" z_index="4"/>
+                    <object_ref id="5" timeline="4" key="5" z_index="5"/>
+                    <object_ref id="6" timeline="5" key="5" z_index="6"/>
+                    <object_ref id="7" timeline="7" key="5" z_index="7"/>
+                </key>
+            </mainline>
+            <timeline id="0" obj="0" name="object_000">
+                <key id="0" spin="0">
+                    <object folder="0" file="1" x="263" y="-393" pivot_x="0.707071" pivot_y="0.83871" angle="0"/>
+                </key>
+                <key id="1" time="280" spin="0">
+                    <object folder="0" file="1" x="263" y="-393" pivot_x="0.707071" pivot_y="0.83871" angle="0"/>
+                </key>
+                <key id="2" time="320" spin="0">
+                    <object folder="0" file="1" x="263" y="-393" pivot_x="0.707071" pivot_y="0.83871" angle="0"/>
+                </key>
+                <key id="3" time="560" spin="0">
+                    <object folder="0" file="1" x="263" y="-393" pivot_x="0.707071" pivot_y="0.83871" angle="0"/>
+                </key>
+                <key id="4" time="601" spin="0">
+                    <object folder="0" file="1" x="263" y="-393" pivot_x="0.707071" pivot_y="0.83871" angle="0"/>
+                </key>
+                <key id="5" time="1000" spin="0">
+                    <object folder="0" file="1" x="263" y="-393" pivot_x="0.707071" pivot_y="0.83871" angle="0"/>
+                </key>
+            </timeline>
+            <timeline id="1" obj="1" name="object_001">
+                <key id="0" spin="-1">
+                    <object folder="0" file="3" x="201" y="-306" pivot_x="0.460674" pivot_y="0.286207" angle="0"/>
+                </key>
+                <key id="1" time="280" spin="0">
+                    <object folder="0" file="3" x="202.370048" y="-289.214367" pivot_x="0.460674" pivot_y="0.286207" angle="357.10873"/>
+                </key>
+                <key id="2" time="320">
+                    <object folder="0" file="3" x="202.370048" y="-288.214367" pivot_x="0.460674" pivot_y="0.286207" angle="357.10873"/>
+                </key>
+                <key id="3" time="560" spin="0">
+                    <object folder="0" file="3" x="191.388928" y="-293.838142" pivot_x="0.460674" pivot_y="0.286207" angle="0.765794"/>
+                </key>
+                <key id="4" time="601" spin="-1">
+                    <object folder="0" file="3" x="191.388928" y="-294.838142" pivot_x="0.460674" pivot_y="0.286207" angle="0.765794"/>
+                </key>
+                <key id="5" time="1000" spin="0">
+                    <object folder="0" file="3" x="201" y="-306" pivot_x="0.460674" pivot_y="0.286207" angle="0"/>
+                </key>
+            </timeline>
+            <timeline id="2" obj="2" name="object_002">
+                <key id="0" spin="0">
+                    <object folder="0" file="0" x="152" y="-385" pivot_x="0.719512" pivot_y="0.810345" angle="0"/>
+                </key>
+                <key id="1" time="280" spin="0">
+                    <object folder="0" file="0" x="152" y="-385" pivot_x="0.719512" pivot_y="0.810345" angle="0"/>
+                </key>
+                <key id="2" time="320" spin="0">
+                    <object folder="0" file="0" x="152" y="-385" pivot_x="0.719512" pivot_y="0.810345" angle="0"/>
+                </key>
+                <key id="3" time="560" spin="0">
+                    <object folder="0" file="0" x="152" y="-385" pivot_x="0.719512" pivot_y="0.810345" angle="0"/>
+                </key>
+                <key id="4" time="601" spin="0">
+                    <object folder="0" file="0" x="152" y="-385" pivot_x="0.719512" pivot_y="0.810345" angle="0"/>
+                </key>
+                <key id="5" time="1000" spin="0">
+                    <object folder="0" file="0" x="152" y="-385" pivot_x="0.719512" pivot_y="0.810345" angle="0"/>
+                </key>
+            </timeline>
+            <timeline id="3" obj="3" name="object_003">
+                <key id="0" spin="-1">
+                    <object folder="0" file="4" x="191" y="-147" pivot_x="0.492754" pivot_y="0.883562" angle="0"/>
+                </key>
+                <key id="1" time="280">
+                    <object folder="0" file="4" x="200.402858" y="-129.912358" pivot_x="0.492754" pivot_y="0.883562" angle="355.63872"/>
+                </key>
+                <key id="2" time="320">
+                    <object

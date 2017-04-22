@@ -47,6 +47,7 @@ public class EntityManager {
 	
 	public void update() {
 		player.update();
+		dummy.update();
 		quad.update();
 		Collections.sort(entities);
 	}
@@ -60,10 +61,9 @@ public class EntityManager {
 	
 	public void render(ScreenManager screen) {
 		for(Entity e : entities) e.render(screen);
-		
-		
 //		DEBUGGINB purposes	//
-//		quad.render(screen);
+		quad.render(screen);
+		
 	}
 	
 	public Player getPlayer() {

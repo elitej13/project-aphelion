@@ -20,7 +20,7 @@ public class MapManager {
 	public Vector2 offset;
 	
 	public MapManager() {
-		level = new Level(12, 12);
+		level = new Level(24, 24);
 		mapPixelSize = new Vector2(level.WIDTH * MapManager.tileSize, level.HEIGHT * MapManager.tileSize);
 		offset = new Vector2(0, 0);
 	}

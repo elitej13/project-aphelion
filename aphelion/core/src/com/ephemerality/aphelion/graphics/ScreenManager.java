@@ -29,8 +29,18 @@ public class ScreenManager {
 	
 	public void resize() {
 		oc.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		oc.viewportHeight = Gdx.graphics.getWidth();
+		oc.viewportWidth = Gdx.graphics.getHeight();
 		bounds.setWidth(Gdx.graphics.getWidth());
 		bounds.setHeight(Gdx.graphics.getHeight());
+		update();
+	}
+	public void resize(int width, int height) {
+		oc.viewportHeight = height;
+		oc.viewportWidth = width;
+		oc.setToOrtho(false, width, height);
+		bounds.setWidth(width);
+		bounds.setHeight(height);
 		update();
 	}
 	public void setPosition(float x, float y) {
@@ -95,6 +105,10 @@ public class ScreenManager {
 	}
 	public void renderFixed(TextureRegion texture, Rectangle body) {
 		sb.draw(texture, bounds.x + body.x, bounds.y + body.y, body.width, body.height);
+	}
+	public void renderFixed(Texture texture, float x, float y, float scale) {
+//		TODO: verify this draw call as accurate
+		sb.draw(texture, x, y, texture.getWidth() * scale, texture.getHeight() * scale);
 	}
 	public void renderFixed(TextureRegion texture, float x, float y, float scale) {
 //		TODO: verify this draw call as accurate

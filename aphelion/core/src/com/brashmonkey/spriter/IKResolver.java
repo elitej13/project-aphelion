@@ -56,7 +56,7 @@ public abstract class IKResolver {
 	
 	/**
 	 * Resolves the inverse kinematics constraints with the implemented algorithm in {@link #resolve(float, float, int, SpriterAbstractObject, SpriterAbstractPlayer)}.
-	 * @param player player to apply the resolving.
+	 * @param doll player to apply the resolving.
 	 */
 	public void resolve(){
 		for(Entry<IKObject, BoneRef> entry: this.ikMap.entrySet()){

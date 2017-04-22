@@ -2,6 +2,7 @@ package com.ephemerality.aphelion.framework;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.ephemerality.aphelion.graphics.LoadManager;
 import com.ephemerality.aphelion.graphics.ScreenManager;
 import com.ephemerality.aphelion.input.InputManager;
 import com.ephemerality.aphelion.util.debug.Debug;
@@ -11,17 +12,18 @@ public class Master extends ApplicationAdapter {
 	
 	//-1 Exiting, 0 Main menu, 1 Game
 	
-	static int state = 1;
+	static int state = 0;
 	ScreenManager screen;
+	LoadManager loader;
 	GameManager game;
 	MenuManager main;	
 	
 	@Override
 	public void create () {
-//		super.create();
 		InputManager.init();
 		Debug.init();
 		screen = new ScreenManager();
+		loader = new LoadManager();
 		main = new MenuManager();
 		game = new GameManager(screen);
 	}
@@ -33,8 +35,10 @@ public class Master extends ApplicationAdapter {
 		if(Master.state == -1) {
 			Gdx.app.exit();
 		}else if(Master.state == 0) {
-			main.update();
+			loader.update();
 		}else if(Master.state == 1) {
+			main.update();
+		}else if(Master.state == 2) {
 			game.update();
 		}
 		screen.update();
@@ -50,15 +54,15 @@ public class Master extends ApplicationAdapter {
 	
 	
 	
-//	Start of Experimental	//
 	@Override
 	public void resize(int width, int height) {
-		super.resize(width, height);
-		screen.resize();
+		screen.resize(width, height);
 	}
-//	End of Experimental	//
 	
-	
+	@Override
+	public void resume() {
+		
+	}
 	
 	@Override
 	public void render () {
@@ -66,8 +70,10 @@ public class Master extends ApplicationAdapter {
 		update();		
 		screen.start();
 		if(state == 0) {
-			main.render(screen);
+			loader.render(screen);
 		}else if(state == 1) {
+			main.render(screen);
+		}else if(state == 2) {
 			game.render(screen);
 		}
 		Debug.render(screen.getSpriteBatch(), screen.getBounds().x, screen.getBounds().y);
@@ -80,6 +86,7 @@ public class Master extends ApplicationAdapter {
 	public void dispose () {
 		
 //		game.dispose(); //do stuff in place of this: save, close assets, etc..
+		loader.dispose();
 		main.dispose();
 		screen.dispose();
 	}
