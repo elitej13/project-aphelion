@@ -20,20 +20,21 @@ public class MapManager {
 	public Vector2 offset;
 	
 	public MapManager() {
-		level = new Level(24, 24);
+		level = new Level(FileManager.readFromFile("maps/test.bin", false));
+//		level = new Level(12,12);
 		mapPixelSize = new Vector2(level.WIDTH * MapManager.tileSize, level.HEIGHT * MapManager.tileSize);
 		offset = new Vector2(0, 0);
 	}
 	
-	public void load(String location) {
+	public void load(String location, boolean absolutepath) {
 		bufferedLevel = level;
-		level = new Level(FileManager.readFromFile(location));
+		level = new Level(FileManager.readFromFile(location, absolutepath));
 		mapPixelSize = new Vector2(level.WIDTH * MapManager.tileSize, level.HEIGHT * MapManager.tileSize);
 		offset = new Vector2(0, 0);
 		recentlyReloaded = true;
 	}
-	public void save(String location) {
-		FileManager.writeToFile(location, level.toByteArray());
+	public void save(String location, boolean absolutepath) {
+		FileManager.writeToFile(location, level.toByteArray(), absolutepath);
 	}
 	public void editTile(int x, int y, short tileID) {
 		level.editTile((int)((offset.x / MapManager.tileSize) + x), (int)((offset.y / MapManager.tileSize) + y), tileID);
@@ -56,6 +57,7 @@ public class MapManager {
 	public Rectangle[] getSurroundingTiles(Vector2 vector) {
 		int x = (int)vector.x >> 6;
 		int y = (int)vector.y >> 6;
+		System.out.println(x + ", " + y);
 		Rectangle[] tiles = new Rectangle[9];
 		int w = level.WIDTH;
 		int h = level.HEIGHT;

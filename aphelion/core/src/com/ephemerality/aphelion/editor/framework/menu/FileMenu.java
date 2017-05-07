@@ -53,7 +53,7 @@ public class FileMenu extends ChangeListener {
 			@Override
 			public void selected (Array<FileHandle> files) {
 				currentFileName = files.get(0).file().getAbsolutePath();
-				map.save(currentFileName);
+				map.save(currentFileName,true);
 			}
 		});
 		
@@ -65,7 +65,7 @@ public class FileMenu extends ChangeListener {
 			@Override
 			public void selected (Array<FileHandle> files) {
 				currentFileName = files.get(0).file().getAbsolutePath();
-				map.load(currentFileName);
+				map.load(currentFileName, true);
 			}
 		});
 		
@@ -90,7 +90,7 @@ public class FileMenu extends ChangeListener {
 			if(currentFileName == null || !currentFileName.contains("/"))
 				actor.getStage().addActor(saver.fadeIn(0f));
 			else {
-				map.save(currentFileName);
+				map.save(currentFileName, true);
 			}
 		}
 		if(actor.equals(load)) {
@@ -111,7 +111,8 @@ public class FileMenu extends ChangeListener {
 					Dialogs.showOptionDialog(actor.getStage(), "Save?", "Would you like to save the current level?", OptionDialogType.YES_NO_CANCEL, new OptionDialogAdapter() {
 						@Override
 						public void yes() {
-							map.save(currentFileName);
+							map.save(currentFileName, true
+									);
 							currentFileName = input;
 							map.createNewLevel(12, 12);
 						}

@@ -23,7 +23,6 @@ public class Mob extends Entity{
 	
 	@Override
 	public void update() {
-		puppet.update();
 		behavior();
 		updateAnim();
 	}

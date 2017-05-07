@@ -28,6 +28,13 @@ public class LoadManager {
 	private BitmapFont font;
 	private int FONT_SIZE = 40;
 	
+	
+	public final String MENU_FRAME = "textures/ui/menu/menuframe.png";
+	
+	
+	
+	
+	
 	public LoadManager() {
 		loadFrames = new ArrayList<Texture>();
 		int frames = 31;
@@ -39,15 +46,12 @@ public class LoadManager {
 		animX = Gdx.graphics.getWidth() / 2 - loadFrames.get(0).getWidth() * animScale / 2;
 		animY = Gdx.graphics.getHeight() / 2 - loadFrames.get(0).getHeight() * animScale / 2;
 		
-		
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/style-7_thin-pixel-7/thin_pixel-7.ttf"));
 		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
 		parameter.size = FONT_SIZE;
 		parameter.color = Color.WHITE;
 		font= generator.generateFont(parameter);
 		generator.dispose();
-		
-		
 		
 		GlyphLayout glyphLayout = new GlyphLayout();
 		String item = "Loading assets 0/12";
@@ -56,25 +60,42 @@ public class LoadManager {
 		textX = Gdx.graphics.getWidth() / 2 - (w) / 2;
 		textY = animY - 10;
 		
-		
 		assets = new AssetManager();
 		Texture.setAssetManager(assets);
 		load();
 		TOTAL_ASSETS = assets.getQueuedAssets();
 	}
 	
+	
+	
+	
 	public void load() {
+//UI Assets
+		
+		//Menu
+		assets.load(MENU_FRAME, Texture.class);
+		
+		
+//Game Assets
+		
+		//Spritesheets
 		assets.load("textures/tilesheet.png", Texture.class);
 		assets.load("textures/entitysheet.png", Texture.class);
 		assets.load("textures/itemsheet.png", Texture.class);
-		assets.load(null);
 	}
 	
 	
 	
+	
+	
+	public Texture getTexture(String texture) {
+		return assets.get(texture, Texture.class);
+	}
+	
+	
 	public void update() {
 		assets.update();
-		Debug.pushToConsole("Loading assets " + loadedAssets + "/" + TOTAL_ASSETS);
+		Debug.pushToConsole("Loading assets " + loadedAssets + "/" + TOTAL_ASSETS, false);
 		loadedAssets = assets.getLoadedAssets();
 		timer += Gdx.graphics.getDeltaTime();
 		if(timer >= 3/100) {
@@ -84,7 +105,7 @@ public class LoadManager {
 				currentFrame = 0;			
 		}
 		if(assets.getLoadedAssets() == TOTAL_ASSETS) {
-			Debug.pushToConsole("Done loading assets");
+			Debug.pushToConsole("Done loading assets", false);
 			Master.setState(1);
 		}
 	}

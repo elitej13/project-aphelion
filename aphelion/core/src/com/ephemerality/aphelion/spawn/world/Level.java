@@ -16,12 +16,19 @@ public class Level {
 		HEIGHT = height;
 		tiles = new short[width * height];
 		collidable = new Rectangle[WIDTH * HEIGHT];
-		for(short i = 0; i < tiles.length; i++) {
-			if(i % 5 == 0) tiles[i] = Tile.DIRT_ID; 
-			else if(i % 7 == 0) tiles[i] = Tile.BRICK_ID; 
-			else if(i % 9 == 0) tiles[i] = Tile.WOOD_ID; 
-			else tiles[i] = Tile.GRASS_ID;
-		}
+//		for(short i = 0; i < tiles.length; i++) {
+//			if(i % 5 == 0) tiles[i] = Tile.DIRT_ID; 
+//			else if(i % 7 == 0) tiles[i] = Tile.BRICK_ID; 
+//			else if(i % 9 == 0) tiles[i] = Tile.WOOD_ID; 
+//			else tiles[i] = Tile.GRASS_ID;
+//		}
+//		for(int y = 0; y < HEIGHT; y++) {
+//			for(int x = 0; x < WIDTH; x++) {
+//				if(tiles[x + y * WIDTH] < 0) {
+//					collidable[(WIDTH - x - 1) + ((HEIGHT - y - 1) * WIDTH)] = new Rectangle((WIDTH - x - 1) << 6, (WIDTH - y - 1) << 6, MapManager.tileSize, MapManager.tileSize);
+//				}
+//			}	
+//		}
 	}
 	
 	public Level(byte[] data) {
@@ -34,9 +41,10 @@ public class Level {
 			for(int x = 0; x < WIDTH; x++) {
 				short current = buffer.getShort();
 				tiles[x + y * WIDTH] = current;
-				if(current == 255) {
-					collidable[(WIDTH - x - 1) + ((HEIGHT - y - 1) * WIDTH)] = new Rectangle((WIDTH - x - 1) << 6, (WIDTH - y - 1) << 6, MapManager.tileSize, MapManager.tileSize);
-				}
+				if(current < 0) {
+//					collidable[(WIDTH - x - 1) + ((HEIGHT - y - 1) * WIDTH)] = new Rectangle((WIDTH - x - 1) << 6, (WIDTH - y - 1) << 6, MapManager.tileSize, MapManager.tileSize);
+					collidable[x + y * WIDTH] = new Rectangle(x << 6, y << 6, MapManager.tileSize, MapManager.tileSize);
+	}
 			}
 		}
 	}

@@ -37,7 +37,7 @@ public class TileScreen extends VisWindow{
 		table.setSize(map.mapPixelSize.x, map.mapPixelSize.y);
 		for(int y = 0; y < map.level.HEIGHT; y++) {
 			for(int x = 0; x < map.level.WIDTH; x++) {
-				table.add(SpriteSheet.fetchImageFromTileID(map.level.tiles[x + y * map.level.WIDTH]));				
+				table.add(SpriteSheet.fetchImageFromTileID(map.level.tiles[x + (map.level.WIDTH - y - 1) * map.level.WIDTH]));				
 			}
 			table.row();
 		}

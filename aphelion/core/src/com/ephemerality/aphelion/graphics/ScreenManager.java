@@ -1,6 +1,7 @@
 package com.ephemerality.aphelion.graphics;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -17,6 +18,7 @@ public class ScreenManager {
 	ShapeRenderer sr;
 	OrthographicCamera oc;
 	Rectangle bounds;
+	public static Color color;
 	
 	
 	public ScreenManager() {
@@ -25,6 +27,7 @@ public class ScreenManager {
 		oc = new OrthographicCamera();
 		bounds = new Rectangle();
 		resize();
+		color = new Color(0f, 0f, 0f, 1f);
 	}
 	
 	public void resize() {
@@ -52,7 +55,7 @@ public class ScreenManager {
 	}
 	
 	public void start() {
-		Gdx.gl.glClearColor(0, 0, 0, 1); 
+		Gdx.gl.glClearColor(color.r, color.b, color.g, color.a);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);		
 		sb.enableBlending();
 		sb.begin();

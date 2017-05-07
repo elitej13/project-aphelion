@@ -45,6 +45,9 @@ public class InputManager {
 			return true;
 		}else return false;
 	}
+	
+	
+	
 //	public static Notification checkForMenuUpdate() {
 //		if(Gdx.input.isKeyPressed(Input.Keys.W) | Gdx.input.isKeyPressed(Input.Keys.UP))
 //			return Notification.UP;

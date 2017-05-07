@@ -35,6 +35,8 @@ public class SpriteSheet {
 	public static TextureRegion rectangle = new TextureRegion(SpriteSheet.tilesheet, 576, 0, 64, 64);
 	public static TextureRegion default_void_0 = new TextureRegion(new Texture(new Pixmap(64, 64, Format.RGB565)));
 	
+	
+	
 	public static TextureRegion fetchTextureRegionFromTileID(short ID) {
 		if(ID == Tile.VOID_ID) {
 			return default_void_0;
