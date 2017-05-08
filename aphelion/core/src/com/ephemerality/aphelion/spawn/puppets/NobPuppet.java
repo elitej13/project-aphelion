@@ -1,6 +1,7 @@
 package com.ephemerality.aphelion.spawn.puppets;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.ephemerality.aphelion.graphics.LoadManager;
 import com.ephemerality.aphelion.graphics.ScreenManager;
 
 public class NobPuppet extends Puppet {
@@ -10,6 +11,10 @@ public class NobPuppet extends Puppet {
 	public NobPuppet(int width, int height, TextureRegion sprite) {
 		super(width, height);
 		this.texture = sprite;
+	}
+	@Override
+	public void init(LoadManager assets) {
+		
 	}
 
 	@Override
@@ -29,6 +34,7 @@ public class NobPuppet extends Puppet {
 	public void setPosition(float x, float y) {
 		
 	}
+
 	
 	
 	

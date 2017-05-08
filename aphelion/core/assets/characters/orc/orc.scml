@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <spriter_data scml_version="1.0" generator="BrashMonkey Spriter" generator_version="b2">
-    <folder id="0">
+    <folder id="0" name = "orc">
         <file id="0" name="orc_0007_foot2.png" width="82" height="58"/>
         <file id="1" name="orc_0006_foot1.png" width="99" height="62"/>
         <file id="2" name="orc_0005_hand2.png" width="96" height="204"/>

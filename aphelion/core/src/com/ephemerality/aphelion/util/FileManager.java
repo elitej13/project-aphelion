@@ -28,4 +28,16 @@ public class FileManager {
 		return data;
 	}
 	
+	
+	public static void writeToFile(String location, String data, boolean absolutepath, boolean append) {
+		try {
+			FileHandle handle;
+			if(absolutepath) handle = Gdx.files.absolute(location);
+			else handle = Gdx.files.local(location);
+			handle.file().createNewFile();
+			handle.writeString(data, append);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }

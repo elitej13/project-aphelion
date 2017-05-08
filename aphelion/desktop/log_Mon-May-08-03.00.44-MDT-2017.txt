@@ -1,0 +1,32 @@
+Full Log Report
+=========================================================================================================
+00:00:00 | Loading assets 0/5
+00:00:01 | Loading assets 0/5
+00:00:03 | Loading assets 1/5
+00:00:05 | Loading assets 1/5
+00:00:06 | Loading assets 1/5
+00:00:08 | Loading assets 1/5
+00:00:10 | Loading assets 1/5
+00:00:18 | Loading assets 2/5
+00:00:18 | Loading assets 2/5
+00:00:19 | Loading assets 2/5
+00:00:21 | Loading assets 3/5
+00:00:23 | Loading assets 3/5
+00:00:24 | Loading assets 4/5
+00:00:26 | Loading assets 4/5
+00:00:26 | Done loading assets
+00:00:30 | Setting bakcground to 0.6 0.6 0.6  1.0
+00:01:45 | Setting bakcground to 0.0 0.0 0.0  1.0
+01:14:21 | Console Error: unrecognized command, try "help"
+01:15:18 | Console Error: unrecognized command, try "help"
+For a list of all setable variables try "set help"
+"set" followed by background or other such variables.
+01:32:44 | Here are a list of all valid commands
+01:49:83 | Setting bakcground to 1.0 0.5 0.5  1.0
+01:59:09 | Setting level to maps/hut.bin
+set level string (level name store in maps folder)
+set background float float float
+03:39:55 | Current set commands:
+03:52:93 | Setting level to maps/testlevel.bin
+04:07:68 | Setting level to maps/testlevel.bin
+04:14:07 | Setting level to maps/hut.bin

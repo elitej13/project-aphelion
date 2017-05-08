@@ -3,7 +3,7 @@ package com.ephemerality.aphelion.input;
 public class InputManager {
 	
 	public static boolean up, down, left, right;
-	public static boolean hasPaused, hasInteracted, goingBack, isSelected, debug;
+	public static boolean hasPaused, hasInteracted, goingBack, isSelected, debug, console;
 //	private static Gamepad pad;
 //	private static ApplicationType Type;
 	
@@ -28,20 +28,26 @@ public class InputManager {
 	}
 	
 	public static boolean checkForPause() {
-		if(InputManager.hasPaused == true) {
-			InputManager.hasPaused = false;
+		if(hasPaused == true) {
+			hasPaused = false;
 			return true;
 		}else return false;
 	}
 	public static boolean checkForInteract() {
-		if(InputManager.hasInteracted == true) {
-			InputManager.hasInteracted = false;
+		if(hasInteracted == true) {
+			hasInteracted = false;
 			return true;
 		}else return false;
 	}
 	public static boolean checkForDebugKey() {
-		if(InputManager.debug == true) {
-			InputManager.debug = false;
+		if(debug == true) {
+			debug = false;
+			return true;
+		}else return false;
+	}
+	public static boolean checkForConsoleKey() {
+		if(console == true) {
+			console = false;
 			return true;
 		}else return false;
 	}

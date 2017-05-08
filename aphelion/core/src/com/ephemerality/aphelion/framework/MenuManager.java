@@ -64,7 +64,7 @@ public class MenuManager {
 				setFontColors();
 			}			
 		}
-		if(enter && !Debug.active) {
+		if(enter && !Debug.infoIsActive) {
 			if(state == states.main) {
 				if(selection == 0) {
 					//Start
@@ -80,7 +80,7 @@ public class MenuManager {
 			else if(state == states.start) {	
 				if(selection == 0) {
 					//New
-					Master.setState(2);
+					startGame();
 				}else if(selection == 1) {
 					//Load
 					setState(states.load);
@@ -91,11 +91,11 @@ public class MenuManager {
 			}
 			else if(state == states.load) {	
 				if(selection == 0) {
-					Master.setState(2);
+					startGame();
 				}else if(selection == 1) {
-					Master.setState(2);
+					startGame();
 				}else if(selection == 2) {
-					Master.setState(2);
+					startGame();
 				}				
 			}
 			else if(state == states.options) {	
@@ -111,6 +111,11 @@ public class MenuManager {
 				}							
 			}
 		}
+	}
+	public void startGame() {
+		Master.setState(2);
+		state = states.main;
+		selection = -1;
 	}
 	public void setState(states state) {
 		if(state == states.main || state == states.start) max_selection = 2;

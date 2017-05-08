@@ -18,7 +18,7 @@ public class ScreenManager {
 	ShapeRenderer sr;
 	OrthographicCamera oc;
 	Rectangle bounds;
-	public static Color color;
+	Color color;
 	
 	
 	public ScreenManager() {
@@ -117,7 +117,9 @@ public class ScreenManager {
 //		TODO: verify this draw call as accurate
 		sb.draw(texture, x, y, texture.getRegionWidth() * scale, texture.getRegionHeight() * scale);
 	}
-	
+	public void setColor(Color color) {
+		this.color = color;
+	}
 	public void dispose() {
 		sb.dispose();
 		sr.dispose();

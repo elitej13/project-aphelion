@@ -1,5 +1,6 @@
 package com.ephemerality.aphelion.util.debug;
 
+import java.util.Date;
 import java.util.LinkedList;
 
 import com.badlogic.gdx.Gdx;
@@ -11,27 +12,35 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
-import com.ephemerality.aphelion.graphics.ScreenManager;
+import com.ephemerality.aphelion.framework.Master;
 import com.ephemerality.aphelion.input.InputManager;
 import com.ephemerality.aphelion.input.Keyboard;
+import com.ephemerality.aphelion.util.FileManager;
 
 public class Debug {
 	
+	public static String divider = "\n" + "=========================================================================================================";
+	public static String full_log = "Full Log Report" + divider; 
+	public static String text = "";
+	public static String log_name;
+	public static boolean infoIsActive;
+	public static boolean logging;
 	
-	private static LinkedList<String> log = new LinkedList<String>();
 	private static LinkedList<String> history = new LinkedList<String>();
+	private static LinkedList<String> log = new LinkedList<String>();
+	private static BitmapFont logger, console;
 	private static Texture textfield;
 	private static Texture cursor;
-	private static BitmapFont logger, console;
-	public static String text = "";
 
-	public static boolean active;
+	private static boolean cursor_active;
+	private static boolean consoleIsActive;
 	private static int FONT_SIZE = 20;
 	private static int cursoroffset;
 	private static int historypointer;
 	private static float systemTime;
 	private static float fontheight;
 	private static float fontwidth;
+	private static float cursor_anim;
 	
 	
 	public static void init() {
@@ -74,15 +83,21 @@ public class Debug {
 		pix.dispose();
 
 		systemTime = 0;
+		
+		Date date = new Date();
+		log_name = "log_" + date.toString().replaceAll(" ", "-").replaceAll(":", ".") + ".txt";
 	}
 	
 	
 	public static void update() {
 		systemTime += Gdx.graphics.getRawDeltaTime();
-		if(!active) {
-			
-		}else {
+		if(consoleIsActive) {
 			String cache = Keyboard.getBuffer();			
+			cursor_anim += Gdx.graphics.getDeltaTime();
+			if(cursor_anim > 0.5f) {
+				cursor_anim = 0;
+				cursor_active = !cursor_active;
+			}
 			if(cache.contains("Enter")) {
 				history.push(text);
 				historypointer = -1;
@@ -127,37 +142,50 @@ public class Debug {
 			}
 		}
 		if(InputManager.checkForDebugKey()) {
-			active = !active;
+			infoIsActive = !infoIsActive;
+		}
+		if(InputManager.checkForConsoleKey()) {
+			consoleIsActive = !consoleIsActive;
+			if(consoleIsActive) {
+				String[] args = {"pause", "true"};
+				Master.pushArgs(args);
+			}else {
+				String[] args = {"pause", "false"};
+				Master.pushArgs(args);
+			}
 		}
 	}
 	
 	
 	public static void render(Batch batch, float xoffset, float yoffset) {
-		if(active) {
-			float fps = Gdx.graphics.getFramesPerSecond();
-			float x = Gdx.graphics.getWidth() - 100 + xoffset;
-			float y = Gdx.graphics.getHeight() - 10 + yoffset;
-			int offset = 1;
-			
+		if(infoIsActive) {
 			//Info Panel
+			float fps = Gdx.graphics.getFramesPerSecond();
+			float x = Gdx.graphics.getWidth() - 250 + xoffset;
+			float y = Gdx.graphics.getHeight() - 10 + yoffset;
+			int offset = 1;			
 			logger.draw(batch, "Debug Info", x , y);
+			logger.draw(batch, "----------------------------------", x, y - fontheight * offset++);
+			logger.draw(batch, "System Time: " + getFormattedTime(systemTime), x, y - fontheight * offset++);
 			logger.draw(batch, "FPS: " + fps, x, y - fontheight * offset++);
 			
+			//Console Log
 			offset = 0;
 			x = 10f + xoffset;
-			//Console Log
 			logger.draw(batch, "Log", x, y - fontheight * offset++);
-			logger.draw(batch, "----------------------------------", 10, y - fontheight * offset++);
+			logger.draw(batch, "----------------------------------", x, y - fontheight * offset++);
 			for(int i = 0; i < log.size(); i++) {
 				logger.draw(batch,log.get(i), x, y - fontheight * offset++);
 			}
 			
+		}
+		if(consoleIsActive) {
 			//Console
-			x = 10f + xoffset;
-			y = 2f + yoffset;
+			float x = 10f + xoffset;
+			float y = 2f + yoffset;
 			batch.draw(textfield, xoffset, yoffset, Gdx.graphics.getWidth(), 20f);
 			console.draw(batch, text, x, y + fontheight);
-			batch.draw(cursor, x + (fontwidth * (text.length() - cursoroffset)), yoffset, 2f, 16f);
+			if(cursor_active) batch.draw(cursor, x + (fontwidth * (text.length() - cursoroffset)), y, 2f, 16f);
 		}else {
 			cursoroffset = 0;
 		}
@@ -177,8 +205,12 @@ public class Debug {
 	
 	
 	public static void pushToConsole(String message, boolean omitTimeStamp) {
-		if(!omitTimeStamp) log.push(getFormattedTime(systemTime) + " | " + message);
-		else log.push(message);
+		if(!omitTimeStamp) log(getFormattedTime(systemTime) + " | " + message);
+		else log(message);
+	}
+	public static void log(String message) {
+		log.push(message);
+		full_log += ("\n" + message);
 		if(log.size() > 10)
 			log.removeLast();
 	}
@@ -200,45 +232,20 @@ public class Debug {
 		return minutes + ":" + seconds + ":" + mSeconds;
 	}
 	
-	public static boolean execute(String[] args) {
+	public static void execute(String[] args) {
 		text = "";
-		try {
-			if(args[0].equalsIgnoreCase("set")) {
-				if(args[1].equalsIgnoreCase("help")) {
-					
-				}else if(args[1].equalsIgnoreCase("background")) {
-					float r = Float.parseFloat(args[2]);
-					float g = Float.parseFloat(args[3]);
-					float b = Float.parseFloat(args[4]);
-					float a = Float.parseFloat(args[5]);
-					ScreenManager.color = new Color(r, g, b, a);
-					
-				}else {
-					pushToConsole(DebugType.Console_Unrecognized_Command.toString(), false);
-				}
-			}
-			
-			else if(args[0].equalsIgnoreCase("help")) {
-				pushToConsole("For a list of all setable variables try \"set help\"", true);
-				pushToConsole("\"set\" followed by background or other such variables.", true);
-				pushToConsole("Here are a list of all valid commands", false);
-				
-			}else {
-				pushToConsole(DebugType.Console_Unrecognized_Command.toString(), false);
-			
-			}
-		}catch(IndexOutOfBoundsException e) {
-			pushToConsole(DebugType.Console_Expecting_Args.toString(), false);
-		}catch(NumberFormatException e) {
-			pushToConsole(DebugType.Console_Expecting_Number.toString(), false);
-		}
-		
-		return true;
+		Master.pushArgs(args);		
 	}
 	
 	public static void dispose() {
 		textfield.dispose();
 		cursor.dispose();
 		logger.dispose();
+	}
+
+
+	public static void startLogging() {
+		logging = true;
+		FileManager.writeToFile(log_name, full_log, false, false);
 	}
 }

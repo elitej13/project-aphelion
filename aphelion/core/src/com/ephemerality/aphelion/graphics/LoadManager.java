@@ -4,13 +4,19 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
+import com.brashmonkey.spriter.Data;
 import com.ephemerality.aphelion.framework.Master;
+import com.ephemerality.aphelion.input.DollInfo;
+import com.ephemerality.aphelion.input.SCMLLoader;
+import com.ephemerality.aphelion.input.SCMLLoader.DollParameter;
+import com.ephemerality.aphelion.spawn.puppets.Doll;
 import com.ephemerality.aphelion.util.debug.Debug;
 
 public class LoadManager {
@@ -29,13 +35,19 @@ public class LoadManager {
 	private int FONT_SIZE = 40;
 	
 	
-	public final String MENU_FRAME = "textures/ui/menu/menuframe.png";
+	public static final String MENU_FRAME = "textures/ui/menu/menuframe.png";
+
+	public static final String MONSTER_SCML = "characters/monster/basic_002.scml";
+	public static final String BRAWLER_SCML = "characters/brawler/brawler.scml";
+	public static final String IMP_SCML = "characters/imp/imp.scml";
+	public static final String MAGE_SCML = "characters/mage/mage.scml";
+	public static final String ORC_SCML = "characters/orc/orc.scml";
 	
 	
 	
 	
 	
-	public LoadManager() {
+	public LoadManager(ScreenManager screen) {
 		loadFrames = new ArrayList<Texture>();
 		int frames = 31;
 		for(int i = 0; i < frames; i++) 
@@ -61,22 +73,33 @@ public class LoadManager {
 		textY = animY - 10;
 		
 		assets = new AssetManager();
+		assets.setLoader(DollInfo.class, new SCMLLoader(new InternalFileHandleResolver()));
 		Texture.setAssetManager(assets);
-		load();
+		load(screen);
 		TOTAL_ASSETS = assets.getQueuedAssets();
 	}
 	
 	
 	
 	
-	public void load() {
-//UI Assets
+	public void load(ScreenManager screen) {
+		//UI Assets
 		
 		//Menu
 		assets.load(MENU_FRAME, Texture.class);
 		
 		
-//Game Assets
+		//Game Assets
+		
+		//Character SCML Data
+		DollParameter param = new DollParameter();
+		param.batch = screen.getSpriteBatch();
+
+		assets.load(MONSTER_SCML, DollInfo.class, param);
+//		assets.load(BRAWLER_SCML, Doll.class, param);
+//		assets.load(IMP_SCML, Doll.class, param);
+//		assets.load(MAGE_SCML, Doll.class, param);
+//		assets.load(ORC_SCML, Doll.class, param);
 		
 		//Spritesheets
 		assets.load("textures/tilesheet.png", Texture.class);
@@ -88,10 +111,12 @@ public class LoadManager {
 	
 	
 	
-	public Texture getTexture(String texture) {
-		return assets.get(texture, Texture.class);
+	public Texture getTexture(String name) {
+		return assets.get(name, Texture.class);
 	}
-	
+	public DollInfo getDollInfo(String name) {
+		return assets.get(name, DollInfo.class);
+	}
 	
 	public void update() {
 		assets.update();

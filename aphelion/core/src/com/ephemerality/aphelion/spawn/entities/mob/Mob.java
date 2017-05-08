@@ -1,6 +1,7 @@
 package com.ephemerality.aphelion.spawn.entities.mob;
 
 import com.badlogic.gdx.math.Rectangle;
+import com.ephemerality.aphelion.graphics.LoadManager;
 import com.ephemerality.aphelion.graphics.ScreenManager;
 import com.ephemerality.aphelion.spawn.entities.Entity;
 import com.ephemerality.aphelion.spawn.puppets.MobPuppet;
@@ -15,12 +16,14 @@ public class Mob extends Entity{
 	protected Puppet puppet;
 	protected Direction dir;
 	
-	public Mob(ScreenManager screen, float x, float y, int w, int h, short ID) {
+	public Mob(float x, float y, int w, int h, short ID) {
 		super(x, y, w, h, true, ID);
-		puppet = new MobPuppet(screen, w, h);
-		puppet.setPosition(x, y);
 	}
-	
+	public void init(LoadManager assets) {
+		puppet = new MobPuppet(body.width, body.height);
+		puppet.init(assets);
+		puppet.setPosition(body.y, body.x);
+	}
 	@Override
 	public void update() {
 		behavior();
@@ -33,16 +36,16 @@ public class Mob extends Entity{
 		MobPuppet mp = (MobPuppet) puppet;
 		if(movingChangedThisFrame) {
 			if(moving) {
-				mp.setAnimation("run");				
+				mp.doll.setAnimation("run");				
 			}else {
-				mp.setAnimation("idle");
+				mp.doll.setAnimation("idle");
 			}
 		}
 		if(moving) {
-			if(dir == Direction.EAST && mp.flippedX())
-				mp.flipX();
-			if(dir == Direction.WEST && !mp.flippedX())
-				mp.flipX();
+			if(dir == Direction.EAST && mp.doll.flippedX())
+				mp.doll.flipX();
+			if(dir == Direction.WEST && !mp.doll.flippedX())
+				mp.doll.flipX();
 			
 		}
 		mp.setPosition(body.x + 64, body.y + 64);

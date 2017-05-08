@@ -57,7 +57,6 @@ public class MapManager {
 	public Rectangle[] getSurroundingTiles(Vector2 vector) {
 		int x = (int)vector.x >> 6;
 		int y = (int)vector.y >> 6;
-		System.out.println(x + ", " + y);
 		Rectangle[] tiles = new Rectangle[9];
 		int w = level.WIDTH;
 		int h = level.HEIGHT;

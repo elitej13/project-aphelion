@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
+import com.ephemerality.aphelion.graphics.LoadManager;
 import com.ephemerality.aphelion.graphics.ScreenManager;
 import com.ephemerality.aphelion.spawn.entities.mob.Mob;
 import com.ephemerality.aphelion.spawn.entities.player.Player;
@@ -35,7 +36,7 @@ public class EntityManager {
 		quad = new QuadTree(map);
 		
 		player = new Player(screen, x / 2, y / 2);
-		dummy = new Mob(screen, 200, 200, 128, 64, (short) 0);
+		dummy = new Mob(200, 200, 128, 64, (short) 0);
 //		chest = new Chest(200, 200);
 		
 		addEntity(player);
@@ -43,7 +44,11 @@ public class EntityManager {
 //		addEntity(chest);
 	}
 	
-	
+	public void init(LoadManager assets) {
+		for(Entity e : entities) {
+			e.init(assets);
+		}
+	}
 	
 	public void update() {
 		player.update();
