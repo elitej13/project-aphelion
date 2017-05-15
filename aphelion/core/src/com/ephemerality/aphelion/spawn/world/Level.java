@@ -49,20 +49,27 @@ public class Level {
 		}
 	}
 	
-	public void editSize(int w, int h) {
+	
+//	EDITOR FUNCTION
+	public void resize(int w, int h) {
 		short[] buffer = new short[w * h];
+		Rectangle[] rectbuffer = new Rectangle[w * h];
 		for(int y = 0; y < h; y++) {
 			for(int x = 0; x < w; x++) {
 				if(y < HEIGHT && x < WIDTH) {
 					buffer[x + y * w] = tiles[x + y * WIDTH];
+					rectbuffer[x + y * w] = collidable[x + y * WIDTH];
 				}else {
 					buffer[x + y * w] = Tile.GRASS_ID;
 				}
 			}
 		}
 		tiles = buffer;
-		
+		collidable = rectbuffer;
+		HEIGHT = h;
+		WIDTH = w;
 	}
+//	END of EDITOR FUNCITON
 	
 	public void editTile(int x, int y, short tileID) {
 		if(x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)

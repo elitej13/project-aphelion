@@ -1,6 +1,6 @@
 package com.ephemerality.aphelion.spawn.entities.player;
 
-import com.ephemerality.aphelion.graphics.LoadManager;
+import com.badlogic.gdx.Gdx;
 import com.ephemerality.aphelion.graphics.ScreenManager;
 import com.ephemerality.aphelion.input.InputManager;
 import com.ephemerality.aphelion.spawn.entities.mob.Mob;
@@ -20,6 +20,10 @@ public class Player extends Mob {
 	}
 	@Override
 	public void behavior() {
+		if(!attacking && Gdx.input.isTouched()) {
+			attackStartedThisFrame = true;
+		}
+		
 		boolean movedLastFrame = moving;
 		for(int i = 0; i < speed; i++){	
 			moving = updateMove();
@@ -30,7 +34,7 @@ public class Player extends Mob {
 			movingChangedThisFrame = false;
 		}
 	}
-	
+	@Override
 	public boolean updateMove() {
 		boolean up = InputManager.up;
 		boolean down = InputManager.down;

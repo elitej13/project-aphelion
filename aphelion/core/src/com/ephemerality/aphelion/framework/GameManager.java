@@ -34,8 +34,13 @@ public class GameManager {
 		ui.update();			
 	}
 	
-	public void setLevel(String path, boolean absolutepath) {
+	public void loadLevel(String path, boolean absolutepath) {
 		map.load(path, absolutepath);
+		ent.refreshQuad(map);
+	}
+	public void resizeLevel(int w, int h) {
+		map.resize(w, h);
+		ent.refreshQuad(map);
 	}
 	/**
 	 * @param c0 Bottom left corner of view port

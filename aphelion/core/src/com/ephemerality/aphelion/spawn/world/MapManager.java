@@ -43,8 +43,9 @@ public class MapManager {
 		bufferedLevel = level;
 		level = new Level(w, h);
 	}
-	public void editSize(int w, int h) {
-		level.editSize(w, h);
+	public void resize(int w, int h) {
+		level.resize(w, h);
+		mapPixelSize = new Vector2(level.WIDTH * MapManager.tileSize, level.HEIGHT * MapManager.tileSize);
 	}
 	public boolean hasRecentlyReloaded() {
 		if(recentlyReloaded) {

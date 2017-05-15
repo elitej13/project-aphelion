@@ -62,10 +62,12 @@ public class Master extends ApplicationAdapter {
 			Gdx.app.exit();
 		}else if(state == 0) {
 			loader.update();
+			if(state != 0) {
+				game.init(loader);
+			}
 		}else if(state == 1) {
 			main.update();
 		}else if(state == 2) {
-			if(!hasInitialized) game.init(loader);
 			game.update();
 		}
 		screen.update();
@@ -84,6 +86,7 @@ public class Master extends ApplicationAdapter {
 			if(args[0].equalsIgnoreCase("set")) {
 				if(args[1].equalsIgnoreCase("help")) {
 					Debug.pushToConsole("set level string (level name store in maps folder)", true);
+					Debug.pushToConsole("set level int int (width height)", true);
 					Debug.pushToConsole("set background float float float", true);
 					Debug.pushToConsole("Current set commands:", false);
 				}else if(args[1].equalsIgnoreCase("background")) {
@@ -95,9 +98,15 @@ public class Master extends ApplicationAdapter {
 					Debug.pushToConsole("Setting bakcground to " + r + " " + g + " "+ b + " " + " " + a, false);
 					
 				}else if(args[1].equalsIgnoreCase("level")) {
-					String path = "maps/" + args[2] + ".bin";
-					game.setLevel(path, false);
-					Debug.pushToConsole("Setting level to " + path, false);
+					if(args.length > 3) {
+						int w = Integer.parseInt(args[2]);
+						int h = Integer.parseInt(args[3]);
+						game.resizeLevel(w, h);
+					}else {
+						String path = "maps/" + args[2] + ".bin";
+						game.loadLevel(path, false);
+						Debug.pushToConsole("Setting level to " + path, false);						
+					}
 				}else {
 					Debug.pushToConsole(DebugType.Console_Unrecognized_Command.toString(), false);
 				}

@@ -47,7 +47,7 @@ public class EditMenu extends ChangeListener{
 						@Override
 						public void finished (String input) {
 							height = Integer.parseInt(input);
-							map.editSize(width, height);
+							map.resize(width, height);
 							for(Actor actor : stage.getActors()) {
 								if(actor instanceof TileScreen) {
 									TileScreen tScreen = (TileScreen) actor;

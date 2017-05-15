@@ -12,7 +12,7 @@ import com.ephemerality.aphelion.util.QuadBranch;
 public class Mob extends Entity{
 
 	public QuadBranch branch0, branch1, branch2, branch3;
-	protected boolean moving, movingChangedThisFrame;
+	protected boolean moving, movingChangedThisFrame, attacking, attackStartedThisFrame;
 	protected Puppet puppet;
 	protected Direction dir;
 	
@@ -22,7 +22,7 @@ public class Mob extends Entity{
 	public void init(LoadManager assets) {
 		puppet = new MobPuppet(body.width, body.height);
 		puppet.init(assets);
-		puppet.setPosition(body.y, body.x);
+		puppet.setPosition(body.x + 64, body.y + 64);
 	}
 	@Override
 	public void update() {
@@ -30,26 +30,36 @@ public class Mob extends Entity{
 		updateAnim();
 	}
 	public void behavior() {
-		
+		moving = updateMove();
 	}
 	public void updateAnim() {
 		MobPuppet mp = (MobPuppet) puppet;
-		if(movingChangedThisFrame) {
-			if(moving) {
-				mp.doll.setAnimation("run");				
-			}else {
-				mp.doll.setAnimation("idle");
+		if(attackStartedThisFrame) {
+			attackStartedThisFrame = false;
+			attacking = true;
+			mp.doll.setAnimation("attack");
+		}
+		if(attacking) {
+			if(mp.hasAnimationFinished()) {
+				attacking = false;
+				if(moving) mp.doll.setAnimation("run");
+				else mp.doll.setAnimation("idle");
+			}
+		}else {
+			if(movingChangedThisFrame) {
+				if(moving) {
+					mp.doll.setAnimation("run");				
+				}else {
+					mp.doll.setAnimation("idle");
+				}
 			}
 		}
-		if(moving) {
-			if(dir == Direction.EAST && mp.doll.flippedX())
-				mp.doll.flipX();
-			if(dir == Direction.WEST && !mp.doll.flippedX())
-				mp.doll.flipX();
-			
-		}
+		if(moving) mp.updateAnim(dir);
 		mp.setPosition(body.x + 64, body.y + 64);
 		mp.update();
+	}
+	public boolean updateMove() {
+		return false;
 	}
 	/**
 	 * @return True if moving was successful.
@@ -75,14 +85,16 @@ public class Mob extends Entity{
 		return !collided;
 	}
 	public void movePosition() {
+		float x = body.x;
+		float y = body.y;
 		if(dir == Direction.NORTH) {
-			body.setPosition(body.x, body.y + 1);
+			body.setPosition(x, y + 1);
 		}else if(dir == Direction.SOUTH) {
-			body.setPosition(body.x, body.y - 1);
+			body.setPosition(x, y - 1);
 		}else if(dir == Direction.WEST) {
-			body.setPosition(body.x - 1, body.y);
-		}else if(dir == Direction.EAST){
-			body.setPosition(body.x + 1, body.y);
+			body.setPosition(x - 1, y);
+		}else if(dir == Direction.EAST) {
+			body.setPosition(x + 1, body.y);
 		}else {
 			System.out.println("Unhandeled direction");
 		}

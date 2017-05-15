@@ -34,16 +34,19 @@ public class EntityManager {
 		deltaOffset = new Vector2();
 		entities = new ArrayList<>();
 		quad = new QuadTree(map);
-		
 		player = new Player(screen, x / 2, y / 2);
 		dummy = new Mob(200, 200, 128, 64, (short) 0);
 //		chest = new Chest(200, 200);
 		
 		addEntity(player);
-		addEntity(dummy);
+//		addEntity(dummy);
 //		addEntity(chest);
 	}
-	
+	public void refreshQuad(MapManager map) {
+		quad = new QuadTree(map);
+		for(Entity e : entities) 
+			quad.addEntity(e);;
+	}
 	public void init(LoadManager assets) {
 		for(Entity e : entities) {
 			e.init(assets);
@@ -51,8 +54,9 @@ public class EntityManager {
 	}
 	
 	public void update() {
-		player.update();
-		dummy.update();
+		for(Entity e : entities) {
+			e.update();
+		}
 		quad.update();
 		Collections.sort(entities);
 	}
@@ -65,9 +69,9 @@ public class EntityManager {
 	
 	
 	public void render(ScreenManager screen) {
+		quad.render(screen);
 		for(Entity e : entities) e.render(screen);
 //		DEBUGGINB purposes	//
-		quad.render(screen);
 		
 	}
 	

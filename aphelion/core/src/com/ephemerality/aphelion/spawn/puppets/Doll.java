@@ -1,21 +1,28 @@
 package com.ephemerality.aphelion.spawn.puppets;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.brashmonkey.spriter.Animation;
 import com.brashmonkey.spriter.Drawer;
+import com.brashmonkey.spriter.Mainline.Key;
 import com.brashmonkey.spriter.Player;
+import com.brashmonkey.spriter.Player.PlayerListener;
 import com.brashmonkey.spriter.LibGdx.LibGdxDrawer;
-import com.ephemerality.aphelion.graphics.ScreenManager;
 import com.ephemerality.aphelion.input.DollInfo;
 
-public class Doll {
+public class Doll implements PlayerListener{
 	
 	
 	public Player player;
 	public Drawer<Sprite> drawer;
+	public boolean finished;
 	
 	public void init(DollInfo info) {
 		drawer = new LibGdxDrawer(info.loader, info.batch, info.renderer);
 		player = new Player(info.data.getEntity(0));
+		player.setScale(0.3f);
+		player.setAnimation("idle");
+		player.speed = 20;
+		player.addListener(this);
 	}
 	
 	public void update() {
@@ -38,8 +45,33 @@ public class Doll {
 		return true;
 	}
 
-	public void render(ScreenManager screen) {
+	public void render() {
 		drawer.draw(player);
+	}
+
+	@Override
+	public void animationFinished(Animation animation) {
+		finished = true;
+	}
+
+	@Override
+	public void animationChanged(Animation oldAnim, Animation newAnim) {
+		
+	}
+
+	@Override
+	public void preProcess(Player player) {
+		
+	}
+
+	@Override
+	public void postProcess(Player player) {
+		
+	}
+
+	@Override
+	public void mainlineKeyChanged(Key prevKey, Key newKey) {
+		
 	}
 
 }

@@ -2,6 +2,7 @@ package com.ephemerality.aphelion.spawn.puppets;
 
 import com.ephemerality.aphelion.graphics.LoadManager;
 import com.ephemerality.aphelion.graphics.ScreenManager;
+import com.ephemerality.aphelion.util.Direction;
 
 public class MobPuppet extends Puppet{
 
@@ -20,7 +21,12 @@ public class MobPuppet extends Puppet{
 	public void update() {
 		doll.update();
 	}
-
+	public void updateAnim(Direction dir) {
+		if(dir == Direction.EAST && doll.flippedX())
+			doll.flipX();
+		if(dir == Direction.WEST && !doll.flippedX())
+			doll.flipX();
+	}
 	@Override
 	public void setPosition(float x, float y) {
 		doll.setPosition(x, y);
@@ -28,7 +34,15 @@ public class MobPuppet extends Puppet{
 
 	@Override
 	public void render(ScreenManager screen) {
-		doll.render(screen);
+		doll.render();
+	}
+
+	public boolean hasAnimationFinished() {
+		if(doll.finished) {
+			doll.finished = false;
+			return true;
+		}
+		return false;
 	}
 
 	
