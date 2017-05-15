@@ -16,7 +16,7 @@ public class Doll implements PlayerListener{
 	public Drawer<Sprite> drawer;
 	public boolean finished;
 	
-	public void init(DollInfo info) {
+	public Doll(DollInfo info) {
 		drawer = new LibGdxDrawer(info.loader, info.batch, info.renderer);
 		player = new Player(info.data.getEntity(0));
 		player.setScale(0.3f);

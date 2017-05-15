@@ -12,9 +12,14 @@ import com.ephemerality.aphelion.graphics.SpriteSheet;
 import com.ephemerality.aphelion.spawn.entities.Entity;
 import com.ephemerality.aphelion.spawn.entities.mob.Mob;
 import com.ephemerality.aphelion.spawn.entities.nob.Nob;
+import com.ephemerality.aphelion.spawn.entities.nob.items.Item;
+import com.ephemerality.aphelion.spawn.entities.player.Player;
 import com.ephemerality.aphelion.spawn.world.MapManager;
 
 public class QuadBranch {
+
+	public Set<Entity> removed;
+	public boolean dirty;
 
 	private Set<Nob> leaves;
 	private Set<Mob> bugs;
@@ -26,7 +31,8 @@ public class QuadBranch {
 		leaves = new HashSet<>();
 		bugs = new HashSet<>();
 		bounds = new Rectangle(x0, y0, width, height);
-	}
+		removed = new HashSet<>();
+		}
 	
 	public List<Mob> getOutOfBounds() {
 		List<Mob> mobs = new ArrayList<>();
@@ -59,11 +65,22 @@ public class QuadBranch {
 	}
 	
 	public boolean checkCollisions(Entity entity, Rectangle body) {
+		Entity grabbed = null;
 		for(Entity e : leaves) {
-			if(e.equals(entity))
-				continue;
-			if(body.overlaps(e.body))
-				return true;
+			if(e instanceof Item && entity instanceof Player) {
+				if(body.overlaps(e.body)) {
+					grabbed = e;
+					Player player = (Player) entity;
+					player.inventory.queue.add(grabbed);
+					break;
+				}
+			}
+		}
+		if(grabbed != null) {
+			leaves.remove(grabbed);
+			if(removed.isEmpty()) dirty = true;
+			removed.add(grabbed);
+			return false;
 		}
 		for(Entity e : bugs) {
 			if(e.equals(entity))

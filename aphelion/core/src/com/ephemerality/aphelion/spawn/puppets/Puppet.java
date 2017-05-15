@@ -1,17 +1,21 @@
 package com.ephemerality.aphelion.spawn.puppets;
 
-import com.ephemerality.aphelion.graphics.LoadManager;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.ephemerality.aphelion.graphics.ScreenManager;
 
 public abstract class Puppet {
 	
-	public Puppet(float width, float height) {}
+	protected float x, y, w, h;
 	
-	public abstract void init(LoadManager assets);
+	public Puppet(float x, float y, float w, float h) {
+		this.x = x;
+		this.y = y;
+		this.w = w;
+		this.h = h;
+	}
 	public abstract void update() ;
-	public abstract void setPosition(float x, float y);
-	
 	public abstract void render(ScreenManager screen) ;
+	public abstract TextureRegion getIcon() ;
 
 
 

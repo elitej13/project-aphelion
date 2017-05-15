@@ -15,18 +15,18 @@ public class Overlay {
 	
 	public Overlay() {
 		resolution = new Vector2(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		healthBar = new Pixmap(200, 10, Pixmap.Format.RGB888);
-		healthBar.setColor(1f, 0, 0, 0.75f);
-		healthBar.fillRectangle(0, 0, 200, 10);
+		healthBar = new Pixmap(1, 1, Pixmap.Format.RGB888);
+		healthBar.setColor(1f, 0, 0, 1f);
+		healthBar.fillRectangle(0, 0, 1, 1);
 		health = new Texture(healthBar);
+		fill = 1f;
 	}
 	
 	
 	public void render(ScreenManager screen) {
 		int x = 10;
 		int y = (int) resolution.y - 30;
-		screen.render(health, x, y, (int)(200 * fill), 10);
-		
+		screen.renderFixed(health, x, y, (int)(200 * fill), 10);
 	}
 	
 }

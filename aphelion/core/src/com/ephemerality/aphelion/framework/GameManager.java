@@ -14,13 +14,10 @@ public class GameManager {
 	private UIManager ui;
 	public boolean isPaused;
 	
-	public GameManager(ScreenManager screen) {
+	public GameManager(ScreenManager screen, LoadManager assets) {
 		map = new MapManager();
-		ent = new EntityManager(screen, map);
-		ui = new UIManager();
-	}
-	public void init(LoadManager assets) {
-		ent.init(assets);
+		ent = new EntityManager(screen, assets, map);
+		ui = new UIManager(ent.getPlayer());
 	}
 	
 	public void update() {

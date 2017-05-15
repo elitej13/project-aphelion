@@ -16,13 +16,9 @@ public class Mob extends Entity{
 	protected Puppet puppet;
 	protected Direction dir;
 	
-	public Mob(float x, float y, int w, int h, short ID) {
+	public Mob(float x, float y, int w, int h, short ID, LoadManager assets) {
 		super(x, y, w, h, true, ID);
-	}
-	public void init(LoadManager assets) {
-		puppet = new MobPuppet(body.width, body.height);
-		puppet.init(assets);
-		puppet.setPosition(body.x + 64, body.y + 64);
+		puppet = new MobPuppet(body.x + 64, body.y + 64, body.width, body.height, assets);
 	}
 	@Override
 	public void update() {
@@ -55,7 +51,7 @@ public class Mob extends Entity{
 			}
 		}
 		if(moving) mp.updateAnim(dir);
-		mp.setPosition(body.x + 64, body.y + 64);
+		mp.updatePosition(body.x + 64, body.y + 64);
 		mp.update();
 	}
 	public boolean updateMove() {
@@ -68,16 +64,16 @@ public class Mob extends Entity{
 		Rectangle body = projectMove();
 		boolean collided = false;
 		if(branch0 != null) {
-			collided = branch0.checkCollisions(this, body);
+			if(branch0.checkCollisions(this, body)) collided = true;
 		}
-		if(branch1 != null && collided == false) {
-			collided = branch0.checkCollisions(this, body);
+		if(branch1 != null) {
+			if(branch1.checkCollisions(this, body)) collided = true;
 		}
-		if(branch2 != null && collided == false) {
-			collided = branch0.checkCollisions(this, body);
+		if(branch2 != null) {
+			if(branch2.checkCollisions(this, body)) collided = true;
 		}
-		if(branch3 != null && collided == false) {
-			collided = branch0.checkCollisions(this, body);
+		if(branch3 != null) {
+			if(branch3.checkCollisions(this, body)) collided = true;
 		}
 		if(collided == false) {
 			movePosition();

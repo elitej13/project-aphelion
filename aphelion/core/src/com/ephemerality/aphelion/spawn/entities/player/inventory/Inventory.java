@@ -1,44 +1,57 @@
 package com.ephemerality.aphelion.spawn.entities.player.inventory;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map.Entry;
+import java.util.Set;
 
+import com.badlogic.gdx.Gdx;
 import com.ephemerality.aphelion.graphics.ScreenManager;
 import com.ephemerality.aphelion.spawn.entities.Entity;
 import com.ephemerality.aphelion.spawn.entities.nob.Chest;
 
 public class Inventory {
 	
-	HashMap<Short, Item> items;
+	public Set<Entity> queue;
+
+	HashMap<Short, InventoryItem> items;
 	int maxPerRow = 4;
 	int filledSlots;
 	int maxSlots;
+	float xOffset;
+	float yOffset;
 	
 	public Inventory() {
 		this(16);
-		addEntity(new Chest(0, 0));
-		addEntity(new Chest(0, 0));
 	}
 	
 	public Inventory(int maxSlots) {
 		this.maxSlots = maxSlots;	
 		items = new HashMap<>();
+		queue = new HashSet<>();
+		xOffset = Gdx.graphics.getWidth() * 0.125f;
+		yOffset = Gdx.graphics.getHeight() * 0.875f;
 	}
 	
-	
+	public void update() {
+		for(Entity e : queue) {
+			addEntity(e);
+		}
+		queue.clear();
+	}
 	
 	public void addEntity(Entity e) {
-		Item item = items.get(e.getWrappedID());
+		InventoryItem item = items.get(e.getWrappedID());
 		if(item != null) {
-			item.increcement();
+			item.increment();
 		}else {
 			int y = filledSlots / maxSlots;
 			int x = filledSlots - y * maxSlots;
-			item = new Item(e.getID(), 1, x, y);
+			item = new InventoryItem(e.getIcon(), e.getID(), x, y);
+			items.put(e.getWrappedID(), item);
 			filledSlots++;
 		}
-				
 	}
 	
 	public void resize() {
@@ -54,13 +67,11 @@ public class Inventory {
 	}
 	
 	public void render(ScreenManager screen) {
-		float xOffset = 0;
-		float yOffset = 0;
-		float padding = 10;
-		float scale = 0;
-		Iterator<Entry<Short, Item>> iter = items.entrySet().iterator();
+		float padding = 10f;
+		float scale = 32f;
+		Iterator<Entry<Short, InventoryItem>> iter = items.entrySet().iterator();
 		while(iter.hasNext()) {
-			Item item = iter.next().getValue();
+			InventoryItem item = iter.next().getValue();
 			item.render(screen, xOffset, yOffset, padding, scale);
 		}
 	}

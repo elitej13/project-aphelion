@@ -46,8 +46,6 @@ public class Master extends ApplicationAdapter {
 		screen = new ScreenManager();
 		loader = new LoadManager(screen);
 		main = new MenuManager();
-		game = new GameManager(screen);
-		
 		
 		defaultUEH = Thread.getDefaultUncaughtExceptionHandler();
 		Thread.setDefaultUncaughtExceptionHandler(_unCaughtExceptionHandler);
@@ -63,7 +61,7 @@ public class Master extends ApplicationAdapter {
 		}else if(state == 0) {
 			loader.update();
 			if(state != 0) {
-				game.init(loader);
+				game = new GameManager(screen, loader);
 			}
 		}else if(state == 1) {
 			main.update();
@@ -159,8 +157,6 @@ public class Master extends ApplicationAdapter {
 		else 
 			System.out.println("Error changing state.");
 		
-		
-		
 		if(state == 0) {
 			String[] args = {"set", "background", "0f", "0f", "0f", "1f"};
 			pushArgs(args);
@@ -188,7 +184,7 @@ public class Master extends ApplicationAdapter {
 	@Override
 	public void render () {
 //	TODO : Have update on a fixed timer		
-		update();		
+		update();
 		screen.start();
 		if(state == 0) {
 			loader.render(screen);

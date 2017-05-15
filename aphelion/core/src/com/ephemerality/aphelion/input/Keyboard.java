@@ -17,7 +17,7 @@ public class Keyboard {
 		InputManager.left = Gdx.input.isKeyPressed(Input.Keys.A) | Gdx.input.isKeyPressed(Input.Keys.LEFT);
 		InputManager.right = Gdx.input.isKeyPressed(Input.Keys.D) | Gdx.input.isKeyPressed(Input.Keys.RIGHT);
 		if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) InputManager.hasInteracted = true;
-		if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) InputManager.hasPaused = true;	
+		if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) || Gdx.input.isKeyJustPressed(Input.Keys.TAB)) InputManager.hasPaused = true;	
 		if(Gdx.input.isKeyJustPressed(Input.Keys.SLASH)) InputManager.debug = true;
 		//Grave (`) is same key as Tilde (~)
 		if(Gdx.input.isKeyJustPressed(Input.Keys.GRAVE)) {

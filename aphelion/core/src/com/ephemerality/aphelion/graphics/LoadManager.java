@@ -11,12 +11,10 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
-import com.brashmonkey.spriter.Data;
 import com.ephemerality.aphelion.framework.Master;
 import com.ephemerality.aphelion.input.DollInfo;
 import com.ephemerality.aphelion.input.SCMLLoader;
 import com.ephemerality.aphelion.input.SCMLLoader.DollParameter;
-import com.ephemerality.aphelion.spawn.puppets.Doll;
 import com.ephemerality.aphelion.util.debug.Debug;
 
 public class LoadManager {
@@ -36,12 +34,14 @@ public class LoadManager {
 	
 	
 	public static final String MENU_FRAME = "textures/ui/menu/menuframe.png";
+	public static final String ITEM_SHEET = "textures/itemsheet.png";
 
 	public static final String MONSTER_SCML = "characters/monster/basic_002.scml";
 	public static final String BRAWLER_SCML = "characters/brawler/brawler.scml";
 	public static final String IMP_SCML = "characters/imp/imp.scml";
 	public static final String MAGE_SCML = "characters/mage/mage.scml";
 	public static final String ORC_SCML = "characters/orc/orc.scml";
+	
 	
 	
 	
@@ -102,9 +102,9 @@ public class LoadManager {
 //		assets.load(ORC_SCML, Doll.class, param);
 		
 		//Spritesheets
+		assets.load(ITEM_SHEET, Texture.class);
 		assets.load("textures/tilesheet.png", Texture.class);
 		assets.load("textures/entitysheet.png", Texture.class);
-		assets.load("textures/itemsheet.png", Texture.class);
 	}
 	
 	

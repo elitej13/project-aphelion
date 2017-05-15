@@ -1,13 +1,14 @@
 package com.ephemerality.aphelion.spawn.entities;
 
 
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
-import com.ephemerality.aphelion.graphics.LoadManager;
 import com.ephemerality.aphelion.graphics.ScreenManager;
 import com.ephemerality.aphelion.graphics.SpriteSheet;
 import com.ephemerality.aphelion.spawn.puppets.Puppet;
 
 public class Entity implements Comparable<Entity>{
+	
 	
 	public Rectangle body;
 	protected boolean renderable;
@@ -17,9 +18,7 @@ public class Entity implements Comparable<Entity>{
 	public Entity(float x, float y, int w, int h, boolean renderable, short ID) {
 		this.renderable = renderable;
 		body = new Rectangle(x, y, w, h);
-	}
-	
-	public void init(LoadManager assets) {
+		this.ID = ID;
 	}
 	
 	public void update() {
@@ -45,5 +44,8 @@ public class Entity implements Comparable<Entity>{
 	}
 	public Short getWrappedID() {
 		return new Short(ID);
+	}
+	public TextureRegion getIcon() {
+		return puppet.getIcon();
 	}
 }

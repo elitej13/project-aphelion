@@ -55,8 +55,9 @@ public class ScreenManager {
 	}
 	
 	public void start() {
-		Gdx.gl.glClearColor(color.r, color.b, color.g, color.a);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);		
+		Gdx.gl20.glClearColor(color.r, color.b, color.g, color.a);
+		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);		
+		Gdx.gl20.glEnable(GL20.GL_BLEND);
 		sb.enableBlending();
 		sb.begin();
 	}
@@ -94,6 +95,9 @@ public class ScreenManager {
 	public void render(TextureRegion texture, float x, float y) {
 		sb.draw(texture, x, y);
 	}
+	public void renderFixed(TextureRegion texture, float x, float y) {
+		sb.draw(texture, x + bounds.x, y + bounds.y);
+	}
 	public void render(Texture texture, float x, float y, float w, float h) {
 		sb.draw(texture, x, y, w, h);
 	}
@@ -109,9 +113,12 @@ public class ScreenManager {
 	public void renderFixed(TextureRegion texture, Rectangle body) {
 		sb.draw(texture, bounds.x + body.x, bounds.y + body.y, body.width, body.height);
 	}
+	public void renderFixed(Texture texture, float x, float y, float w, float h) {
+		sb.draw(texture, x + bounds.x, y + bounds.y, w, h);
+	}
 	public void renderFixed(Texture texture, float x, float y, float scale) {
 //		TODO: verify this draw call as accurate
-		sb.draw(texture, x, y, texture.getWidth() * scale, texture.getHeight() * scale);
+		sb.draw(texture, x + bounds.x, bounds.y + y, texture.getWidth() * scale, texture.getHeight() * scale);
 	}
 	public void renderFixed(TextureRegion texture, float x, float y, float scale) {
 //		TODO: verify this draw call as accurate

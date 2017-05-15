@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.ephemerality.aphelion.spawn.entities.nob.items.Item;
 import com.ephemerality.aphelion.spawn.entities.tiles.Tile;
 
 public class SpriteSheet {
@@ -28,7 +29,8 @@ public class SpriteSheet {
 	public static TextureRegion default_wood_0 = new TextureRegion(SpriteSheet.tilesheet, 	0, 192, 64, 64);
 	
 //	Item Sprites	//
-	public static TextureRegion wood_box_0 = new TextureRegion(SpriteSheet.itemsheet, 	0, 0, 64, 64);
+	public static TextureRegion wood_box_0 = new TextureRegion(SpriteSheet.itemsheet, 	0, 0, 32, 32);
+	public static TextureRegion sword = new TextureRegion(SpriteSheet.itemsheet, 	0, 32, 32, 32);
 	
 	
 //	DEBUGGING Sprites	//
@@ -48,6 +50,12 @@ public class SpriteSheet {
 			return default_brick_0;
 		}else if(ID == Tile.WOOD_ID) {
 			return default_wood_0;
+		}
+		
+		else if(ID == Item.CHEST) {
+			return wood_box_0;
+		}else if(ID == Item.SWORD) {
+			return sword;
 		}
 		return default_void_0;
 	}

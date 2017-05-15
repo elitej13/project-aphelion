@@ -2,19 +2,18 @@ package com.ephemerality.aphelion.spawn.entities.player.inventory;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.ephemerality.aphelion.graphics.ScreenManager;
-import com.ephemerality.aphelion.graphics.SpriteSheet;
 
-public class Item {
+public class InventoryItem {
 	
 	TextureRegion texture;
 	short ID;
 	int count;
 	int x, y;
 	
-	public Item(short ID, int count, int tilex, int tiley) {
+	public InventoryItem(TextureRegion texture, short ID, int tilex, int tiley) {
+		this.texture = texture;
 		this.ID = ID;
-		this.count = count;
-		texture = SpriteSheet.fetchTextureRegionFromTileID(ID);
+		count = 1;
 		x = tilex;
 		y = tiley;
 	}
@@ -25,13 +24,13 @@ public class Item {
 		this.y = y;
 	}
 	
-	public void increcement() {
+	public void increment() {
 		count++;
 	}
 	
 	
 	public void render(ScreenManager screen, float xOffset, float yOffset, float padding, float scale) {
-		screen.render(texture, (x * scale) + (x * padding) + xOffset, (y * scale) + (y * padding) + yOffset);
+		screen.renderFixed(texture, (x * scale) + (x * padding) + xOffset, (y * scale) + (y * padding) + yOffset);
 //		TODO: render count above icon
 	}
 	
