@@ -6,7 +6,6 @@ import java.util.Set;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.ephemerality.aphelion.graphics.ScreenManager;
-import com.ephemerality.aphelion.graphics.SpriteSheet;
 import com.ephemerality.aphelion.spawn.entities.Entity;
 import com.ephemerality.aphelion.spawn.entities.mob.Mob;
 import com.ephemerality.aphelion.spawn.entities.nob.Nob;
@@ -159,10 +158,10 @@ public class QuadTree {
 		}
 	}
 	public void render(ScreenManager screen) {
-		screen.render(SpriteSheet.rectangle, N);
-		screen.render(SpriteSheet.rectangle, S);
-		screen.render(SpriteSheet.rectangle, E);
-		screen.render(SpriteSheet.rectangle, W);
+		screen.renderRectangle(N);
+		screen.renderRectangle(S);
+		screen.renderRectangle(E);
+		screen.renderRectangle(W);
 		NE.render(screen);
 		NW.render(screen);
 		SE.render(screen);

@@ -42,6 +42,7 @@ public class SCMLLoader extends AsynchronousAssetLoader<DollInfo, SCMLLoader.Dol
 	}
 
 	@Override
+	@SuppressWarnings("rawtypes")
 	public Array<AssetDescriptor> getDependencies(String fileName, FileHandle file, DollParameter parameter) {
 		return null;
 	}

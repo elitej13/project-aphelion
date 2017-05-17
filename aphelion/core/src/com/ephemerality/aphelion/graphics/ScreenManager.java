@@ -1,14 +1,18 @@
 package com.ephemerality.aphelion.graphics;
 
+import java.util.HashMap;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
 import com.ephemerality.aphelion.util.Direction;
 
@@ -28,6 +32,9 @@ public class ScreenManager {
 		bounds = new Rectangle();
 		resize();
 		color = new Color(0f, 0f, 0f, 1f);
+		
+		
+		rectangles = new HashMap<>();
 	}
 	
 	public void resize() {
@@ -91,6 +98,24 @@ public class ScreenManager {
 		}else {
 			System.out.println("Unhandeled direction");
 		}
+	}
+	
+	
+	
+	HashMap<Vector2, Texture> rectangles;
+	
+	public void renderRectangle(Rectangle body) {
+		Vector2 vector = body.getSize(new Vector2());
+		Texture texture = rectangles.get(vector);
+		if(texture == null) {
+			Pixmap pix = new Pixmap((int) body.width, (int) body.height, Pixmap.Format.RGBA8888);
+			pix.setColor(1.0f, 0, 1.0f, 1.0f);
+			pix.drawRectangle(0, 0, (int) body.width, (int) body.height);
+			texture = new Texture(pix);
+			pix.dispose();			
+			rectangles.put(vector, texture);
+		}
+		sb.draw(texture, body.x, body.y);
 	}
 	public void render(TextureRegion texture, float x, float y) {
 		sb.draw(texture, x, y);

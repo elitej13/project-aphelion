@@ -8,13 +8,13 @@ import java.util.Set;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.ephemerality.aphelion.graphics.ScreenManager;
-import com.ephemerality.aphelion.graphics.SpriteSheet;
 import com.ephemerality.aphelion.spawn.entities.Entity;
 import com.ephemerality.aphelion.spawn.entities.mob.Mob;
 import com.ephemerality.aphelion.spawn.entities.nob.Nob;
 import com.ephemerality.aphelion.spawn.entities.nob.items.Item;
 import com.ephemerality.aphelion.spawn.entities.player.Player;
 import com.ephemerality.aphelion.spawn.world.MapManager;
+import com.ephemerality.aphelion.util.debug.Debug;
 
 public class QuadBranch {
 
@@ -66,6 +66,14 @@ public class QuadBranch {
 	
 	public boolean checkCollisions(Entity entity, Rectangle body) {
 		Entity grabbed = null;
+		for(Entity e : bugs) {
+			if(e.equals(entity))
+				continue;
+			if(body.overlaps(e.body)) {
+				Debug.pushToConsole("Collision between " + entity.getID() + ", and " + e.getID(), false);
+				break;
+			}
+		}
 		for(Entity e : leaves) {
 			if(e instanceof Item && entity instanceof Player) {
 				if(body.overlaps(e.body)) {
@@ -81,12 +89,6 @@ public class QuadBranch {
 			if(removed.isEmpty()) dirty = true;
 			removed.add(grabbed);
 			return false;
-		}
-		for(Entity e : bugs) {
-			if(e.equals(entity))
-				continue;
-			if(body.overlaps(e.body))
-				return true;
 		}
 		Vector2 position = body.getPosition(new Vector2());
 		for(int y = (int) body.height; y > 0; y -= MapManager.tileSize) {
@@ -138,6 +140,6 @@ public class QuadBranch {
 	}
 
 	public void render(ScreenManager screen) {
-		screen.render(SpriteSheet.rectangle, bounds);
+		screen.renderRectangle(bounds);
 	}
 }

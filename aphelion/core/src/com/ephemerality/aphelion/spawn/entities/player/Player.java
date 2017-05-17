@@ -17,7 +17,7 @@ public class Player extends Mob {
 	int speed = 10;
 	
 	public Player(ScreenManager screen, LoadManager assets, float x, float y) {
-		super(x, y, 128, 64, (short)1, assets);
+		super(x, y, 128, 64, (short) 30001, assets);
 		this.screen = screen;		
 		screen.setPosition(x, y);
 		inventory = new Inventory();

@@ -9,13 +9,14 @@ import com.ephemerality.aphelion.util.FileManager;
 
 public class MapManager {
 	
+	
 	public static int tileSize = 64;
 	private boolean recentlyReloaded;
 	
-	//Change this back to private later
-	private Level bufferedLevel;
-	public Level level;	
 	
+	Level bufferedLevel;
+	
+	public Level level;	
 	public Vector2 mapPixelSize;
 	public Vector2 offset;
 	

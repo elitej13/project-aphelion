@@ -9,7 +9,6 @@ import java.util.Set;
 import com.badlogic.gdx.Gdx;
 import com.ephemerality.aphelion.graphics.ScreenManager;
 import com.ephemerality.aphelion.spawn.entities.Entity;
-import com.ephemerality.aphelion.spawn.entities.nob.Chest;
 
 public class Inventory {
 	

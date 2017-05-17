@@ -26,6 +26,7 @@ public class LoadManager {
 	private float timer;
 	private int currentFrame;
 	private float textX, textY;
+	private float titleX, titleY;
 	private float animX, animY;
 	private float animScale;
 
@@ -34,16 +35,17 @@ public class LoadManager {
 	
 	
 	public static final String MENU_FRAME = "textures/ui/menu/menuframe.png";
+	
+	
 	public static final String ITEM_SHEET = "textures/itemsheet.png";
+	public static final String TILE_SHEET = "textures/tilesheet.png";
 
 	public static final String MONSTER_SCML = "characters/monster/basic_002.scml";
 	public static final String BRAWLER_SCML = "characters/brawler/brawler.scml";
 	public static final String IMP_SCML = "characters/imp/imp.scml";
 	public static final String MAGE_SCML = "characters/mage/mage.scml";
 	public static final String ORC_SCML = "characters/orc/orc.scml";
-	
-	
-	
+
 	
 	
 	
@@ -71,6 +73,11 @@ public class LoadManager {
 		float w = glyphLayout.width;
 		textX = Gdx.graphics.getWidth() / 2 - (w) / 2;
 		textY = animY - 10;
+		item = "NecroHero";
+		glyphLayout.setText(font,item);
+		w = glyphLayout.width;
+		titleX = Gdx.graphics.getWidth() / 2 - (w) / 2;
+		titleY = animY + 10;
 		
 		assets = new AssetManager();
 		assets.setLoader(DollInfo.class, new SCMLLoader(new InternalFileHandleResolver()));
@@ -88,7 +95,6 @@ public class LoadManager {
 		//Menu
 		assets.load(MENU_FRAME, Texture.class);
 		
-		
 		//Game Assets
 		
 		//Character SCML Data
@@ -103,8 +109,7 @@ public class LoadManager {
 		
 		//Spritesheets
 		assets.load(ITEM_SHEET, Texture.class);
-		assets.load("textures/tilesheet.png", Texture.class);
-		assets.load("textures/entitysheet.png", Texture.class);
+		assets.load(TILE_SHEET, Texture.class);
 	}
 	
 	
@@ -129,7 +134,8 @@ public class LoadManager {
 			if(currentFrame > 30)
 				currentFrame = 0;			
 		}
-		if(assets.getLoadedAssets() == TOTAL_ASSETS) {
+		if(assets.getLoadedAssets() == TOTAL_ASSETS && assets.getProgress() == 1f) {
+			SpriteSheet.init(assets);
 			Debug.pushToConsole("Done loading assets", false);
 			Master.setState(1);
 		}
@@ -140,6 +146,7 @@ public class LoadManager {
 		int percent = (int)(assets.getProgress() * 100);
 		screen.renderFixed(loadFrames.get(currentFrame), animX, animY, animScale);
 		font.draw(screen.getSpriteBatch(), "Loading assets " + percent + "%", textX, textY);
+		font.draw(screen.getSpriteBatch(), "NecroHero", titleX, titleY);
 	}
 	
 	public void dispose() {

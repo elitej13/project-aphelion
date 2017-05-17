@@ -7,6 +7,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.ephemerality.aphelion.graphics.LoadManager;
 import com.ephemerality.aphelion.graphics.ScreenManager;
+import com.ephemerality.aphelion.graphics.SpriteSheet;
 import com.ephemerality.aphelion.input.InputManager;
 import com.ephemerality.aphelion.util.FileManager;
 import com.ephemerality.aphelion.util.debug.Debug;

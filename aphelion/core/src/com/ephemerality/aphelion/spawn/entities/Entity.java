@@ -4,7 +4,6 @@ package com.ephemerality.aphelion.spawn.entities;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.ephemerality.aphelion.graphics.ScreenManager;
-import com.ephemerality.aphelion.graphics.SpriteSheet;
 import com.ephemerality.aphelion.spawn.puppets.Puppet;
 
 public class Entity implements Comparable<Entity>{
@@ -26,9 +25,10 @@ public class Entity implements Comparable<Entity>{
 	
 	
 	public void render(ScreenManager screen) {
-		if(renderable) 
+		if(renderable) {
 //			For DEBUGGING purposes, each entity should declare renderable and should be correlated to whether the puppet is null or not
-			screen.render(SpriteSheet.rectangle, body);
+			screen.renderRectangle(body);
+		}
 	}
 
 

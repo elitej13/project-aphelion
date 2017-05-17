@@ -37,7 +37,7 @@ public class TileScreen extends VisWindow{
 		table.setSize(map.mapPixelSize.x, map.mapPixelSize.y);
 		for(int y = 0; y < map.level.HEIGHT; y++) {
 			for(int x = 0; x < map.level.WIDTH; x++) {
-				table.add(SpriteSheet.fetchImageFromTileID(map.level.tiles[x + (map.level.WIDTH - y - 1) * map.level.WIDTH]));				
+				table.add(SpriteSheet.fetchImageFromEntityID(map.level.tiles[x + (map.level.WIDTH - y - 1) * map.level.WIDTH]));				
 			}
 			table.row();
 		}
@@ -75,7 +75,7 @@ public class TileScreen extends VisWindow{
 		
 		for(Cell<?> cell : table.getCells()) {
 			if(xx == cell.getActorX() / MapManager.tileSize && yy == cell.getActorY() / MapManager.tileSize) {
-				cell.setActor(SpriteSheet.fetchImageFromTileID(tileID));
+				cell.setActor(SpriteSheet.fetchImageFromEntityID(tileID));
 			}
 		}
 		map.editTile(xx, yy, tileID);

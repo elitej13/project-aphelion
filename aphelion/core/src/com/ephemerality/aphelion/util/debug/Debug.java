@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.ephemerality.aphelion.framework.Master;
@@ -87,7 +88,6 @@ public class Debug {
 		Date date = new Date();
 		log_name = "log_" + date.toString().replaceAll(" ", "-").replaceAll(":", ".") + ".txt";
 	}
-	
 	
 	public static void update() {
 		systemTime += Gdx.graphics.getRawDeltaTime();
