@@ -7,6 +7,7 @@ import com.ephemerality.aphelion.input.InputManager;
 import com.ephemerality.aphelion.spawn.entities.mob.Mob;
 import com.ephemerality.aphelion.spawn.entities.player.inventory.Inventory;
 import com.ephemerality.aphelion.util.Direction;
+import com.ephemerality.aphelion.util.Stats;
 
 public class Player extends Mob {
 
@@ -17,7 +18,7 @@ public class Player extends Mob {
 	int speed = 10;
 	
 	public Player(ScreenManager screen, LoadManager assets, float x, float y) {
-		super(x, y, 128, 64, (short) 30001, assets);
+		super(x, y, 128, 64, (short) 30001, assets, new Stats());
 		this.screen = screen;		
 		screen.setPosition(x, y);
 		inventory = new Inventory();

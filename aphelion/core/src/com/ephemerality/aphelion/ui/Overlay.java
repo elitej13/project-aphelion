@@ -8,10 +8,10 @@ import com.ephemerality.aphelion.graphics.ScreenManager;
 
 public class Overlay {
 	
-	private Pixmap healthBar;
-	private Texture health;
-	private Vector2 resolution;
-	private double fill;
+	Pixmap healthBar;
+	Texture health;
+	Vector2 resolution;
+	float fill;
 	
 	public Overlay() {
 		resolution = new Vector2(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());

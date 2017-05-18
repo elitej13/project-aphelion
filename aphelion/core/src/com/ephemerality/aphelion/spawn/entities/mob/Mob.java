@@ -8,16 +8,19 @@ import com.ephemerality.aphelion.spawn.puppets.MobPuppet;
 import com.ephemerality.aphelion.spawn.puppets.Puppet;
 import com.ephemerality.aphelion.util.Direction;
 import com.ephemerality.aphelion.util.QuadBranch;
+import com.ephemerality.aphelion.util.Stats;
 
 public class Mob extends Entity{
 
 	public QuadBranch branch0, branch1, branch2, branch3;
+	public Stats stats;
 	protected boolean moving, movingChangedThisFrame, attacking, attackStartedThisFrame;
 	protected Puppet puppet;
 	protected Direction dir;
 	
-	public Mob(float x, float y, int w, int h, short ID, LoadManager assets) {
+	public Mob(float x, float y, int w, int h, short ID, LoadManager assets, Stats stats) {
 		super(x, y, w, h, true, ID);
+		this.stats = stats;
 		puppet = new MobPuppet(body.x + 64, body.y + 64, body.width, body.height, assets);
 	}
 	@Override
@@ -64,16 +67,16 @@ public class Mob extends Entity{
 		Rectangle body = projectMove();
 		boolean collided = false;
 		if(branch0 != null) {
-			if(branch0.checkCollisions(this, body)) collided = true;
+			if(branch0.checkMoveCollisions(this, body)) collided = true;
 		}
 		if(branch1 != null) {
-			if(branch1.checkCollisions(this, body)) collided = true;
+			if(branch1.checkMoveCollisions(this, body)) collided = true;
 		}
 		if(branch2 != null) {
-			if(branch2.checkCollisions(this, body)) collided = true;
+			if(branch2.checkMoveCollisions(this, body)) collided = true;
 		}
 		if(branch3 != null) {
-			if(branch3.checkCollisions(this, body)) collided = true;
+			if(branch3.checkMoveCollisions(this, body)) collided = true;
 		}
 		if(collided == false) {
 			movePosition();

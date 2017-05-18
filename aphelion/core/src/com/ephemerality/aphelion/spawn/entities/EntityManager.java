@@ -13,6 +13,7 @@ import com.ephemerality.aphelion.spawn.entities.nob.items.Item;
 import com.ephemerality.aphelion.spawn.entities.player.Player;
 import com.ephemerality.aphelion.spawn.world.MapManager;
 import com.ephemerality.aphelion.util.QuadTree;
+import com.ephemerality.aphelion.util.Stats;
 
 public class EntityManager {
 	
@@ -32,7 +33,7 @@ public class EntityManager {
 		quad = new QuadTree(map);
 		player = new Player(screen, assets, x / 2, y / 2);
 		addEntity(player);
-		addEntity(new Mob(200, 200, 128, 64, (short) 30000, assets));
+		addEntity(new Mob(200, 200, 128, 64, (short) 30000, assets, new Stats()));
 		addEntity(new Item(50, 50, 32, 32, Item.SWORD));
 	}
 	

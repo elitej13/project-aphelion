@@ -5,17 +5,21 @@ import com.ephemerality.aphelion.spawn.entities.player.Player;
 
 public class UIManager {
 	
-	private ContextMenu menu;
-	private Overlay ui;
-	private boolean isPaused;
+	Player player;
+	ContextMenu menu;
+	Overlay ui;
+	boolean isPaused;
 	
 	public UIManager(Player player) {
+		this.player = player;
 		ui = new Overlay();
 		menu = new ContextMenu(player);
 	}
 	
 	
 	public void update() {
+		ui.fill = player.stats.getPercentDamaged();
+		
 	}
 	
 	public void render(ScreenManager screen) {

@@ -63,22 +63,51 @@ public class QuadBranch {
 	public boolean overlaps(Rectangle body){
 		return bounds.overlaps(body);
 	}
-	
-	public boolean checkCollisions(Entity entity, Rectangle body) {
+	public HashSet<Mob> getNearbyMobs (Mob mob, float range) {
+		HashSet<Mob> nearby = new HashSet<>();
+		for(Mob m : bugs) {
+			if(m.equals(mob))
+				continue;
+			if(getDistance(mob.body, m.body) <= range)
+				nearby.add(m);
+		}
+		return nearby;
+	}
+	public double getDistance(Rectangle a, Rectangle b) {
+		double xx = a.x - b.x;
+		double yy = a.y - b.y;
+		xx *= xx;
+		yy *= yy;
+		return Math.sqrt(xx + yy);
+	}
+	public boolean checkAttackCollision(Mob mob) {
+		for(Mob m : bugs) {
+			if(m.equals(mob))
+				continue;
+			if(mob.body.overlaps(m.body)) {
+				Debug.pushToConsole("Collision between " + mob.getID() + ", and " + m.getID(), false);
+				m.stats.modHealth(mob.stats.getDamage());
+				return true;
+			}
+		}			
+		return false;
+	}
+	public boolean checkMoveCollisions(Entity entity, Rectangle body) {
 		Entity grabbed = null;
 		for(Entity e : bugs) {
 			if(e.equals(entity))
 				continue;
 			if(body.overlaps(e.body)) {
 				Debug.pushToConsole("Collision between " + entity.getID() + ", and " + e.getID(), false);
-				break;
+				//TODO: Test if not having collision boxes for movement works okay.
+				return false;
 			}
 		}
 		for(Entity e : leaves) {
 			if(e instanceof Item && entity instanceof Player) {
 				if(body.overlaps(e.body)) {
-					grabbed = e;
 					Player player = (Player) entity;
+					grabbed = e;
 					player.inventory.queue.add(grabbed);
 					break;
 				}
