@@ -12,8 +12,6 @@ import com.ephemerality.aphelion.spawn.entities.nob.Nob;
 import com.ephemerality.aphelion.spawn.world.MapManager;
 
 public class QuadTree {
-
-	public Set<Entity> removed;
 	
 	private QuadBranch NE, NW, SW, SE;
 	private Rectangle N, W, S, E;
@@ -33,37 +31,22 @@ public class QuadTree {
 		S = new Rectangle(bW - offset, 0, offset * 2, bH);
 		N = new Rectangle(bW - offset, bH, offset * 2, bH);
 		E = new Rectangle(bW, bH - offset, bW, offset * 2);
-
-		removed = new HashSet<>();
 	}
 //	TODO : fine tune this time of the offset
-	public boolean update() {
+	public void update() {
 //		if(timer < 0.5f) {
 //			timer += Gdx.graphics.getDeltaTime();
 //		}else {
 //			timer = 0;
 		sortEntities();
-		if(NW.dirty || NE.dirty || SW.dirty || SE.dirty) {	
-			removed.addAll(NW.removed);
-			removed.addAll(NE.removed);
-			removed.addAll(SW.removed);
-			removed.addAll(SE.removed);
-			NW.dirty = false;
-			NE.dirty = false;
-			SW.dirty = false;
-			SE.dirty = false;
-			return true;
-		}
-		return false;
 	}
 	
 	private void sortEntities() {
-		Set<Mob> mobs = new HashSet<Mob>();
+		Set<Mob> mobs = new HashSet<>();
 		mobs.addAll(SW.getAndRemoveAllBugs());
 		mobs.addAll(NW.getAndRemoveAllBugs());
 		mobs.addAll(SE.getAndRemoveAllBugs());
 		mobs.addAll(NE.getAndRemoveAllBugs());
-//		System.out.println("mobs" + mobs);
 		
 		Iterator<Mob> iter = mobs.iterator();
 		

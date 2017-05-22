@@ -10,8 +10,6 @@ public class Item extends Nob {
 	
 	public Item(float x, float y, int w, int h, short ID) {
 		super(x, y, w, h, true, ID);
-		
-		
 	}
 
 }

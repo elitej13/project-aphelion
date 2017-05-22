@@ -27,6 +27,12 @@ public class Mob extends Entity{
 	public void update() {
 		behavior();
 		updateAnim();
+		updateDeath();
+	}
+	public void updateDeath() {
+		if(stats.isDead()) {
+			isRemoved = true;
+		}		
 	}
 	public void behavior() {
 		moving = updateMove();
@@ -82,6 +88,22 @@ public class Mob extends Entity{
 			movePosition();
 		}
 		return !collided;
+	}
+	public boolean attack() {
+		boolean hit = false;
+		if(branch0 != null) {
+			if(branch0.checkAttackCollision(this)) hit = true;
+		}
+		if(branch1 != null) {
+			if(branch1.checkAttackCollision(this)) hit = true;
+		}
+		if(branch2 != null) {
+			if(branch2.checkAttackCollision(this)) hit = true;
+		}
+		if(branch3 != null) {
+			if(branch3.checkAttackCollision(this)) hit = true;
+		}
+		return hit;
 	}
 	public void movePosition() {
 		float x = body.x;

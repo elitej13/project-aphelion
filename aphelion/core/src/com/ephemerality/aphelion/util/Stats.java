@@ -19,6 +19,9 @@ public class Stats {
 	public float getPercentDamaged() {
 		return health / health_max;
 	}
+	public String getFormattedDamage() {
+		return health + "/" + health_max;
+	}
 	public void levelUp(boolean strength, boolean dexterity, boolean intelligence) {
 		if(strength) 
 			this.strength++;
@@ -30,9 +33,10 @@ public class Stats {
 		health_max = this.strength * this.dexterity + this.intelligence;
 		health = health_max;
 	}
-	public void modHealth(float amount) {
+	public float modHealth(float amount) {
+		float hp = health;
 		health = Util.clamp(health + amount, 0, health_max);
-		
+		return hp - health;
 	}
 	public float getDamage() {
 		return strength;

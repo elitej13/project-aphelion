@@ -8,8 +8,11 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -23,6 +26,8 @@ public class ScreenManager {
 	OrthographicCamera oc;
 	Rectangle bounds;
 	Color color;
+	BitmapFont font;
+	int FONT_SIZE = 12;
 	
 	
 	public ScreenManager() {
@@ -35,6 +40,15 @@ public class ScreenManager {
 		
 		
 		rectangles = new HashMap<>();
+		
+
+		//Font Generations
+		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/inconsolata/Inconsolata-Bold.ttf"));
+		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
+		
+		parameter.size = FONT_SIZE;
+		parameter.color = new Color(0, 0, 0, 1.0f);
+		font = generator.generateFont(parameter);
 	}
 	
 	public void resize() {
@@ -116,6 +130,11 @@ public class ScreenManager {
 			rectangles.put(vector, texture);
 		}
 		sb.draw(texture, body.x, body.y);
+	}
+	//TODO: FINISH THIS
+	public void renderString(Color col, String string, float x, float y) {
+		font.setColor(col);
+		font.draw(sb, string, x, y);
 	}
 	public void render(TextureRegion texture, float x, float y) {
 		sb.draw(texture, x, y);

@@ -18,9 +18,6 @@ import com.ephemerality.aphelion.util.debug.Debug;
 
 public class QuadBranch {
 
-	public Set<Entity> removed;
-	public boolean dirty;
-
 	private Set<Nob> leaves;
 	private Set<Mob> bugs;
 	private Rectangle bounds;
@@ -31,7 +28,6 @@ public class QuadBranch {
 		leaves = new HashSet<>();
 		bugs = new HashSet<>();
 		bounds = new Rectangle(x0, y0, width, height);
-		removed = new HashSet<>();
 		}
 	
 	public List<Mob> getOutOfBounds() {
@@ -85,8 +81,8 @@ public class QuadBranch {
 			if(m.equals(mob))
 				continue;
 			if(mob.body.overlaps(m.body)) {
-				Debug.pushToConsole("Collision between " + mob.getID() + ", and " + m.getID(), false);
-				m.stats.modHealth(mob.stats.getDamage());
+				float damage = m.stats.modHealth(-mob.stats.getDamage());
+				Debug.pushToConsole(mob.getID() + " attacked " + m.getID() + ", doing " + damage + " damage", false);
 				return true;
 			}
 		}			
@@ -98,7 +94,7 @@ public class QuadBranch {
 			if(e.equals(entity))
 				continue;
 			if(body.overlaps(e.body)) {
-				Debug.pushToConsole("Collision between " + entity.getID() + ", and " + e.getID(), false);
+//				Debug.pushToConsole("Collision between " + entity.getID() + ", and " + e.getID(), false);
 				//TODO: Test if not having collision boxes for movement works okay.
 				return false;
 			}
@@ -115,8 +111,7 @@ public class QuadBranch {
 		}
 		if(grabbed != null) {
 			leaves.remove(grabbed);
-			if(removed.isEmpty()) dirty = true;
-			removed.add(grabbed);
+			grabbed.isRemoved = true;
 			return false;
 		}
 		Vector2 position = body.getPosition(new Vector2());

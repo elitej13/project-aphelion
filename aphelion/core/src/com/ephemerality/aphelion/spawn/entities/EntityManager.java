@@ -19,7 +19,8 @@ public class EntityManager {
 	
 	public Vector2 deltaOffset;
 	public List<Entity> entities;
-
+	List<Entity> removed;
+	
 	private QuadTree quad;
 	private Player player;
 	
@@ -30,6 +31,7 @@ public class EntityManager {
 		
 		deltaOffset = new Vector2();
 		entities = new ArrayList<>();
+		removed = new ArrayList<>();
 		quad = new QuadTree(map);
 		player = new Player(screen, assets, x / 2, y / 2);
 		addEntity(player);
@@ -47,10 +49,14 @@ public class EntityManager {
 		for(Entity e : entities) {
 			e.update();
 		}
-		if(quad.update()) {
-			entities.removeAll(quad.removed);
-			quad.removed.clear();
+		for(Entity e : entities) {
+			if(e.isRemoved) {
+				removed.add(e);
+			}
 		}
+		entities.removeAll(removed);
+		removed.clear();
+		quad.update();
 		Collections.sort(entities);
 	}
 	
