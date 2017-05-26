@@ -9,9 +9,9 @@ public class MobPuppet extends Puppet{
 
 	public Doll doll;
 	
-	public MobPuppet(float x, float y, float w, float h, LoadManager assets) {
+	public MobPuppet(float x, float y, float w, float h, LoadManager assets, String string) {
 		super(x, y, w, h);
-		doll = new Doll(assets.getDollInfo(LoadManager.MONSTER_SCML));
+		doll = new Doll(assets.getDollInfo(string));
 		doll.setPosition(x, y);
 	}
 	@Override

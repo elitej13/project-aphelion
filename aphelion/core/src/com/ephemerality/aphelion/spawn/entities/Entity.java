@@ -15,10 +15,18 @@ public class Entity implements Comparable<Entity>{
 	protected boolean renderable;
 	protected Puppet puppet;
 	protected short ID;
+	protected float offsetX, offsetY;
 	
 	public Entity(float x, float y, int w, int h, boolean renderable, short ID) {
-		this.renderable = renderable;
 		body = new Rectangle(x, y, w, h);
+		this.renderable = renderable;
+		this.ID = ID;
+	}
+	public Entity(float x, float y, float offsetX, float offsetY, int collisionW, int collisionH, boolean renderable, short ID) {
+		body = new Rectangle(x + offsetX, y + offsetY, collisionW, collisionH);
+		this.offsetX = offsetX;
+		this.offsetY = offsetY;
+		this.renderable = renderable;
 		this.ID = ID;
 	}
 	
@@ -26,6 +34,7 @@ public class Entity implements Comparable<Entity>{
 	}
 	
 	private static Color font_color = new Color(1f, 1f, 1f, 1f);
+	
 	public void render(ScreenManager screen) {
 		if(renderable) {
 //			For DEBUGGING purposes, each entity should declare renderable and should be correlated to whether the puppet is null or not

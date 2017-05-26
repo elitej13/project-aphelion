@@ -65,7 +65,8 @@ public class FileMenu extends ChangeListener {
 			@Override
 			public void selected (Array<FileHandle> files) {
 				currentFileName = files.get(0).file().getAbsolutePath();
-				map.load(currentFileName, true);
+//				TODO: FIX THIS
+				map.load(currentFileName, currentFileName, true);
 			}
 		});
 		

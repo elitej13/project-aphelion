@@ -7,6 +7,7 @@ import java.util.Set;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.ephemerality.aphelion.framework.GameManager;
 import com.ephemerality.aphelion.graphics.ScreenManager;
 import com.ephemerality.aphelion.spawn.entities.Entity;
 import com.ephemerality.aphelion.spawn.entities.mob.Mob;
@@ -14,6 +15,7 @@ import com.ephemerality.aphelion.spawn.entities.nob.Nob;
 import com.ephemerality.aphelion.spawn.entities.nob.items.Item;
 import com.ephemerality.aphelion.spawn.entities.player.Player;
 import com.ephemerality.aphelion.spawn.world.MapManager;
+import com.ephemerality.aphelion.spawn.world.Warp;
 import com.ephemerality.aphelion.util.debug.Debug;
 
 public class QuadBranch {
@@ -75,6 +77,9 @@ public class QuadBranch {
 		xx *= xx;
 		yy *= yy;
 		return Math.sqrt(xx + yy);
+	}
+	public Warp checkWarpCollision(Mob mob) {
+		return map.getWarp(mob.body);
 	}
 	public boolean checkAttackCollision(Mob mob) {
 		for(Mob m : bugs) {

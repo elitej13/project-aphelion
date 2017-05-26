@@ -6,22 +6,31 @@ import com.ephemerality.aphelion.graphics.ScreenManager;
 import com.ephemerality.aphelion.spawn.entities.Entity;
 import com.ephemerality.aphelion.spawn.puppets.MobPuppet;
 import com.ephemerality.aphelion.spawn.puppets.Puppet;
+import com.ephemerality.aphelion.spawn.world.Warp;
 import com.ephemerality.aphelion.util.Direction;
 import com.ephemerality.aphelion.util.QuadBranch;
 import com.ephemerality.aphelion.util.Stats;
 
 public class Mob extends Entity{
 
+	public static final short PLAYER = 30000;
+	public static final short DUMMY = 30001;
+	
 	public QuadBranch branch0, branch1, branch2, branch3;
 	public Stats stats;
 	protected boolean moving, movingChangedThisFrame, attacking, attackStartedThisFrame;
 	protected Puppet puppet;
 	protected Direction dir;
 	
-	public Mob(float x, float y, int w, int h, short ID, LoadManager assets, Stats stats) {
+	public Mob(float x, float y, int w, int h, short ID, LoadManager assets, String asset, Stats stats) {
 		super(x, y, w, h, true, ID);
+		puppet = new MobPuppet(x + 64, y + 64, w, h, assets, asset);
 		this.stats = stats;
-		puppet = new MobPuppet(body.x + 64, body.y + 64, body.width, body.height, assets);
+	}
+	public Mob(float x, float y, float offsetX, float offsetY, int collisionW, int collisionH, short ID, LoadManager assets, String asset, Stats stats) {
+		super(x, y, offsetX, offsetY, collisionW, collisionH, true, ID);
+		puppet = new MobPuppet(x + 64, y + 64, collisionW, collisionH, assets, asset);
+		this.stats = stats;
 	}
 	@Override
 	public void update() {
@@ -60,7 +69,7 @@ public class Mob extends Entity{
 			}
 		}
 		if(moving) mp.updateAnim(dir);
-		mp.updatePosition(body.x + 64, body.y + 64);
+		mp.updatePosition(body.x + 64 - offsetX, body.y + 64 - offsetX);
 		mp.update();
 	}
 	public boolean updateMove() {
@@ -88,6 +97,18 @@ public class Mob extends Entity{
 			movePosition();
 		}
 		return !collided;
+	}
+	public Warp warp() {
+		Warp warp = null;
+		if(branch0 != null)
+			warp = branch0.checkWarpCollision(this);
+		if(branch1 != null)
+			warp = branch1.checkWarpCollision(this);
+		if(branch2 != null)
+			warp = branch2.checkWarpCollision(this);
+		if(branch3 != null)
+			warp = branch3.checkWarpCollision(this);
+		return warp;
 	}
 	public boolean attack() {
 		boolean hit = false;

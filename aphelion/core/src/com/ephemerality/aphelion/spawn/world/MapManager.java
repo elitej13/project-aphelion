@@ -1,5 +1,6 @@
 package com.ephemerality.aphelion.spawn.world;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.ephemerality.aphelion.graphics.ScreenManager;
@@ -21,15 +22,15 @@ public class MapManager {
 	public Vector2 offset;
 	
 	public MapManager() {
-		level = new Level(FileManager.readFromFile("maps/test.bin", false));
+		level = new Level("hut", FileManager.readFromFile("maps/hut.bin", false));
 //		level = new Level(12,12);
 		mapPixelSize = new Vector2(level.WIDTH * MapManager.tileSize, level.HEIGHT * MapManager.tileSize);
 		offset = new Vector2(0, 0);
 	}
 	
-	public void load(String location, boolean absolutepath) {
+	public void load(String name, String location, boolean absolutepath) {
 		bufferedLevel = level;
-		level = new Level(FileManager.readFromFile(location, absolutepath));
+		level = new Level(name, FileManager.readFromFile(location, absolutepath));
 		mapPixelSize = new Vector2(level.WIDTH * MapManager.tileSize, level.HEIGHT * MapManager.tileSize);
 		offset = new Vector2(0, 0);
 		recentlyReloaded = true;
@@ -55,7 +56,13 @@ public class MapManager {
 		}
 		return false;
 	}
-	
+	public Warp getWarp(Rectangle rect) {
+		for(Warp w : level.warps){
+			if(w.checkActivated(rect, level.name))
+				return w;
+		}
+		return null;
+	}
 	public Rectangle[] getSurroundingTiles(Vector2 vector) {
 		int x = (int)vector.x >> 6;
 		int y = (int)vector.y >> 6;
@@ -103,7 +110,15 @@ public class MapManager {
 				}
 			}
 		}
+		
+		
+		//Debugging Purposes
+		for(Warp warp : level.warps) {
+			warp.render(screen, level.name);
+		}
+		//Debbugging end
 	}
+	
 	
 	public Vector2 getMapSize() {
 		return mapPixelSize;

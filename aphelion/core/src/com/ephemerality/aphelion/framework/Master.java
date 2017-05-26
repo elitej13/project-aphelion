@@ -102,7 +102,7 @@ public class Master extends ApplicationAdapter {
 						game.resizeLevel(w, h);
 					}else {
 						String path = "maps/" + args[2] + ".bin";
-						game.loadLevel(path, false);
+						game.loadLevel(args[2], path, false);
 						Debug.pushToConsole("Setting level to " + path, false);						
 					}
 				}else {

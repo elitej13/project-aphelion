@@ -9,8 +9,8 @@ import com.ephemerality.aphelion.util.Stats;
 
 public class Dummy extends Mob{
 
-	public Dummy(float x, float y, int w, int h, short ID, LoadManager assets, Stats stats) {
-		super(x, y, w, h, ID, assets, stats);
+	public Dummy(float x, float y, LoadManager assets,Stats stats) {
+		super(x, y, 128, 64, Mob.DUMMY, assets, LoadManager.MONSTER_SCML, stats);
 		nearby = new HashSet<>();
 	}
 	

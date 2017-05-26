@@ -1,0 +1,24 @@
+Full Log Report
+=========================================================================================================
+00:00:00 | Loading assets 0/4
+00:00:01 | Loading assets 0/4
+00:00:03 | Loading assets 1/4
+00:00:05 | Loading assets 1/4
+00:00:07 | Loading assets 1/4
+00:00:08 | Loading assets 1/4
+00:00:10 | Loading assets 1/4
+00:00:12 | Loading assets 1/4
+00:00:13 | Loading assets 1/4
+00:00:15 | Loading assets 1/4
+00:00:26 | Loading assets 2/4
+00:00:27 | Loading assets 2/4
+00:00:28 | Loading assets 3/4
+00:00:30 | Loading assets 3/4
+00:00:30 | Done loading assets
+00:00:34 | Setting bakcground to 0.6 0.6 0.6  1.0
+Uncaught Exception Error: You done fucked up fool. Now don't be a bitch and fix it
+=========================================================================================================
+java.lang.Error: Unresolved compilation problem: 
+	PINK0 cannot be resolved or is not a field
+
+=========================================================================================================

@@ -2,24 +2,27 @@ package com.ephemerality.aphelion.spawn.entities.player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.ephemerality.aphelion.framework.GameManager;
 import com.ephemerality.aphelion.graphics.LoadManager;
 import com.ephemerality.aphelion.graphics.ScreenManager;
 import com.ephemerality.aphelion.input.InputManager;
 import com.ephemerality.aphelion.spawn.entities.mob.Mob;
 import com.ephemerality.aphelion.spawn.entities.player.inventory.Inventory;
+import com.ephemerality.aphelion.spawn.world.Warp;
 import com.ephemerality.aphelion.util.Direction;
 import com.ephemerality.aphelion.util.Stats;
 
 public class Player extends Mob {
 
-	ScreenManager screen;
 	public Inventory inventory;
+	public ScreenManager screen;
+	boolean isWarped;
 	
 //testing purposes - not permanent
 	int speed = 10;
 	
 	public Player(ScreenManager screen, LoadManager assets, float x, float y) {
-		super(x, y, 128, 64, (short) 30001, assets, new Stats());
+		super(x, y, 128, 64, Mob.PLAYER, assets, LoadManager.MONSTER_SCML, new Stats());
 		this.screen = screen;		
 		screen.setPosition(x, y);
 		inventory = new Inventory();
@@ -32,12 +35,26 @@ public class Player extends Mob {
 	}
 	@Override
 	public void behavior() {
+		Warp warp = warp();
+		if(warp != null) {
+			if(!isWarped) {
+				GameManager.requestWarp(warp);
+				isWarped = true;
+			}
+		}else {
+			isWarped = false;
+		}
+		
+		
+		
 		if(!attacking && (Gdx.input.isTouched() || Gdx.input.isKeyJustPressed(Input.Keys.SPACE))) {
 			attackStartedThisFrame = true;
 		}
 		if(attacking) {
 			attack();
 		}
+		
+		
 		
 		boolean movedLastFrame = moving;
 		for(int i = 0; i < speed; i++){	

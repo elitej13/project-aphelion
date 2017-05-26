@@ -40,7 +40,7 @@ public class ScreenManager {
 		
 		
 		rectangles = new HashMap<>();
-		
+		center = new Rectangle(Gdx.graphics.getWidth() / 2 - 1, Gdx.graphics.getHeight() / 2 - 1, 4f, 4f);
 
 		//Font Generations
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/inconsolata/Inconsolata-Bold.ttf"));
@@ -82,8 +82,10 @@ public class ScreenManager {
 		sb.enableBlending();
 		sb.begin();
 	}
-	
+	//Debug
+	static Rectangle center;
 	public void finish() {
+		renderRectangle(center, Color.RED, bounds.x, bounds.y);
 		Rectangle scissors = new Rectangle();
 		ScissorStack.calculateScissors(oc, sb.getTransformMatrix(), bounds, scissors);
 		ScissorStack.pushScissors(scissors);
@@ -116,20 +118,26 @@ public class ScreenManager {
 	
 	
 	
-	HashMap<Vector2, Texture> rectangles;
 	
+	HashMap<Vector2, Texture> rectangles;
 	public void renderRectangle(Rectangle body) {
+		renderRectangle(body, Color.PINK, 0, 0);
+	}
+	public void renderRectangle(Rectangle body, Color color) {
+		renderRectangle(body, color, 0, 0);
+	}
+	public void renderRectangle(Rectangle body, Color color, float x, float y) {
 		Vector2 vector = body.getSize(new Vector2());
 		Texture texture = rectangles.get(vector);
 		if(texture == null) {
 			Pixmap pix = new Pixmap((int) body.width, (int) body.height, Pixmap.Format.RGBA8888);
-			pix.setColor(1.0f, 0, 1.0f, 1.0f);
+			pix.setColor(color);
 			pix.drawRectangle(0, 0, (int) body.width, (int) body.height);
 			texture = new Texture(pix);
 			pix.dispose();			
 			rectangles.put(vector, texture);
 		}
-		sb.draw(texture, body.x, body.y);
+		sb.draw(texture, body.x + x, body.y + y);
 	}
 	//TODO: FINISH THIS
 	public void renderString(Color col, String string, float x, float y) {
