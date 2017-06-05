@@ -9,6 +9,7 @@ import java.util.Set;
 import com.badlogic.gdx.Gdx;
 import com.ephemerality.aphelion.graphics.ScreenManager;
 import com.ephemerality.aphelion.spawn.entities.Entity;
+import com.ephemerality.aphelion.spawn.entities.nob.items.Item;
 
 public class Inventory {
 	
@@ -64,7 +65,14 @@ public class Inventory {
 //			
 //		}
 	}
-	
+	public boolean checkForItem(short ID) {
+		if(items.get(ID) != null)
+			return true;
+		return false;
+	}
+	public InventoryItem getAndRemoveItem(short ID, int count) {
+		return items.get(ID);
+	}
 	public void render(ScreenManager screen) {
 		float padding = 10f;
 		float scale = 32f;

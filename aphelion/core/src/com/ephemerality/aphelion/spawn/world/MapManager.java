@@ -1,6 +1,6 @@
 package com.ephemerality.aphelion.spawn.world;
 
-import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.ephemerality.aphelion.graphics.ScreenManager;
@@ -12,7 +12,7 @@ public class MapManager {
 	
 	
 	public static int tileSize = 64;
-	private boolean recentlyReloaded;
+	public boolean recentlyReloaded;
 	
 	
 	Level bufferedLevel;
@@ -83,6 +83,16 @@ public class MapManager {
 	
 	
 	public void render(ScreenManager screen) {
+		renderTiles(screen);
+		renderMap(screen);
+		
+		//Debugging Purposes
+		for(Warp warp : level.warps) {
+			warp.render(screen, level.name);
+		}
+		//Debbugging end
+	}
+	public void renderTiles(ScreenManager screen) {
 		int tileSize = MapManager.tileSize;
 		Rectangle bounds = screen.getBounds();
 		int x0 = (int) Math.floor(bounds.x / tileSize);
@@ -109,17 +119,30 @@ public class MapManager {
 					screen.render(SpriteSheet.default_wood_0,  x * tileSize, y * tileSize);
 				}
 			}
-		}
-		
-		
-		//Debugging Purposes
-		for(Warp warp : level.warps) {
-			warp.render(screen, level.name);
-		}
-		//Debbugging end
+		}		
 	}
-	
-	
+	public void renderMap(ScreenManager screen) {
+		float mapTileSize = 8f;
+		float mapWidth = level.WIDTH * mapTileSize;
+		float mapHeight = level.HEIGHT * mapTileSize;
+		float width = Gdx.graphics.getWidth();
+		float height = Gdx.graphics.getHeight();
+		for(int y = 0; y < level.HEIGHT; y++) {
+			for(int x = 0; x < level.WIDTH; x++) {
+				int index = x + (y * level.WIDTH);
+				short currentPixel = level.tiles[index];
+				if(currentPixel == Tile.GRASS_ID) {
+					screen.renderFixed(SpriteSheet.default_grass_0, width - mapWidth + x * mapTileSize, height - mapHeight + y * mapTileSize, mapTileSize, mapTileSize);
+				}else if(currentPixel == Tile.DIRT_ID) {
+					screen.renderFixed(SpriteSheet.default_dirt_0, width - mapWidth + x * mapTileSize, height - mapHeight + y * mapTileSize, mapTileSize, mapTileSize);
+				}else if(currentPixel == Tile.BRICK_ID) {
+					screen.renderFixed(SpriteSheet.default_brick_0,  width - mapWidth + x * mapTileSize, height - mapHeight + y * mapTileSize, mapTileSize, mapTileSize);
+				}else if(currentPixel == Tile.WOOD_ID) {
+					screen.renderFixed(SpriteSheet.default_wood_0,  width - mapWidth + x * mapTileSize, height - mapHeight + y * mapTileSize, mapTileSize, mapTileSize);
+				}
+			}
+		}
+	}
 	public Vector2 getMapSize() {
 		return mapPixelSize;
 	}

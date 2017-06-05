@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
+import com.ephemerality.aphelion.editor.framework.Editor;
 import com.ephemerality.aphelion.framework.Master;
 import com.ephemerality.aphelion.input.DollInfo;
 import com.ephemerality.aphelion.input.SCMLLoader;
@@ -50,7 +51,7 @@ public class LoadManager {
 	
 	
 	public LoadManager(ScreenManager screen) {
-		loadFrames = new ArrayList<Texture>();
+		loadFrames = new ArrayList<>();
 		int frames = 31;
 		for(int i = 0; i < frames; i++) 
 			loadFrames.add(new Texture(Gdx.files.internal("load/frame_" + i + "_delay-0.03s.png")));
@@ -138,6 +139,7 @@ public class LoadManager {
 			SpriteSheet.init(assets);
 			Debug.pushToConsole("Done loading assets", false);
 			Master.setState(1);
+			Editor.loadInitialized = true;
 		}
 	}
 	

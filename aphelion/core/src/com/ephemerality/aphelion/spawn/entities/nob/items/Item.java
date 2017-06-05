@@ -1,5 +1,6 @@
 package com.ephemerality.aphelion.spawn.entities.nob.items;
 
+import com.ephemerality.aphelion.graphics.ScreenManager;
 import com.ephemerality.aphelion.spawn.entities.nob.Nob;
 
 public class Item extends Nob {
@@ -11,5 +12,19 @@ public class Item extends Nob {
 	public Item(float x, float y, int w, int h, short ID) {
 		super(x, y, w, h, true, ID);
 	}
-
+	
+	
+	@Override
+	public void update() {
+		puppet.anim(0.2f);
+	}
+	@Override
+	public void render(ScreenManager screen) {
+		super.render(screen);
+		if(renderable) {
+			if(puppet != null) {
+				puppet.render(screen);
+			}
+		}
+	}
 }

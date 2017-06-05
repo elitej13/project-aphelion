@@ -15,10 +15,9 @@ import com.ephemerality.aphelion.util.debug.DebugType;
 
 public class Master extends ApplicationAdapter {
 	
+	public static final String version = "Pre-Alpha || Version 0.0.9";
 	//-1 Exiting, 0 Main menu, 1 Game
 	private static int state = 0;
-	private boolean hasInitialized;
-	
 	ScreenManager screen;
 	LoadManager loader;
 	GameManager game;
@@ -69,6 +68,7 @@ public class Master extends ApplicationAdapter {
 			game.update();
 		}
 		screen.update();
+//		screen.rotate(0f, 1f, 0f, 1f);
 	}
 	
 	//Debugger methods
@@ -93,7 +93,7 @@ public class Master extends ApplicationAdapter {
 					float b = Float.parseFloat(args[4]);
 					float a = Float.parseFloat(args[5]);
 					screen.setColor(new Color(r, g, b, a));
-					Debug.pushToConsole("Setting bakcground to " + r + " " + g + " "+ b + " " + " " + a, false);
+					Debug.pushToConsole("Setting background to " + r + " " + g + " "+ b + " " + " " + a, false);
 					
 				}else if(args[1].equalsIgnoreCase("level")) {
 					if(args.length > 3) {
@@ -194,6 +194,7 @@ public class Master extends ApplicationAdapter {
 			game.render(screen);
 		}
 		Debug.render(screen.getSpriteBatch(), screen.getBounds().x, screen.getBounds().y);
+		screen.renderFixedString(Color.GOLD, version, Gdx.graphics.getWidth() - 175, 15);
 		screen.finish();
 	}
 	

@@ -46,6 +46,11 @@ public class MobPuppet extends Puppet{
 	public TextureRegion getIcon() {
 		return null;
 	}
+	@Override
+	public void anim(float speed) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 
 }

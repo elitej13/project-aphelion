@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -14,6 +15,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
@@ -49,6 +51,10 @@ public class ScreenManager {
 		parameter.size = FONT_SIZE;
 		parameter.color = new Color(0, 0, 0, 1.0f);
 		font = generator.generateFont(parameter);
+		
+		Pixmap map = new Pixmap(1, 1, Format.RGBA8888);
+		map.setColor(Color.BLACK);
+		pixel = new Texture(map);
 	}
 	
 	public void resize() {
@@ -74,7 +80,14 @@ public class ScreenManager {
 		bounds.setPosition(xb, yb);
 		update();
 	}
-	
+	public void rotate(float w, float x, float y, float z) {
+		Quaternion quat = new Quaternion();
+		quat.w = w;
+		quat.x = x;
+		quat.y = y;
+		quat.z = z;
+		oc.rotate(quat);
+	}
 	public void start() {
 		Gdx.gl20.glClearColor(color.r, color.b, color.g, color.a);
 		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);		
@@ -117,8 +130,6 @@ public class ScreenManager {
 	}
 	
 	
-	
-	
 	HashMap<Vector2, Texture> rectangles;
 	public void renderRectangle(Rectangle body) {
 		renderRectangle(body, Color.PINK, 0, 0);
@@ -139,10 +150,13 @@ public class ScreenManager {
 		}
 		sb.draw(texture, body.x + x, body.y + y);
 	}
-	//TODO: FINISH THIS
 	public void renderString(Color col, String string, float x, float y) {
 		font.setColor(col);
 		font.draw(sb, string, x, y);
+	}
+	public void renderFixedString(Color col, String string, float x, float y) {
+		font.setColor(col);
+		font.draw(sb, string, x + bounds.x, y + bounds.y);
 	}
 	public void render(TextureRegion texture, float x, float y) {
 		sb.draw(texture, x, y);
@@ -152,6 +166,9 @@ public class ScreenManager {
 	}
 	public void render(Texture texture, float x, float y, float w, float h) {
 		sb.draw(texture, x, y, w, h);
+	}
+	public void renderFixed(TextureRegion texture, float x, float y, float w, float h) {
+		sb.draw(texture, x + bounds.x, bounds.y + y, w, h);
 	}
 	public void render(Texture texture, Rectangle body) {
 		sb.draw(texture, body.x, body.y, body.width, body.height);
@@ -175,6 +192,10 @@ public class ScreenManager {
 	public void renderFixed(TextureRegion texture, float x, float y, float scale) {
 //		TODO: verify this draw call as accurate
 		sb.draw(texture, x, y, texture.getRegionWidth() * scale, texture.getRegionHeight() * scale);
+	}
+	Texture pixel;
+	public void renderPixel(float x, float y) {
+		sb.draw(pixel, x, y);
 	}
 	public void setColor(Color color) {
 		this.color = color;
