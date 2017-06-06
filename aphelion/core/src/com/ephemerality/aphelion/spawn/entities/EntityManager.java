@@ -20,10 +20,10 @@ public class EntityManager {
 	
 	public Vector2 deltaOffset;
 	public List<Entity> entities;
-	List<Entity> removed;
+	public List<Entity> removed;
 	
-	private QuadTree quad;
-	private Player player;
+	public QuadTree quad;
+	public Player player;
 	
 	
 	public EntityManager(ScreenManager screen, LoadManager assets, MapManager map) {
@@ -38,6 +38,7 @@ public class EntityManager {
 		addEntity(player);
 		addEntity(new Dummy(200, 200, assets, new Equip(new Stats())));
 		addEntity(new Item(50, 50, 32, 32, Item.SWORD));
+		addEntity(new Item(100, 50, 32, 32, Item.CHEST));
 	}
 	public void refreshQuad(MapManager map) {
 		quad = new QuadTree(map);

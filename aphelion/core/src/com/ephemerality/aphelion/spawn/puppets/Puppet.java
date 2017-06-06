@@ -14,6 +14,7 @@ public abstract class Puppet {
 		this.h = h;
 	}
 	public abstract void update() ;
+	public abstract void anim(float speed) ;
 	public abstract void render(ScreenManager screen) ;
 	public abstract TextureRegion getIcon() ;
 

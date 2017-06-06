@@ -12,8 +12,8 @@ import com.ephemerality.aphelion.spawn.entities.nob.Nob;
 
 public class QuadTree {
 	
-	private QuadBranch NE, NW, SW, SE;
-	private Rectangle N, W, S, E;
+	public QuadBranch NE, NW, SW, SE;
+	public Rectangle N, W, S, E;
 //	private float timer;
 	
 	public QuadTree(MapManager map) {

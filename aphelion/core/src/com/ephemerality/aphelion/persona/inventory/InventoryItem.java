@@ -1,5 +1,6 @@
 package com.ephemerality.aphelion.persona.inventory;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.ephemerality.aphelion.graphics.ScreenManager;
 
@@ -28,10 +29,9 @@ public class InventoryItem {
 		count++;
 	}
 	
-	
 	public void render(ScreenManager screen, float xOffset, float yOffset, float padding, float scale) {
 		screen.renderFixed(texture, (x * scale) + (x * padding) + xOffset, (y * scale) + (y * padding) + yOffset);
-//		TODO: render count above icon
+		screen.renderFixedString(Color.BLACK, "" + count,  (x * scale) + (x * padding) + xOffset, (y * scale) + (y * padding) + yOffset);
 	}
 	
 }
