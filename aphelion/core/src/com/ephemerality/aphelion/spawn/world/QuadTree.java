@@ -1,4 +1,4 @@
-package com.ephemerality.aphelion.util;
+package com.ephemerality.aphelion.spawn.world;
 
 import java.util.HashSet;
 import java.util.Iterator;
@@ -9,7 +9,6 @@ import com.ephemerality.aphelion.graphics.ScreenManager;
 import com.ephemerality.aphelion.spawn.entities.Entity;
 import com.ephemerality.aphelion.spawn.entities.mob.Mob;
 import com.ephemerality.aphelion.spawn.entities.nob.Nob;
-import com.ephemerality.aphelion.spawn.world.MapManager;
 
 public class QuadTree {
 	

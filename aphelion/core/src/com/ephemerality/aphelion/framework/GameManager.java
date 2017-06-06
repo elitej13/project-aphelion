@@ -1,6 +1,5 @@
 package com.ephemerality.aphelion.framework;
 
-import com.badlogic.gdx.math.Rectangle;
 import com.ephemerality.aphelion.graphics.LoadManager;
 import com.ephemerality.aphelion.graphics.ScreenManager;
 import com.ephemerality.aphelion.input.InputManager;

@@ -1,4 +1,4 @@
-package com.ephemerality.aphelion.spawn.entities.player.inventory;
+package com.ephemerality.aphelion.persona.inventory;
 
 import java.util.HashMap;
 import java.util.HashSet;

@@ -50,7 +50,7 @@ public class LoadManager {
 	
 	
 	public LoadManager(ScreenManager screen) {
-		loadFrames = new ArrayList<Texture>();
+		loadFrames = new ArrayList<>();
 		int frames = 31;
 		for(int i = 0; i < frames; i++) 
 			loadFrames.add(new Texture(Gdx.files.internal("load/frame_" + i + "_delay-0.03s.png")));

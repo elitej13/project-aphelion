@@ -1,4 +1,6 @@
-package com.ephemerality.aphelion.util;
+package com.ephemerality.aphelion.persona;
+
+import com.ephemerality.aphelion.util.Util;
 
 public class Stats {
 	

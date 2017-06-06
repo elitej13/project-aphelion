@@ -4,13 +4,13 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 import com.ephemerality.aphelion.graphics.LoadManager;
+import com.ephemerality.aphelion.persona.Equip;
 import com.ephemerality.aphelion.spawn.entities.player.Player;
-import com.ephemerality.aphelion.util.Stats;
 
 public class Dummy extends Mob{
 
-	public Dummy(float x, float y, LoadManager assets,Stats stats) {
-		super(x, y, 128, 64, Mob.DUMMY, assets, LoadManager.MONSTER_SCML, stats);
+	public Dummy(float x, float y, LoadManager assets, Equip equip) {
+		super(x, y, 128, 64, Mob.DUMMY, assets, LoadManager.MONSTER_SCML, equip);
 		nearby = new HashSet<>();
 	}
 	

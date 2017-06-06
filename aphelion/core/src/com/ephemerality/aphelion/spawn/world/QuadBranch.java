@@ -1,4 +1,4 @@
-package com.ephemerality.aphelion.util;
+package com.ephemerality.aphelion.spawn.world;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -7,7 +7,6 @@ import java.util.Set;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.ephemerality.aphelion.framework.GameManager;
 import com.ephemerality.aphelion.graphics.ScreenManager;
 import com.ephemerality.aphelion.spawn.entities.Entity;
 import com.ephemerality.aphelion.spawn.entities.mob.Mob;
@@ -86,7 +85,7 @@ public class QuadBranch {
 			if(m.equals(mob))
 				continue;
 			if(mob.body.overlaps(m.body)) {
-				float damage = m.stats.modHealth(-mob.stats.getDamage());
+				float damage = m.equip.modHealth(-mob.equip.getDamage());
 				Debug.pushToConsole(mob.getID() + " attacked " + m.getID() + ", doing " + damage + " damage", false);
 				return true;
 			}

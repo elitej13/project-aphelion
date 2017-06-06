@@ -1,4 +1,4 @@
-package com.ephemerality.aphelion.spawn.entities.player.inventory;
+package com.ephemerality.aphelion.persona.inventory;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.ephemerality.aphelion.graphics.ScreenManager;
