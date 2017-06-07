@@ -2,6 +2,7 @@ package com.ephemerality.aphelion.graphics;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
@@ -13,6 +14,8 @@ import com.ephemerality.aphelion.spawn.entities.tiles.Tile;
 public class SpriteSheet {
 
 	
+	
+	public static Texture pixel;
 // 	Tile Sprites	//
 	public static TextureRegion default_grass_0;
 	public static TextureRegion default_dirt_0;
@@ -40,6 +43,11 @@ public class SpriteSheet {
 	}
 	
 	public static void init(Texture tilesheet, Texture itemsheet) {
+		Pixmap map = new Pixmap(1, 1, Format.RGBA8888);
+		map.setColor(Color.BLACK);
+		map.fillRectangle(1, 1, 1, 1);
+		pixel = new Texture(map);
+		
 //	 	Tile Sprites	//
 		default_grass_0 = new TextureRegion(tilesheet, 	0, 0, 	64, 64);
 		default_dirt_0 = new TextureRegion(tilesheet, 	0, 64, 	64, 64);
@@ -74,7 +82,6 @@ public class SpriteSheet {
 		}
 		return default_void_0;
 	}
-	
 	public static Image fetchImageFromEntityID(short ID) {
 		Image image = null;
 		if(ID == Tile.VOID_ID) {

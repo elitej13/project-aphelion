@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
+import com.ephemerality.aphelion.effects.ParticleSpawner;
 import com.ephemerality.aphelion.graphics.LoadManager;
 import com.ephemerality.aphelion.graphics.ScreenManager;
 import com.ephemerality.aphelion.persona.Equip;
@@ -20,7 +21,8 @@ public class EntityManager {
 	
 	public Vector2 deltaOffset;
 	public List<Entity> entities;
-	public List<Entity> removed;
+	public List<ParticleSpawner> particles;
+	public List<Object> removed;
 	
 	public QuadTree quad;
 	public Player player;
@@ -32,13 +34,19 @@ public class EntityManager {
 		
 		deltaOffset = new Vector2();
 		entities = new ArrayList<>();
+		particles = new ArrayList<>();
 		removed = new ArrayList<>();
 		quad = new QuadTree(map);
+		
 		player = new Player(screen, assets, x / 2, y / 2);
+		
 		addEntity(player);
 		addEntity(new Dummy(200, 200, assets, new Equip(new Stats())));
 		addEntity(new Item(50, 50, 32, 32, Item.SWORD));
 		addEntity(new Item(100, 50, 32, 32, Item.CHEST));
+		
+		//TODO : Fix the particle render/spawn bug.
+		particles.add(new ParticleSpawner(200f, 200f, 1000, 100, 50));
 	}
 	public void refreshQuad(MapManager map) {
 		quad = new QuadTree(map);
@@ -47,17 +55,19 @@ public class EntityManager {
 	}
 		
 	public void update() {
-		for(Entity e : entities) {
+		for(Entity e : entities)
 			e.update();
-		}
-		for(Entity e : entities) {
-			if(e.isRemoved) {
+		
+		for(Entity e : entities)
+			if(e.isRemoved)
 				removed.add(e);
-			}
-		}
+		
 		entities.removeAll(removed);
 		removed.clear();
 		quad.update();
+		
+		for(ParticleSpawner ps : particles) 
+			ps.update();
 		Collections.sort(entities);
 	}
 	
@@ -69,7 +79,10 @@ public class EntityManager {
 	
 	public void render(ScreenManager screen) {
 		quad.render(screen);
-		for(Entity e : entities) e.render(screen);
+		for(Entity e : entities) 
+			e.render(screen);
+		for(ParticleSpawner ps : particles) 
+			ps.render(screen);
 		
 //		DEBUGGINB purposes	//
 	}

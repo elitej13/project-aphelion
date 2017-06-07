@@ -1,9 +1,6 @@
 package com.ephemerality.aphelion.spawn.world;
 
-<<<<<<< HEAD
-=======
 import com.badlogic.gdx.Gdx;
->>>>>>> ce13df3267208cc5df371e55e50e51a526d0fe30
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.ephemerality.aphelion.graphics.ScreenManager;

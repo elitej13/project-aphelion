@@ -31,10 +31,7 @@ public class Editor extends ApplicationAdapter {
 		mouse = new Mouse();
 		gui = new GUI(screen, map);
 	}
-<<<<<<< HEAD
-	
-=======
->>>>>>> ce13df3267208cc5df371e55e50e51a526d0fe30
+
 	public void update() {
 		Debug.update();
 		InputManager.update();

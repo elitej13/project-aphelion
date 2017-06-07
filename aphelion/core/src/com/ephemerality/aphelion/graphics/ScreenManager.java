@@ -158,6 +158,14 @@ public class ScreenManager {
 		font.setColor(col);
 		font.draw(sb, string, x + bounds.x, y + bounds.y);
 	}
+	public void render(Texture texture, Color color, float x, float y) {
+		sb.setColor(color);
+		sb.draw(texture, x, y);
+		sb.setColor(Color.WHITE);
+	}
+	public void render(Texture texture, float x, float y) {
+		sb.draw(texture, x, y);
+	}
 	public void render(TextureRegion texture, float x, float y) {
 		sb.draw(texture, x, y);
 	}
