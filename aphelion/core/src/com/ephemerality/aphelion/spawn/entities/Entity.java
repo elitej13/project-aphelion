@@ -41,7 +41,7 @@ public class Entity implements Comparable<Entity>{
 			screen.renderRectangle(body);
 			if(this instanceof Mob) {
 				Mob m = (Mob) this;
-				screen.renderString(font_color, m.getClass().getSimpleName() + ": " + m.stats.getFormattedDamage(), body.x, body.y - 12);				
+				screen.renderString(font_color, m.getClass().getSimpleName() + ": " + m.equip.getFormattedDamage(), body.x, body.y - 12);				
 			}
 		}
 	}

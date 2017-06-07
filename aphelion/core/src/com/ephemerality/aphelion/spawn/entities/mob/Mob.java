@@ -3,13 +3,14 @@ package com.ephemerality.aphelion.spawn.entities.mob;
 import com.badlogic.gdx.math.Rectangle;
 import com.ephemerality.aphelion.graphics.LoadManager;
 import com.ephemerality.aphelion.graphics.ScreenManager;
+import com.ephemerality.aphelion.persona.Equip;
 import com.ephemerality.aphelion.spawn.entities.Entity;
 import com.ephemerality.aphelion.spawn.puppets.MobPuppet;
 import com.ephemerality.aphelion.spawn.puppets.Puppet;
+import com.ephemerality.aphelion.spawn.world.QuadBranch;
 import com.ephemerality.aphelion.spawn.world.Warp;
 import com.ephemerality.aphelion.util.Direction;
-import com.ephemerality.aphelion.util.QuadBranch;
-import com.ephemerality.aphelion.util.Stats;
+import com.ephemerality.aphelion.util.debug.Debug;
 
 public class Mob extends Entity{
 
@@ -17,20 +18,20 @@ public class Mob extends Entity{
 	public static final short DUMMY = 30001;
 	
 	public QuadBranch branch0, branch1, branch2, branch3;
-	public Stats stats;
+	public Equip equip;
 	protected boolean moving, movingChangedThisFrame, attacking, attackStartedThisFrame;
 	protected Puppet puppet;
 	protected Direction dir;
 	
-	public Mob(float x, float y, int w, int h, short ID, LoadManager assets, String asset, Stats stats) {
+	public Mob(float x, float y, int w, int h, short ID, LoadManager assets, String asset, Equip equip) {
 		super(x, y, w, h, true, ID);
 		puppet = new MobPuppet(x + 64, y + 64, w, h, assets, asset);
-		this.stats = stats;
+		this.equip = equip;
 	}
-	public Mob(float x, float y, float offsetX, float offsetY, int collisionW, int collisionH, short ID, LoadManager assets, String asset, Stats stats) {
+	public Mob(float x, float y, float offsetX, float offsetY, int collisionW, int collisionH, short ID, LoadManager assets, String asset, Equip equip) {
 		super(x, y, offsetX, offsetY, collisionW, collisionH, true, ID);
 		puppet = new MobPuppet(x + 64, y + 64, collisionW, collisionH, assets, asset);
-		this.stats = stats;
+		this.equip = equip;
 	}
 	@Override
 	public void update() {
@@ -39,7 +40,7 @@ public class Mob extends Entity{
 		updateDeath();
 	}
 	public void updateDeath() {
-		if(stats.isDead()) {
+		if(equip.isDead()) {
 			isRemoved = true;
 		}		
 	}

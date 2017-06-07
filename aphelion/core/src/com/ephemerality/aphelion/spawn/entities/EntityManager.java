@@ -8,12 +8,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.ephemerality.aphelion.graphics.LoadManager;
 import com.ephemerality.aphelion.graphics.ScreenManager;
+import com.ephemerality.aphelion.persona.Equip;
+import com.ephemerality.aphelion.persona.Stats;
 import com.ephemerality.aphelion.spawn.entities.mob.Dummy;
 import com.ephemerality.aphelion.spawn.entities.nob.items.Item;
 import com.ephemerality.aphelion.spawn.entities.player.Player;
 import com.ephemerality.aphelion.spawn.world.MapManager;
-import com.ephemerality.aphelion.util.QuadTree;
-import com.ephemerality.aphelion.util.Stats;
+import com.ephemerality.aphelion.spawn.world.QuadTree;
 
 public class EntityManager {
 	
@@ -35,7 +36,7 @@ public class EntityManager {
 		quad = new QuadTree(map);
 		player = new Player(screen, assets, x / 2, y / 2);
 		addEntity(player);
-		addEntity(new Dummy(200, 200, assets, new Stats()));
+		addEntity(new Dummy(200, 200, assets, new Equip(new Stats())));
 		addEntity(new Item(50, 50, 32, 32, Item.SWORD));
 		addEntity(new Item(100, 50, 32, 32, Item.CHEST));
 	}

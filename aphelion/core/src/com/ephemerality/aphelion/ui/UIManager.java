@@ -18,7 +18,7 @@ public class UIManager {
 	
 	
 	public void update() {
-		ui.fill = player.stats.getPercentDamaged();
+		ui.fill = player.equip.getPercentDamaged();
 		
 	}
 	
