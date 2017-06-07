@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.ephemerality.aphelion.editor.framework.ui.GUI;
 import com.ephemerality.aphelion.editor.framework.ui.TileScreen;
 import com.ephemerality.aphelion.spawn.world.MapManager;
 import com.kotcrab.vis.ui.util.Validators;
@@ -48,6 +49,7 @@ public class EditMenu extends ChangeListener{
 						public void finished (String input) {
 							height = Integer.parseInt(input);
 							map.resize(width, height);
+							GUI.mapJustResized = true;
 							for(Actor actor : stage.getActors()) {
 								if(actor instanceof TileScreen) {
 									TileScreen tScreen = (TileScreen) actor;

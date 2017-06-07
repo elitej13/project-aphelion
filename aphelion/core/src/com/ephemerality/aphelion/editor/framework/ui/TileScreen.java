@@ -24,7 +24,7 @@ public class TileScreen extends VisWindow{
 		
 		columnDefaults(0).left();
 		setLayoutEnabled(true);
-		setSize(800, 800);
+		setSize(800, 650);
 		setPosition(0, 0);
 	
 	}
@@ -47,16 +47,16 @@ public class TileScreen extends VisWindow{
 	public void update() {
 		int speed = 5;
 		if(up) {
-			table.moveBy(0, speed);
-		}
-		if(down) {
 			table.moveBy(0, -speed);
 		}
+		if(down) {
+			table.moveBy(0, speed);
+		}
 		if(left) {
-			table.moveBy(-speed, 0);
+			table.moveBy(speed, 0);
 		}
 		if(right) {
-			table.moveBy(speed, 0);
+			table.moveBy(-speed, 0);
 		}
 		if(map.hasRecentlyReloaded()) {
 			setTiles();

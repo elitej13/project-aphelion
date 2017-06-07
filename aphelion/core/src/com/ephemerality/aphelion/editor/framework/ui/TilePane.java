@@ -32,10 +32,10 @@ public class TilePane extends VisWindow{
 
 	private void addTiles () {
 		tree = new VisTree();
+		
 		Node tiles = new Node(new VisLabel("Tiles"));
 		Node items = new Node(new VisLabel("Items"));
 		Node entities = new Node(new VisLabel("Entities"));
-		
 		
 		Node grass = new Node(new VisLabel("Grass 0"));
 		grass.setIcon((new TextureRegionDrawable(SpriteSheet.default_grass_0)));

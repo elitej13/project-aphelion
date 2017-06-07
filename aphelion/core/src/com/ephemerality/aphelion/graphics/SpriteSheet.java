@@ -1,5 +1,6 @@
 package com.ephemerality.aphelion.graphics;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
@@ -27,7 +28,18 @@ public class SpriteSheet {
 	public static void init(AssetManager assets) {
 		Texture tilesheet = assets.get(LoadManager.TILE_SHEET, Texture.class);
 		Texture itemsheet = assets.get(LoadManager.ITEM_SHEET, Texture.class);
-		
+		init(tilesheet, itemsheet);
+//		tilesheet.dispose();
+//		entitysheet.dispose();
+//		itemsheet.dispose();
+	}
+	public static void init() {
+		Texture tilesheet = new Texture(Gdx.files.internal(LoadManager.TILE_SHEET));
+		Texture itemsheet = new Texture (Gdx.files.internal(LoadManager.ITEM_SHEET));
+		init(tilesheet, itemsheet);
+	}
+	
+	public static void init(Texture tilesheet, Texture itemsheet) {
 //	 	Tile Sprites	//
 		default_grass_0 = new TextureRegion(tilesheet, 	0, 0, 	64, 64);
 		default_dirt_0 = new TextureRegion(tilesheet, 	0, 64, 	64, 64);
@@ -41,12 +53,7 @@ public class SpriteSheet {
 		
 //		DEBUGGING Sprites	//
 		default_void_0 = new TextureRegion(new Texture(new Pixmap(64, 64, Format.RGB565)));
-		
-//		tilesheet.dispose();
-//		entitysheet.dispose();
-//		itemsheet.dispose();
 	}
-	
 	public static TextureRegion fetchTextureRegionFromEntityID(short ID) {
 		if(ID == Tile.VOID_ID) {
 			return default_void_0;
@@ -88,5 +95,6 @@ public class SpriteSheet {
 		}
 		return image;
 	}
+
 
 }

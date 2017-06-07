@@ -17,7 +17,6 @@ import com.kotcrab.vis.ui.VisUI.SkinScale;
 
 public class GUI {
 	
-	
 	final Table root;
 	Stage stage;
 	TilePane tPane;
@@ -25,6 +24,7 @@ public class GUI {
 	MenuManager menu;
 	MapManager map;
 	TileScreen tScreen;
+	public static boolean mapJustResized;
 	boolean tUp, tDown, tLeft, tRight;
 	
 	public GUI (ScreenManager screen, MapManager map) {
@@ -43,7 +43,6 @@ public class GUI {
 		initDebug();
 		
 	}
-	
 	
 	public void initDebug() {
 		stage.addListener(new InputListener() {
@@ -79,13 +78,20 @@ public class GUI {
 		menu = new MenuManager(stage, root, map);
 		tPane = new TilePane();
 		tScreen = new TileScreen(map);
-		tScreen.addListener((InputListener) new TileScreenListener(tScreen, tPane));
+		tScreen.addListener(new TileScreenListener(tScreen, tPane));
 		stage.addActor(tPane);
 		stage.addActor(tScreen);
 	}
 	
 	public void update() {
 		tScreen.update();
+		if(mapJustResized) {
+			tScreen.remove();
+			tScreen = new TileScreen(map);
+			tScreen.addListener(new TileScreenListener(tScreen, tPane));
+			stage.addActor(tScreen);
+			mapJustResized = false;
+		}
 	}
 	
 
@@ -101,7 +107,4 @@ public class GUI {
 		VisUI.dispose();
 		stage.dispose();
 	}
-
-
-	
 }

@@ -62,6 +62,7 @@ public class Level {
 			}
 		}
 		tiles = buffer;
+		
 		collidable = rectbuffer;
 		HEIGHT = h;
 		WIDTH = w;
