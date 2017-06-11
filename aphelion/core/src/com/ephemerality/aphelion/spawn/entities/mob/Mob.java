@@ -10,7 +10,6 @@ import com.ephemerality.aphelion.spawn.puppets.Puppet;
 import com.ephemerality.aphelion.spawn.world.QuadBranch;
 import com.ephemerality.aphelion.spawn.world.Warp;
 import com.ephemerality.aphelion.util.Direction;
-import com.ephemerality.aphelion.util.debug.Debug;
 
 public class Mob extends Entity{
 

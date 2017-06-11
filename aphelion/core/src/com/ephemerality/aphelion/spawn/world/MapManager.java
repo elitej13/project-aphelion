@@ -22,7 +22,7 @@ public class MapManager {
 	public Vector2 offset;
 	
 	public MapManager() {
-		level = new Level("hut", FileManager.readFromFile("maps/hut.bin", false));
+		level = new Level("hut", FileManager.readFromFile("maps/hut" + Level.EXTENSION, false));
 //		level = new Level(12,12);
 		mapPixelSize = new Vector2(level.WIDTH * MapManager.tileSize, level.HEIGHT * MapManager.tileSize);
 		offset = new Vector2(0, 0);

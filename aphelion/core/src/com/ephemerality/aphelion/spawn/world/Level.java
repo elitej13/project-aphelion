@@ -8,12 +8,14 @@ import com.ephemerality.aphelion.spawn.entities.tiles.Tile;
 
 public class Level {
 	
+	public static final String EXTENSION = ".lvl";
+	
 	public String name;
 	public Rectangle[] collidable;
 	public ArrayList<Warp> warps;
 	public short[] tiles, entities;
 	public int WIDTH, HEIGHT;
-
+	
 	public Level(int width, int height) {
 		this.name = "DEFAULT";
 		WIDTH = width;

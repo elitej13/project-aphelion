@@ -1,13 +1,12 @@
 package com.ephemerality.aphelion.framework;
 
-import java.lang.Thread.UncaughtExceptionHandler;
-
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.ephemerality.aphelion.graphics.LoadManager;
 import com.ephemerality.aphelion.graphics.ScreenManager;
 import com.ephemerality.aphelion.input.InputManager;
+import com.ephemerality.aphelion.input.Save;
 import com.ephemerality.aphelion.util.FileManager;
 import com.ephemerality.aphelion.util.debug.Debug;
 import com.ephemerality.aphelion.util.debug.DebugType;
@@ -26,7 +25,6 @@ public class Master extends ApplicationAdapter {
 //	Strictly for debug
 	private static String[] args;
 	private static boolean requested;
-	private UncaughtExceptionHandler defaultUEH;
 	private Thread.UncaughtExceptionHandler _unCaughtExceptionHandler = new Thread.UncaughtExceptionHandler() {
 		@Override
 		public void uncaughtException(Thread thread, Throwable ex) {
@@ -46,13 +44,15 @@ public class Master extends ApplicationAdapter {
 		loader = new LoadManager(screen);
 		main = new MenuManager();
 		
-		defaultUEH = Thread.getDefaultUncaughtExceptionHandler();
+		Thread.getDefaultUncaughtExceptionHandler();
 		Thread.setDefaultUncaughtExceptionHandler(_unCaughtExceptionHandler);
+		Save save = new Save("Josh");
+		FileManager.writeToFile(Gdx.files.getExternalStoragePath() + "Documents/NecroHero/" + save.name + Save.EXTENSION, save.toByteArray(game), true);
 		
 	}
 
 	
-	public void update() {		
+	public void update() {	
 		InputManager.update();
 		debugUpdate();
 		if(state == -1) {
@@ -60,7 +60,7 @@ public class Master extends ApplicationAdapter {
 		}else if(state == 0) {
 			loader.update();
 			if(state != 0) {
-				game = new GameManager(screen, loader);
+//				game = new GameManager(screen, loader);
 			}
 		}else if(state == 1) {
 			main.update();

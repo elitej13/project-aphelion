@@ -1,5 +1,6 @@
 package com.ephemerality.aphelion.persona.inventory;
 
+import java.nio.ByteBuffer;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -9,7 +10,6 @@ import java.util.Set;
 import com.badlogic.gdx.Gdx;
 import com.ephemerality.aphelion.graphics.ScreenManager;
 import com.ephemerality.aphelion.spawn.entities.Entity;
-import com.ephemerality.aphelion.spawn.entities.nob.items.Item;
 
 public class Inventory {
 	
@@ -83,4 +83,18 @@ public class Inventory {
 		}
 	}
 	
+	
+	
+	public byte[] toByteArray() {
+		byte[] data = ByteBuffer.allocate(items.size() * Integer.BYTES + items.size() * Short.BYTES + Integer.BYTES).array();
+		ByteBuffer buffer = ByteBuffer.wrap(data);
+		buffer.putInt(maxSlots);
+		Iterator<Entry<Short, InventoryItem>> iter = items.entrySet().iterator();
+		while(iter.hasNext()) {
+			Entry<Short, InventoryItem> item = iter.next();
+			buffer.putShort(item.getKey());
+			buffer.putInt(item.getValue().count);
+		}
+		return data;
+	}
 }

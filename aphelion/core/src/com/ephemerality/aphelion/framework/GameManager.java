@@ -3,31 +3,40 @@ package com.ephemerality.aphelion.framework;
 import com.ephemerality.aphelion.graphics.LoadManager;
 import com.ephemerality.aphelion.graphics.ScreenManager;
 import com.ephemerality.aphelion.input.InputManager;
+import com.ephemerality.aphelion.input.Save;
 import com.ephemerality.aphelion.spawn.entities.EntityManager;
 import com.ephemerality.aphelion.spawn.entities.player.Player;
+import com.ephemerality.aphelion.spawn.world.Level;
 import com.ephemerality.aphelion.spawn.world.MapManager;
 import com.ephemerality.aphelion.spawn.world.Warp;
 import com.ephemerality.aphelion.spawn.world.script.ScriptManager;
 import com.ephemerality.aphelion.ui.UIManager;
+import com.ephemerality.aphelion.util.FileManager;
 
 public class GameManager {
 	
 	public ScriptManager script;
-	public MapManager map;
 	public EntityManager ent;
+	public MapManager map;
 	public UIManager ui;
-	public boolean isPaused;
+	public Save save;
 	
+	public boolean isPaused;
+
 	public static boolean requestedWarp;
 	public static Warp warpTo;
 	
-	public GameManager(ScreenManager screen, LoadManager assets) {
+	
+	public GameManager(ScreenManager screen, LoadManager assets, String name, boolean newGame) {
 		map = new MapManager();
 		ent = new EntityManager(screen, assets, map);
 		ui = new UIManager(ent.getPlayer());
 		script = new ScriptManager(this);
+		if(newGame)
+			save = new Save(name);
+		else
+			save = new Save(FileManager.readFromFile(name, true));
 	}
-	
 	public void update() {
 		if(!isPaused) {
 			ent.update();
@@ -50,7 +59,7 @@ public class GameManager {
 	public Warp warp(Warp warp) {
 		if(!warp.inLevel) {
 			String name = warp.getDestination();
-			loadLevel(name, "maps/" + name + ".bin", false);
+			loadLevel(name, "maps/" + name + Level.EXTENSION, false);
 		}
 		Player player = ent.getPlayer();
 		warp.positionBody(player.body);
@@ -70,6 +79,10 @@ public class GameManager {
 		ent.render(screen);
 		ui.render(screen);
 		script.render(screen);
+	}
+	
+	public void save() {
+		
 	}
 	public void dispose() {
 		
