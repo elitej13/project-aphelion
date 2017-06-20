@@ -40,8 +40,17 @@ public class Stats {
 		health = Util.clamp(health + amount, 0, health_max);
 		return hp - health;
 	}
-	public float getDamage() {
+	public float getPhysicalDamage() {
 		return strength;
+	}
+	public float getMagicalDamage() {
+		return intelligence;
+	}
+	public float getPhysicalResist() {
+		return strength * 0.5f;
+	}
+	public float getMagicalResist() {
+		return intelligence * 0.5f;
 	}
 	public boolean isDead() {
 		if(health <= 0) 

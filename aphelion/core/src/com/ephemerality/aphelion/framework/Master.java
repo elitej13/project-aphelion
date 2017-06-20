@@ -46,8 +46,6 @@ public class Master extends ApplicationAdapter {
 		
 		Thread.getDefaultUncaughtExceptionHandler();
 		Thread.setDefaultUncaughtExceptionHandler(_unCaughtExceptionHandler);
-		Save save = new Save("Josh");
-		FileManager.writeToFile(Gdx.files.getExternalStoragePath() + "Documents/NecroHero/" + save.name + Save.EXTENSION, save.toByteArray(game), true);
 		
 	}
 
@@ -60,7 +58,9 @@ public class Master extends ApplicationAdapter {
 		}else if(state == 0) {
 			loader.update();
 			if(state != 0) {
-//				game = new GameManager(screen, loader);
+				game = new GameManager(screen, loader, "Josh");
+				Save save = new Save("Josh");
+				FileManager.writeToFile(Gdx.files.getExternalStoragePath() + "Documents/NecroHero/" + save.name + Save.EXTENSION, save.toByteArray(game), true);
 			}
 		}else if(state == 1) {
 			main.update();

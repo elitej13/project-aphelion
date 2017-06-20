@@ -9,6 +9,7 @@ import java.util.Set;
 
 import com.badlogic.gdx.Gdx;
 import com.ephemerality.aphelion.graphics.ScreenManager;
+import com.ephemerality.aphelion.graphics.SpriteSheet;
 import com.ephemerality.aphelion.spawn.entities.Entity;
 
 public class Inventory {
@@ -25,7 +26,6 @@ public class Inventory {
 	public Inventory() {
 		this(16);
 	}
-	
 	public Inventory(int maxSlots) {
 		this.maxSlots = maxSlots;	
 		items = new HashMap<>();
@@ -33,6 +33,20 @@ public class Inventory {
 		xOffset = Gdx.graphics.getWidth() * 0.125f;
 		yOffset = Gdx.graphics.getHeight() * 0.875f;
 	}
+	public Inventory(byte[] data) {
+		ByteBuffer buffer = ByteBuffer.wrap(data);
+		maxSlots = buffer.getInt();
+		items = new HashMap<>();
+		queue = new HashSet<>();
+		xOffset = Gdx.graphics.getWidth() * 0.125f;
+		yOffset = Gdx.graphics.getHeight() * 0.875f;
+		while(buffer.hasRemaining()) {
+			short ID = buffer.getShort();
+			int count = buffer.getInt();
+			addItem(ID, count);
+		}
+	}
+	
 	
 	public void update() {
 		for(Entity e : queue) {
@@ -53,7 +67,13 @@ public class Inventory {
 			filledSlots++;
 		}
 	}
-	
+	public void addItem(short ID, int count) {
+		int y = filledSlots / maxSlots;
+		int x = filledSlots - y * maxSlots;
+		InventoryItem item = new InventoryItem(SpriteSheet.fetchTextureRegionFromEntityID(ID), ID, x, y);
+		items.put(new Short(ID), item);
+		filledSlots++;
+	}
 	public void resize() {
 //		TODO: this!!!
 //		Iterator iter = items.entrySet().iterator();

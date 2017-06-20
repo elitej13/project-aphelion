@@ -1,5 +1,6 @@
 package com.ephemerality.aphelion.spawn.entities.mob;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import com.ephemerality.aphelion.graphics.LoadManager;
 import com.ephemerality.aphelion.graphics.ScreenManager;
@@ -21,6 +22,7 @@ public class Mob extends Entity{
 	protected boolean moving, movingChangedThisFrame, attacking, attackStartedThisFrame;
 	protected Puppet puppet;
 	protected Direction dir;
+	public float gracePeriod;
 	
 	public Mob(float x, float y, int w, int h, short ID, LoadManager assets, String asset, Equip equip) {
 		super(x, y, w, h, true, ID);
@@ -37,6 +39,7 @@ public class Mob extends Entity{
 		behavior();
 		updateAnim();
 		updateDeath();
+		updateGracePeriod();
 	}
 	public void updateDeath() {
 		if(equip.isDead()) {
@@ -71,6 +74,12 @@ public class Mob extends Entity{
 		if(moving) mp.updateAnim(dir);
 		mp.updatePosition(body.x + 64 - offsetX, body.y + 64 - offsetX);
 		mp.update();
+	}
+	public void updateGracePeriod() {
+		gracePeriod = Math.max(0, gracePeriod - Gdx.graphics.getDeltaTime());
+	}
+	public void setGracePeriod(float gracePeriod) {
+		this.gracePeriod = gracePeriod;
 	}
 	public boolean updateMove() {
 		return false;

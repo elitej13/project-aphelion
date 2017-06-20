@@ -11,6 +11,8 @@ public class Equip {
 	
 	public Equip(Stats stats) {
 		this.stats = stats;
+		this.weapon = Weapon.MELEE_BASIC;
+		this.armor = Armor.BASIC;
 	}
 	public Equip(Stats stats, Weapon weapon, Armor armor) {
 		this.weapon = weapon;
@@ -22,16 +24,36 @@ public class Equip {
 		this.weapon = weapon;
 		return current;
 	}
-	public boolean isDead() {
-		return stats.isDead();
+	public Armor setArmor(Armor armor) {
+		Armor current = this.armor;
+		this.armor = armor;
+		return current;
+	}
+	public Weapon.ATTACK_TYPE getAttackType() {
+		return weapon.type;
 	}
 	public float getPercentDamaged() {
 		return stats.getPercentDamaged();
 	}
-	public float getDamage() {
-		float damage = stats.getDamage();
-		if(weapon != null) damage += weapon.getStrength();
+	public float getPhysicalDamage() {
+		float damage = stats.getPhysicalDamage();
+		if(weapon != null) damage += weapon.physicalDamage;
 		return damage;
+	}
+	public float getMagicalDamage() {
+		float damage = stats.getMagicalDamage();
+		if(weapon != null) damage += weapon.magicalDamage;
+		return damage;
+	}
+	public float getPhysicalResistance() {
+		float resist = stats.getPhysicalResist();
+		if(armor != null) resist += armor.physicalResist;
+		return resist;
+	}
+	public float getMagicalResistance() {
+		float resist = stats.getPhysicalResist();
+		if(armor != null) resist += armor.magicalResist;
+		return resist;
 	}
 	public String getFormattedDamage() {
 		return stats.getFormattedDamage();
@@ -39,6 +61,11 @@ public class Equip {
 	public float modHealth(float amount) {
 		return stats.modHealth(amount);
 	}
+	public boolean isDead() {
+		return stats.isDead();
+	}
+	public float getStun() {
+		return weapon.getStun();
+	}
 	
-
 }

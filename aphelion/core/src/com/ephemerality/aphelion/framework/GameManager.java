@@ -11,7 +11,6 @@ import com.ephemerality.aphelion.spawn.world.MapManager;
 import com.ephemerality.aphelion.spawn.world.Warp;
 import com.ephemerality.aphelion.spawn.world.script.ScriptManager;
 import com.ephemerality.aphelion.ui.UIManager;
-import com.ephemerality.aphelion.util.FileManager;
 
 public class GameManager {
 	
@@ -27,15 +26,19 @@ public class GameManager {
 	public static Warp warpTo;
 	
 	
-	public GameManager(ScreenManager screen, LoadManager assets, String name, boolean newGame) {
+	public GameManager(ScreenManager screen, LoadManager assets, String name) {
 		map = new MapManager();
 		ent = new EntityManager(screen, assets, map);
 		ui = new UIManager(ent.getPlayer());
 		script = new ScriptManager(this);
-		if(newGame)
-			save = new Save(name);
-		else
-			save = new Save(FileManager.readFromFile(name, true));
+		save = new Save(name);
+	}
+	public GameManager(ScreenManager screen, LoadManager assets, Save save) {
+		this.save = save;
+		map = new MapManager();
+		ent = new EntityManager(screen, assets, map);
+		ui = new UIManager(ent.getPlayer());
+		script = new ScriptManager(this);
 	}
 	public void update() {
 		if(!isPaused) {

@@ -13,8 +13,7 @@ import com.ephemerality.aphelion.spawn.entities.mob.Mob;
 import com.ephemerality.aphelion.spawn.entities.nob.Nob;
 import com.ephemerality.aphelion.spawn.entities.nob.items.Item;
 import com.ephemerality.aphelion.spawn.entities.player.Player;
-import com.ephemerality.aphelion.spawn.world.MapManager;
-import com.ephemerality.aphelion.spawn.world.Warp;
+import com.ephemerality.aphelion.spawn.equipment.weapon.Weapon;
 import com.ephemerality.aphelion.util.debug.Debug;
 
 public class QuadBranch {
@@ -29,7 +28,7 @@ public class QuadBranch {
 		leaves = new HashSet<>();
 		bugs = new HashSet<>();
 		bounds = new Rectangle(x0, y0, width, height);
-		}
+	}
 	
 	public List<Mob> getOutOfBounds() {
 		List<Mob> mobs = new ArrayList<>();
@@ -85,7 +84,23 @@ public class QuadBranch {
 			if(m.equals(mob))
 				continue;
 			if(mob.body.overlaps(m.body)) {
-				float damage = m.equip.modHealth(-mob.equip.getDamage());
+				float damage = 0;
+				Weapon.ATTACK_TYPE type = m.equip.getAttackType();
+				if(type.equals(Weapon.ATTACK_TYPE.MELEE_MIXED) || type.equals(Weapon.ATTACK_TYPE.RANGED_MIXED)) {
+					damage += Math.max(mob.equip.getMagicalDamage() - m.equip.getMagicalResistance(), 0);
+					damage += Math.max(mob.equip.getPhysicalDamage() - m.equip.getPhysicalResistance(), 0);
+				}else if(type.equals(Weapon.ATTACK_TYPE.MELEE_MAGIC) || type.equals(Weapon.ATTACK_TYPE.RANGED_MAGIC)) {
+					damage += Math.max(mob.equip.getMagicalDamage() - m.equip.getMagicalResistance(), 0);
+				}else if(type.equals(Weapon.ATTACK_TYPE.MELEE_PHYSICAL) || type.equals(Weapon.ATTACK_TYPE.RANGED_PHYSICAL)) {
+					damage += Math.max(mob.equip.getPhysicalDamage() - m.equip.getPhysicalResistance(), 0);
+				}
+				if(m.gracePeriod <= 0) {
+					m.equip.modHealth(-damage);
+					m.gracePeriod = mob.equip.getStun();
+					System.out.println(mob.equip.getStun());
+				}
+				System.out.println("Damage: " + damage);
+				System.out.println("Adjusted Health: " + m.equip.getFormattedDamage());
 				Debug.pushToConsole(mob.getID() + " attacked " + m.getID() + ", doing " + damage + " damage", false);
 				return true;
 			}

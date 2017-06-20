@@ -1,10 +1,10 @@
 package com.ephemerality.aphelion.spawn.equipment.weapon;
 
 public class Melee extends Weapon{
-	
-	
-	public Melee(float x, float y, int w, int h, short ID) {
-		super(x, y, w, h, ID);
+
+	public Melee(float physicalDamage, float magicalDamage, float stun, short ID) {
+		super(physicalDamage, magicalDamage, stun, true, ID);
 	}
+	
 
 }

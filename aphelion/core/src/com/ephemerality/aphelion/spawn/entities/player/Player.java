@@ -1,5 +1,8 @@
 package com.ephemerality.aphelion.spawn.entities.player;
 
+import java.nio.ByteBuffer;
+import java.util.Arrays;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.ephemerality.aphelion.framework.GameManager;
@@ -27,6 +30,13 @@ public class Player extends Mob {
 		this.screen = screen;		
 		screen.setPosition(x, y);
 		inventory = new Inventory();
+	}
+	public Player(ScreenManager screen, LoadManager assets, byte[] data) {
+		super(ByteBuffer.wrap(data).getFloat(0), ByteBuffer.wrap(data).getFloat(1), 128, 64, Mob.PLAYER, assets, LoadManager.MONSTER_SCML, new Equip(new Stats()));
+		this.screen = screen;
+		screen.setPosition(ByteBuffer.wrap(data).getFloat(0), ByteBuffer.wrap(data).getFloat(1));
+		byte[] inven = Arrays.copyOf(data, data.length - 2 * Float.BYTES);
+		inventory = new Inventory(inven);
 	}
 	@Override
 	public void update() {
@@ -107,5 +117,19 @@ public class Player extends Mob {
 			}
 		}
 		return moved;
+	}
+	/**
+	 * Inventory
+	 * Position
+	 * @return
+	 */
+	public byte[] toByteArray() {
+		byte[] inven = inventory.toByteArray();
+		byte[] data = ByteBuffer.allocate(inven.length + Float.BYTES * 2).array();
+		ByteBuffer buffer = ByteBuffer.wrap(data);
+		buffer.putFloat(body.x);
+		buffer.putFloat(body.y);
+		buffer.put(inven);
+		return data;
 	}
 }

@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.ephemerality.aphelion.effects.ParticleSpawner;
 import com.ephemerality.aphelion.graphics.LoadManager;
 import com.ephemerality.aphelion.graphics.ScreenManager;
+import com.ephemerality.aphelion.input.Save;
 import com.ephemerality.aphelion.persona.Equip;
 import com.ephemerality.aphelion.persona.Stats;
 import com.ephemerality.aphelion.spawn.entities.mob.Dummy;
@@ -47,6 +48,18 @@ public class EntityManager {
 		
 		//TODO : Fix the particle render/spawn bug.
 		particles.add(new ParticleSpawner(200f, 200f, 1000, 100, 50));
+	}
+	public EntityManager(ScreenManager screen, LoadManager assets, MapManager map, Save save) {
+		float x = Gdx.graphics.getWidth();
+		float y = Gdx.graphics.getHeight();
+		
+		deltaOffset = new Vector2();	
+		entities = new ArrayList<>();
+		particles = new ArrayList<>();
+		removed = new ArrayList<>();
+		quad = new QuadTree(map);
+		
+		player = new Player(screen, assets, save.player);
 	}
 	public void refreshQuad(MapManager map) {
 		quad = new QuadTree(map);
