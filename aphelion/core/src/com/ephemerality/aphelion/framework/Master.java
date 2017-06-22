@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.ephemerality.aphelion.graphics.LoadManager;
 import com.ephemerality.aphelion.graphics.ScreenManager;
 import com.ephemerality.aphelion.input.InputManager;
-import com.ephemerality.aphelion.input.Save;
 import com.ephemerality.aphelion.util.FileManager;
 import com.ephemerality.aphelion.util.debug.Debug;
 import com.ephemerality.aphelion.util.debug.DebugType;
@@ -15,6 +14,7 @@ import com.ephemerality.aphelion.util.debug.DebugType;
 public class Master extends ApplicationAdapter {
 	
 	public static final String version = "Pre-Alpha || Version 0.0.9";
+	public static float SYSTEM_TIME;
 	//-1 Exiting, 0 Main menu, 1 Game
 	private static int state = 0;
 	ScreenManager screen;
@@ -53,14 +53,13 @@ public class Master extends ApplicationAdapter {
 	public void update() {	
 		InputManager.update();
 		debugUpdate();
+		SYSTEM_TIME += Gdx.graphics.getRawDeltaTime();
 		if(state == -1) {
 			Gdx.app.exit();
 		}else if(state == 0) {
 			loader.update();
 			if(state != 0) {
 				game = new GameManager(screen, loader, "Josh");
-				Save save = new Save("Josh");
-				FileManager.writeToFile(Gdx.files.getExternalStoragePath() + "Documents/NecroHero/" + save.name + Save.EXTENSION, save.toByteArray(game), true);
 			}
 		}else if(state == 1) {
 			main.update();
@@ -70,7 +69,35 @@ public class Master extends ApplicationAdapter {
 		screen.update();
 //		screen.rotate(0f, 1f, 0f, 1f);
 	}
-	
+	public static String getFormattedTime(float timeInSeconds) {
+		int mins = (int) (timeInSeconds / 60f);
+		int secs = (int) (timeInSeconds - mins * 60f);
+		int mSecs = (int) ((timeInSeconds - (int)(timeInSeconds)) * 100);
+		String minutes = "00";
+		if(mins > 9) minutes = "" + mins;
+		else minutes = "0" + mins;
+		String seconds = "00";
+		if(secs > 9) seconds = "" + secs;
+		else seconds = "0" + secs;
+		String mSeconds = "00";
+		if(mSecs > 9) mSeconds = "" + mSecs;
+		else mSeconds = "0" + mSecs;
+		
+		return minutes + ":" + seconds + ":" + mSeconds;
+	}
+	/**
+	 * 
+	 * @param timeInSeconds
+	 * @return int[] where index 0 is hours, 1 is minutes, 2 is seconds, and 3 is milliseconds
+	 */
+	public static int[] getTime(float timeInSeconds) {
+		int[] time = new int[4];
+		time[0] = (int) ((timeInSeconds / 60f) / 60f);
+		time[1] = (int) ((timeInSeconds / 60f) - (time[0] * 60f));
+		time[2] = (int) (timeInSeconds - time[1] * 60f);
+		time[3] = (int) ((timeInSeconds - (int)(timeInSeconds)) * 100);
+		return time;
+	}
 	//Debugger methods
 	public void debugUpdate() {
 		Debug.update();
@@ -118,6 +145,14 @@ public class Master extends ApplicationAdapter {
 				}
 			}
 			
+			else if(args[0].equalsIgnoreCase("save")) {
+				if(game.save()) {
+					Debug.pushToConsole(DebugType.Game_save_Successful.toString(), false);
+				}else {
+					Debug.pushToConsole(DebugType.Game_save_Unsuccessful.toString(), false);
+				}
+			}
+			
 			else if(args[0].equalsIgnoreCase("pause")) {
 				if(args[1].equalsIgnoreCase("true")) {
 					game.isPaused = true;
@@ -129,7 +164,7 @@ public class Master extends ApplicationAdapter {
 			}
 			
 			else if(args[0].equalsIgnoreCase("help")) {
-				Debug.pushToConsole("For a list of all setable variables try \"set help\"", true);
+				Debug.pushToConsole("For a list of all set-able variables try \"set help\"", true);
 				Debug.pushToConsole("\"set\" followed by background or other such variables.", true);
 				Debug.pushToConsole("Here are a list of all valid commands", false);
 				
@@ -139,6 +174,7 @@ public class Master extends ApplicationAdapter {
 			}
 		}catch(IndexOutOfBoundsException e) {
 			Debug.pushToConsole(DebugType.Console_Expecting_Args.toString(), false);
+			e.printStackTrace();
 		}catch(NumberFormatException e) {
 			Debug.pushToConsole(DebugType.Console_Expecting_Number.toString(), false);
 		}
@@ -200,7 +236,7 @@ public class Master extends ApplicationAdapter {
 	
 	@Override
 	public void dispose () {
-		game.dispose(); //do stuff in place of this: save, close assets, etc..
+		if(game != null) game.dispose(); //do stuff in place of this: save, close assets, etc..
 		loader.dispose();
 		main.dispose();
 		screen.dispose();

@@ -67,5 +67,8 @@ public class Equip {
 	public float getStun() {
 		return weapon.getStun();
 	}
+	public int getLevel() {
+		return stats.getLevel();
+	}
 	
 }

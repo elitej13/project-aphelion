@@ -6,6 +6,7 @@ public class Stats {
 	
 	float health, health_max;
 	int strength, dexterity, intelligence;
+	int level;
 	
 	public Stats() {
 		this(5, 5, 5);
@@ -31,7 +32,7 @@ public class Stats {
 			this.dexterity++;
 		if(intelligence)
 			this.intelligence++;
-		
+		level++;
 		health_max = this.strength * this.dexterity + this.intelligence;
 		health = health_max;
 	}
@@ -56,6 +57,9 @@ public class Stats {
 		if(health <= 0) 
 			return true;
 		return false;
+	}
+	public int getLevel() {
+		return level;
 	}
 	
 }

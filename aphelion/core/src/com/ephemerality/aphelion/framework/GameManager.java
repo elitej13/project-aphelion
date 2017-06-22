@@ -1,5 +1,6 @@
 package com.ephemerality.aphelion.framework;
 
+import com.badlogic.gdx.Gdx;
 import com.ephemerality.aphelion.graphics.LoadManager;
 import com.ephemerality.aphelion.graphics.ScreenManager;
 import com.ephemerality.aphelion.input.InputManager;
@@ -11,6 +12,8 @@ import com.ephemerality.aphelion.spawn.world.MapManager;
 import com.ephemerality.aphelion.spawn.world.Warp;
 import com.ephemerality.aphelion.spawn.world.script.ScriptManager;
 import com.ephemerality.aphelion.ui.UIManager;
+import com.ephemerality.aphelion.util.FileManager;
+import com.ephemerality.aphelion.util.debug.Debug;
 
 public class GameManager {
 	
@@ -21,7 +24,8 @@ public class GameManager {
 	public Save save;
 	
 	public boolean isPaused;
-
+	
+	public static float playTime;
 	public static boolean requestedWarp;
 	public static Warp warpTo;
 	
@@ -42,6 +46,8 @@ public class GameManager {
 	}
 	public void update() {
 		if(!isPaused) {
+			playTime += Gdx.graphics.getRawDeltaTime();
+			System.out.println(playTime);
 			ent.update();
 			script.update();
 			if(requestedWarp) {
@@ -84,8 +90,14 @@ public class GameManager {
 		script.render(screen);
 	}
 	
-	public void save() {
-		
+	public boolean save() {
+//		C:\Users\Josh\Documents\NecroHero
+		byte[] data = save.toByteArray(this);
+		if(FileManager.writeToFile(Gdx.files.getExternalStoragePath() + "Documents\\NecroHero\\" + save.getFormattedName() + Save.EXTENSION, data, true)) {
+			Debug.pushToConsole("Saved to " + Gdx.files.getExternalStoragePath() + "Documents\\NecroHero\\" + save.getFormattedName() + Save.EXTENSION, false);
+			return true;
+		}
+		return false;
 	}
 	public void dispose() {
 		

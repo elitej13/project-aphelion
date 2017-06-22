@@ -7,7 +7,10 @@ public enum DebugType {
 	Loader_Doll_Missing_Batch ("LoadManager Error: DollParameter is missing a spritebatch"),
 	Console_Unrecognized_Command ("Console Error: unrecognized command, try \"help\""),
 	Console_Expecting_Number ("Console Error: args expecting number, try \"help\""),
-	Console_Expecting_Args ("Console Error: not enough args, try \"help\"");
+	Console_Expecting_Args ("Console Error: not enough args, try \"help\""),
+	Game_save_Successful ("Game save successful"),
+	Game_save_Unsuccessful ("Game save unsuccessful");
+	
 	
 	private final String string;
 	
@@ -15,6 +18,7 @@ public enum DebugType {
 		this.string = s;
 	}
 	
+	@Override
 	public String toString() {
 		return string;
 	}

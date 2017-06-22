@@ -4,6 +4,7 @@ import java.nio.ByteBuffer;
 import java.util.Arrays;
 
 import com.ephemerality.aphelion.framework.GameManager;
+import com.ephemerality.aphelion.framework.Master;
 
 public class Save {
 
@@ -23,13 +24,6 @@ public class Save {
 	public Save(String name) {
 		char[] chars = name.toCharArray();
 		this.name = Arrays.copyOf(chars, MAX_CHARS_PER_NAME);
-	}
-	public Save(String name, int hours, int minutes, int seconds, int level) {
-		char[] chars = name.toCharArray();
-		this.name = Arrays.copyOf(chars, MAX_CHARS_PER_NAME);
-		this.hours = hours;
-		this.minutes = minutes;
-		this.seconds = seconds;
 	}
 	public Save(byte[] data) {
 		ByteBuffer buffer = ByteBuffer.wrap(data);
@@ -59,6 +53,11 @@ public class Save {
 	public byte[] generateHeader(GameManager game) {
 		byte[] data = ByteBuffer.allocate(HEADER_SIZE_IN_BYTES).array();
 		ByteBuffer buffer = ByteBuffer.wrap(data);
+		int[] time = Master.getTime(GameManager.playTime);
+		hours = time[0];
+		minutes = time[1];
+		seconds = time[2];
+		level = game.ent.player.equip.getLevel();
 		buffer.put(new String(name).getBytes());
 		buffer.putInt(hours);
 		buffer.putInt(minutes);
@@ -84,5 +83,8 @@ public class Save {
 		byte[] footer = ByteBuffer.allocate(Integer.BYTES).array();
 		ByteBuffer.wrap(footer).putInt(handshake);
 		return footer;
+	}
+	public String getFormattedName() {
+		return new String(name).trim() + "-" + hours + "_" + minutes + "_" + seconds;
 	}
 }
