@@ -28,14 +28,20 @@ public class SpriteSheet {
 	
 	public static TextureRegion default_void_0;
 	
+//	UI Sprites	//
+	public static TextureRegion minimap_mask;
+	
+	//For the game
 	public static void init(AssetManager assets) {
 		Texture tilesheet = assets.get(LoadManager.TILE_SHEET, Texture.class);
 		Texture itemsheet = assets.get(LoadManager.ITEM_SHEET, Texture.class);
+		TextureRegion minimap_mask = new TextureRegion(assets.get(LoadManager.UI_SHEET, Texture.class));
 		init(tilesheet, itemsheet);
 //		tilesheet.dispose();
 //		entitysheet.dispose();
 //		itemsheet.dispose();
 	}
+	//For the editor
 	public static void init() {
 		Texture tilesheet = new Texture(Gdx.files.internal(LoadManager.TILE_SHEET));
 		Texture itemsheet = new Texture (Gdx.files.internal(LoadManager.ITEM_SHEET));

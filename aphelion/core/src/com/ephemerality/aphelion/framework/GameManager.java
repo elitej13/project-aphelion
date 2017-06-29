@@ -47,7 +47,6 @@ public class GameManager {
 	public void update() {
 		if(!isPaused) {
 			playTime += Gdx.graphics.getRawDeltaTime();
-			System.out.println(playTime);
 			ent.update();
 			script.update();
 			if(requestedWarp) {
@@ -84,7 +83,7 @@ public class GameManager {
 		ent.refreshQuad(map);
 	}
 	public void render(ScreenManager screen) {
-		map.render(screen);
+		map.render(screen, ent);
 		ent.render(screen);
 		ui.render(screen);
 		script.render(screen);
@@ -94,7 +93,7 @@ public class GameManager {
 //		C:\Users\Josh\Documents\NecroHero
 		byte[] data = save.toByteArray(this);
 		if(FileManager.writeToFile(Gdx.files.getExternalStoragePath() + "Documents\\NecroHero\\" + save.getFormattedName() + Save.EXTENSION, data, true)) {
-			Debug.pushToConsole("Saved to " + Gdx.files.getExternalStoragePath() + "Documents\\NecroHero\\" + save.getFormattedName() + Save.EXTENSION, false);
+			Debug.pushToConsole("Saved to \"" + Gdx.files.getExternalStoragePath() + "Documents\\NecroHero\\" + save.getFormattedName() + Save.EXTENSION + "\"", false);
 			return true;
 		}
 		return false;
@@ -102,5 +101,4 @@ public class GameManager {
 	public void dispose() {
 		
 	}
-	
 }
