@@ -1,6 +1,9 @@
 package com.ephemerality.aphelion.framework;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.math.Rectangle;
 import com.ephemerality.aphelion.graphics.LoadManager;
 import com.ephemerality.aphelion.graphics.ScreenManager;
 import com.ephemerality.aphelion.input.InputManager;
@@ -36,6 +39,7 @@ public class GameManager {
 		ui = new UIManager(ent.getPlayer());
 		script = new ScriptManager(this);
 		save = new Save(name);
+		rect = new Rectangle(Gdx.graphics.getWidth() - map.mapWidth, Gdx.graphics.getHeight() - map.mapHeight, map.mapWidth, map.mapHeight);
 	}
 	public GameManager(ScreenManager screen, LoadManager assets, Save save) {
 		this.save = save;
@@ -43,6 +47,7 @@ public class GameManager {
 		ent = new EntityManager(screen, assets, map);
 		ui = new UIManager(ent.getPlayer());
 		script = new ScriptManager(this);
+		rect = new Rectangle(Gdx.graphics.getWidth() - map.mapWidth, Gdx.graphics.getHeight() - map.mapHeight, map.mapWidth, map.mapHeight);
 	}
 	public void update() {
 		if(!isPaused) {
@@ -83,11 +88,24 @@ public class GameManager {
 		ent.refreshQuad(map);
 	}
 	public void render(ScreenManager screen) {
-		map.render(screen, ent);
+		//Background
+		screen.getSpriteBatch().setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+		map.renderBackGround(screen);
 		ent.render(screen);
+		screen.getSpriteBatch().flush();
+		
+		//Alpha
+		map.renderAlphaMask(screen);
+		screen.renderFixedRectangle(rect, Color.BLACK, rect.x, rect.y);
+		
+		//ForeGround
+		map.renderForeGround(screen, ent);
 		ui.render(screen);
 		script.render(screen);
+		screen.getSpriteBatch().flush();
 	}
+	//MinimapDebug
+	Rectangle rect;
 	
 	public boolean save() {
 //		C:\Users\Josh\Documents\NecroHero

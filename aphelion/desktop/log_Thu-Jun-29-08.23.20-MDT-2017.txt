@@ -1,0 +1,30 @@
+Full Log Report
+=========================================================================================================
+00:00:00 | Loading assets 0/5
+00:00:02 | Loading assets 0/5
+00:00:04 | Loading assets 1/5
+00:00:06 | Loading assets 1/5
+00:00:07 | Loading assets 1/5
+00:00:09 | Loading assets 1/5
+00:00:11 | Loading assets 1/5
+00:00:12 | Loading assets 1/5
+00:00:14 | Loading assets 1/5
+00:00:19 | Loading assets 1/5
+00:00:19 | Loading assets 1/5
+00:00:21 | Loading assets 1/5
+00:00:22 | Loading assets 1/5
+00:00:24 | Loading assets 1/5
+00:00:26 | Loading assets 1/5
+00:00:28 | Loading assets 1/5
+00:00:29 | Loading assets 1/5
+00:00:31 | Loading assets 1/5
+00:00:32 | Loading assets 1/5
+00:00:49 | Loading assets 2/5
+00:00:50 | Loading assets 2/5
+00:00:52 | Loading assets 3/5
+00:00:54 | Loading assets 3/5
+00:00:55 | Loading assets 4/5
+Uncaught Exception Error: You done fucked up fool. Now don't be a bitch and fix it
+=========================================================================================================
+com.badlogic.gdx.utils.GdxRuntimeException: Couldn't load dependencies of asset: textures/ui/mask.png
+=========================================================================================================

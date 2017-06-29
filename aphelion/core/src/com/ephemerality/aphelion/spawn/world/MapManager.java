@@ -1,6 +1,7 @@
 package com.ephemerality.aphelion.spawn.world;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -12,11 +13,15 @@ import com.ephemerality.aphelion.util.FileManager;
 
 public class MapManager {
 	
-	
 	public static int tileSize = 64;
 	public boolean recentlyReloaded;
+	public float mapWidth = 128f;
+	public float mapHeight = 128f;
+	public float scale = 0.0625f;
+	public float mapSimulatedWidth = mapWidth / scale;
+	public float mapSimulatedHeight = mapHeight / scale;
 	
-	
+	//TODO: finish implementing thiss
 	Level bufferedLevel;
 	
 	public Level level;	
@@ -29,7 +34,6 @@ public class MapManager {
 		mapPixelSize = new Vector2(level.WIDTH * MapManager.tileSize, level.HEIGHT * MapManager.tileSize);
 		offset = new Vector2(0, 0);
 	}
-	
 	public void load(String name, String location, boolean absolutepath) {
 		bufferedLevel = level;
 		level = new Level(name, FileManager.readFromFile(location, absolutepath));
@@ -82,17 +86,27 @@ public class MapManager {
 		}
 		return tiles;
 	}
-	
-	
-	public void render(ScreenManager screen, EntityManager ent) {
+	public void renderBackGround(ScreenManager screen) {
 		renderTiles(screen);
-		renderMap(screen, ent);
 		
 		//Debugging Purposes
 		for(Warp warp : level.warps) {
 			warp.render(screen, level.name);
 		}
-		//Debbugging end
+	}
+	public void renderAlphaMask(ScreenManager screen) {
+		Gdx.gl.glColorMask(false, false, false, true);
+		screen.getSpriteBatch().setBlendFunction(GL20.GL_ONE, GL20.GL_ZERO);
+		screen.renderFixed(SpriteSheet.minimap_mask, Gdx.graphics.getWidth() - mapWidth, Gdx.graphics.getHeight() - mapHeight, SpriteSheet.minimap_mask.getWidth(), SpriteSheet.minimap_mask.getHeight());
+		screen.getSpriteBatch().flush();
+	}
+	public void renderForeGround(ScreenManager screen, EntityManager ent) {
+		Gdx.gl.glColorMask(true, true, true, true);
+		screen.getSpriteBatch().setBlendFunction(GL20.GL_DST_ALPHA, GL20.GL_ONE_MINUS_DST_ALPHA);
+		Gdx.gl.glEnable(GL20.GL_SCISSOR_TEST);
+		Gdx.gl.glScissor(Gdx.graphics.getWidth() - (int) mapWidth, Gdx.graphics.getHeight() - (int) mapHeight, SpriteSheet.minimap_mask.getWidth(), SpriteSheet.minimap_mask.getHeight());
+		renderMap(screen, ent);
+		Gdx.gl.glDisable(GL20.GL_SCISSOR_TEST);
 	}
 	public void renderTiles(ScreenManager screen) {
 		int tileSize = MapManager.tileSize;
@@ -124,51 +138,23 @@ public class MapManager {
 		}		
 	}
 	public void renderMap(ScreenManager screen, EntityManager ent) {
-//		float mapTileSize = 8f;
-//		float mapScale = 0.25f;
-//		float mapWidth = level.WIDTH * mapTileSize;
-//		float mapHeight = level.HEIGHT * mapTileSize;
-//		float width = Gdx.graphics.getWidth();
-//		float height = Gdx.graphics.getHeight();
-		
-		
 		float playerX = ent.player.body.x;
 		float playerY = ent.player.body.y;
-		
-		
-		
-		for(int y = 0; y < level.HEIGHT; y++) {
-			for(int x = 0; x < level.WIDTH; x++) {
-				int index = x + (y * level.WIDTH);
-				short currentPixel = level.tiles[index];
-				renderOnMiniMap(screen, SpriteSheet.fetchTextureRegionFromEntityID(currentPixel), x - ((playerX - (mapSimulatedWidth / 2)) / tileSize), y  - ((playerY - (mapSimulatedHeight / 2)) / tileSize));
-				
-//				if(currentPixel == Tile.GRASS_ID) {
-//					screen.renderFixed(SpriteSheet.default_grass_0, width - mapWidth + x * mapTileSize, height - mapHeight + y * mapTileSize, mapTileSize, mapTileSize);
-//				}else if(currentPixel == Tile.DIRT_ID) {
-//					screen.renderFixed(SpriteSheet.default_dirt_0, width - mapWidth + x * mapTileSize, height - mapHeight + y * mapTileSize, mapTileSize, mapTileSize);
-//				}else if(currentPixel == Tile.BRICK_ID) {
-//					screen.renderFixed(SpriteSheet.default_brick_0,  width - mapWidth + x * mapTileSize, height - mapHeight + y * mapTileSize, mapTileSize, mapTileSize);
-//				}else if(currentPixel == Tile.WOOD_ID) {
-//					screen.renderFixed(SpriteSheet.default_wood_0,  width - mapWidth + x * mapTileSize, height - mapHeight + y * mapTileSize, mapTileSize, mapTileSize);
-//				}
+		for(int y = (int) ((playerY - (mapSimulatedHeight / 2)) / tileSize); y <= playerY + 2000; y++) {//((playerY + (mapSimulatedHeight / 2)) / tileSize) + 1; y++) {
+			for(int x = (int)((playerX - (mapSimulatedWidth / 2)) / tileSize); x <= ((playerX + (mapSimulatedWidth / 2)) / tileSize) + 1; x++) {
+				short currentPixel = Tile.VOID_ID;
+				if(x > 0 && y > 0 && x < level.WIDTH && y < level.HEIGHT)
+					currentPixel = level.tiles[x + (y * level.WIDTH)];
+				renderOnMiniMap(screen, SpriteSheet.fetchPixelFromEntityID(currentPixel, (int) (tileSize * scale), (int) (tileSize * scale)), x - ((playerX - (mapSimulatedWidth / 2)) / tileSize), y  - ((playerY - (mapSimulatedHeight / 2)) / tileSize));
 			}
 		}
 		
 	}
-	float mapWidth = 128f;
-	float mapHeight = 128f;
-	float scale = 0.0625f;
-	float mapSimulatedWidth = mapWidth / scale;
-	float mapSimulatedHeight = mapHeight / scale;
 	public void renderOnMiniMap(ScreenManager screen, TextureRegion texture, float globalX, float globalY) {
-		float adjustedWidth = texture.getRegionWidth() * scale;
-		float adjustedHeight = texture.getRegionHeight() * scale;
-		screen.renderFixed(texture, Gdx.graphics.getWidth() - mapWidth + globalX * adjustedWidth, Gdx.graphics.getHeight() - mapHeight + globalY * adjustedHeight, adjustedWidth, adjustedHeight);
+		screen.renderFixed(texture, Gdx.graphics.getWidth() - mapWidth + globalX * texture.getRegionWidth(), Gdx.graphics.getHeight() - mapHeight + globalY * texture.getRegionHeight(), texture.getRegionWidth(), texture.getRegionHeight());
 	}
 	
 	public Vector2 getMapSize() {
 		return mapPixelSize;
 	}
-
 }

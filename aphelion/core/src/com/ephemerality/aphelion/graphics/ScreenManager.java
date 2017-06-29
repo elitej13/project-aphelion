@@ -134,6 +134,9 @@ public class ScreenManager {
 	public void renderRectangle(Rectangle body) {
 		renderRectangle(body, Color.PINK, 0, 0);
 	}
+	public void renderFixedRectangle(Rectangle body, Color col, float x, float y) {
+		renderRectangle(body, col, x + bounds.x, bounds.y);
+	}
 	public void renderRectangle(Rectangle body, Color color) {
 		renderRectangle(body, color, 0, 0);
 	}

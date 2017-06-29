@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.ephemerality.aphelion.spawn.entities.nob.items.Item;
@@ -29,13 +30,14 @@ public class SpriteSheet {
 	public static TextureRegion default_void_0;
 	
 //	UI Sprites	//
-	public static TextureRegion minimap_mask;
+	public static Texture minimap_mask;
 	
 	//For the game
 	public static void init(AssetManager assets) {
 		Texture tilesheet = assets.get(LoadManager.TILE_SHEET, Texture.class);
 		Texture itemsheet = assets.get(LoadManager.ITEM_SHEET, Texture.class);
-		TextureRegion minimap_mask = new TextureRegion(assets.get(LoadManager.UI_SHEET, Texture.class));
+		minimap_mask = assets.get(LoadManager.UI_SHEET, Texture.class);
+		minimap_mask.setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		init(tilesheet, itemsheet);
 //		tilesheet.dispose();
 //		entitysheet.dispose();
@@ -87,6 +89,9 @@ public class SpriteSheet {
 			return sword;
 		}
 		return default_void_0;
+	}
+	public static TextureRegion fetchPixelFromEntityID(short ID, int w, int h) {
+		return new TextureRegion(fetchTextureRegionFromEntityID(ID), 0, 0, w - 1, h - 1);
 	}
 	public static Image fetchImageFromEntityID(short ID) {
 		Image image = null;

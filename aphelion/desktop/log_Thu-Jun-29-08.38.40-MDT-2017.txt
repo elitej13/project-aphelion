@@ -1,0 +1,21 @@
+Full Log Report
+=========================================================================================================
+00:00:00 | Loading assets 0/5
+00:00:02 | Loading assets 0/5
+00:00:03 | Loading assets 1/5
+00:00:05 | Loading assets 1/5
+00:00:07 | Loading assets 1/5
+00:00:08 | Loading assets 1/5
+00:00:10 | Loading assets 1/5
+00:00:12 | Loading assets 1/5
+00:00:13 | Loading assets 1/5
+00:00:15 | Loading assets 1/5
+00:00:29 | Loading assets 2/5
+00:00:30 | Loading assets 2/5
+00:00:31 | Loading assets 3/5
+00:00:33 | Loading assets 3/5
+00:00:35 | Loading assets 4/5
+Uncaught Exception Error: You done fucked up fool. Now don't be a bitch and fix it
+=========================================================================================================
+com.badlogic.gdx.utils.GdxRuntimeException: Couldn't load dependencies of asset: textures/ui/miniMapOcclusion.png
+=========================================================================================================
