@@ -19,6 +19,8 @@ import com.ephemerality.aphelion.util.FileManager;
 
 public class Debug {
 	
+	
+	public static final String LOG_EXTENSION = ".log";
 	public static String divider = "\n" + "=========================================================================================================";
 	public static String full_log = "Full Log Report" + divider; 
 	public static String text = "";
@@ -85,7 +87,7 @@ public class Debug {
 		systemTime = 0;
 		
 		Date date = new Date();
-		log_name = "log_" + date.toString().replaceAll(" ", "-").replaceAll(":", ".") + ".txt";
+		log_name = "log_" + date.toString().replaceAll(" ", "-").replaceAll(":", ".") + LOG_EXTENSION;
 	}
 	
 	public static void update() {

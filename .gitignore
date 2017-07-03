@@ -4,6 +4,17 @@
 *.war
 *.ear
 hs_err_pid*
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+.loadpath
+.recommenders
 
 ## Robovm
 robovm-build/
@@ -68,3 +79,6 @@ build/
 ## OS Specific
 .DS_Store
 Thumbs.db
+
+## Project Specific
+*.log

@@ -3,6 +3,7 @@ package com.ephemerality.aphelion.framework;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.profiling.GLProfiler;
 import com.ephemerality.aphelion.graphics.LoadManager;
 import com.ephemerality.aphelion.graphics.ScreenManager;
 import com.ephemerality.aphelion.input.InputManager;
@@ -46,12 +47,23 @@ public class Master extends ApplicationAdapter {
 		
 		Thread.getDefaultUncaughtExceptionHandler();
 		Thread.setDefaultUncaughtExceptionHandler(_unCaughtExceptionHandler);
-		
+		GLProfiler.enable();
 	}
 
 	
 	public void update() {	
 		InputManager.update();
+		
+//------------------Very powerful debugging tool right here!!!!--------------//
+//		System.out.println("Calls: " + GLProfiler.calls);
+//		System.out.println("Draw Calls: " + GLProfiler.drawCalls);
+//		System.out.println("Shader Switches: " + GLProfiler.shaderSwitches);
+//		System.out.println("Texture Binding: " + GLProfiler.textureBindings);
+//		System.out.println("Vertex Count: " + GLProfiler.vertexCount.average);
+//		System.out.println("Calls: " + GLProfiler.calls);
+//		GLProfiler.reset();
+//-----------------------------------END--------------------------------------//
+		
 		debugUpdate();
 		SYSTEM_TIME += Gdx.graphics.getRawDeltaTime();
 		if(state == -1) {
@@ -64,7 +76,9 @@ public class Master extends ApplicationAdapter {
 		}else if(state == 1) {
 			main.update();
 		}else if(state == 2) {
+//			System.out.println("Update Start Time: " + System.currentTimeMillis());
 			game.update();
+//			System.out.println("Update Stop Time: " + System.currentTimeMillis());
 		}
 		screen.update();
 //		screen.rotate(0f, 1f, 0f, 1f);
@@ -140,6 +154,7 @@ public class Master extends ApplicationAdapter {
 			else if(args[0].equalsIgnoreCase("log")) {
 				if(args[1].equalsIgnoreCase("dump")) {
 					Debug.startLogging();
+					Debug.pushToConsole(DebugType.Console_Logging.toString(), false);
 				}else {
 					Debug.pushToConsole(DebugType.Console_Unrecognized_Command.toString(), false);
 				}
@@ -227,7 +242,9 @@ public class Master extends ApplicationAdapter {
 		}else if(state == 1) {
 			main.render(screen, loader);
 		}else if(state == 2) {
+//			System.out.println("Render Start Time: " + System.currentTimeMillis());
 			game.render(screen);
+//			System.out.println("Render Stop Time: " + System.currentTimeMillis());
 		}
 		Debug.render(screen.getSpriteBatch(), screen.getBounds().x, screen.getBounds().y);
 		screen.renderFixedString(Color.GOLD, version, Gdx.graphics.getWidth() - 175, 15);

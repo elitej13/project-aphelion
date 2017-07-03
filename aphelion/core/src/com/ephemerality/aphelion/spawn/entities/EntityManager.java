@@ -22,7 +22,7 @@ public class EntityManager {
 	
 	public Vector2 deltaOffset;
 	public List<Entity> entities;
-	public List<ParticleSpawner> particles;
+//	public List<ParticleSpawner> particles;
 	public List<Object> removed;
 	
 	public QuadTree quad;
@@ -35,7 +35,7 @@ public class EntityManager {
 		
 		deltaOffset = new Vector2();
 		entities = new ArrayList<>();
-		particles = new ArrayList<>();
+//		particles = new ArrayList<>();
 		removed = new ArrayList<>();
 		quad = new QuadTree(map);
 		
@@ -47,7 +47,7 @@ public class EntityManager {
 		addEntity(new Item(100, 50, 32, 32, Item.CHEST));
 		
 		//TODO : Fix the particle render/spawn bug.
-		particles.add(new ParticleSpawner(200f, 200f, 1000, 100, 50));
+//		particles.add(new ParticleSpawner(200f, 200f, 1000, 100, 50));
 	}
 	public EntityManager(ScreenManager screen, LoadManager assets, MapManager map, Save save) {
 		float x = Gdx.graphics.getWidth();
@@ -55,7 +55,7 @@ public class EntityManager {
 		
 		deltaOffset = new Vector2();	
 		entities = new ArrayList<>();
-		particles = new ArrayList<>();
+//		particles = new ArrayList<>();
 		removed = new ArrayList<>();
 		quad = new QuadTree(map);
 		
@@ -79,8 +79,8 @@ public class EntityManager {
 		removed.clear();
 		quad.update();
 		
-		for(ParticleSpawner ps : particles) 
-			ps.update();
+//		for(ParticleSpawner ps : particles) 
+//			ps.update();
 		Collections.sort(entities);
 	}
 	
@@ -94,10 +94,9 @@ public class EntityManager {
 		quad.render(screen);
 		for(Entity e : entities) 
 			e.render(screen);
-		for(ParticleSpawner ps : particles) 
-			ps.render(screen);
+//		for(ParticleSpawner ps : particles) 
+//			ps.render(screen);
 		
-//		DEBUGGINB purposes	//
 	}
 	
 	public Player getPlayer() {

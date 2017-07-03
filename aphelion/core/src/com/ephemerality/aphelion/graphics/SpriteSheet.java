@@ -15,19 +15,20 @@ import com.ephemerality.aphelion.spawn.entities.tiles.Tile;
 public class SpriteSheet {
 
 	
+	public final static int iconWidthAndHeight = 2;
 	
 	public static Texture pixel;
 // 	Tile Sprites	//
-	public static TextureRegion default_grass_0;
-	public static TextureRegion default_dirt_0;
-	public static TextureRegion default_brick_0;
-	public static TextureRegion default_wood_0;
+	public static TextureRegion default_grass_0, default_grass_0_ico;
+	public static TextureRegion default_dirt_0, default_dirt_0_ico;
+	public static TextureRegion default_brick_0, default_brick_0_ico;
+	public static TextureRegion default_wood_0, default_wood_0_ico;
 	
 //	Item Sprites	//
 	public static TextureRegion wood_box_0;
 	public static TextureRegion sword;
 	
-	public static TextureRegion default_void_0;
+	public static TextureRegion default_void_0, default_void_0_ico;
 	
 //	UI Sprites	//
 	public static Texture minimap_mask;
@@ -50,6 +51,7 @@ public class SpriteSheet {
 		init(tilesheet, itemsheet);
 	}
 	
+	
 	public static void init(Texture tilesheet, Texture itemsheet) {
 		Pixmap map = new Pixmap(1, 1, Format.RGBA8888);
 		map.setColor(Color.BLACK);
@@ -57,10 +59,14 @@ public class SpriteSheet {
 		pixel = new Texture(map);
 		
 //	 	Tile Sprites	//
-		default_grass_0 = new TextureRegion(tilesheet, 	0, 0, 	64, 64);
-		default_dirt_0 = new TextureRegion(tilesheet, 	0, 64, 	64, 64);
-		default_brick_0 = new TextureRegion(tilesheet, 	0, 128, 64, 64);
-		default_wood_0 = new TextureRegion(tilesheet, 	0, 192, 64, 64);
+		default_grass_0 = new TextureRegion(tilesheet, 0, 0, 64, 64);
+		default_grass_0_ico = new TextureRegion(default_grass_0, 0, 0, iconWidthAndHeight, iconWidthAndHeight);
+		default_dirt_0 = new TextureRegion(tilesheet, 0, 64, 64, 64);
+		default_dirt_0_ico = new TextureRegion(default_dirt_0, 0, 0, iconWidthAndHeight, iconWidthAndHeight);
+		default_brick_0 = new TextureRegion(tilesheet, 0, 128, 64, 64);
+		default_brick_0_ico = new TextureRegion(default_brick_0, 0, 0, iconWidthAndHeight, iconWidthAndHeight);
+		default_wood_0 = new TextureRegion(tilesheet, 0, 192, 64, 64);
+		default_wood_0_ico = new TextureRegion(default_wood_0, 0, 0, iconWidthAndHeight, iconWidthAndHeight); 
 		
 //		Item Sprites	//
 		wood_box_0 = new TextureRegion(itemsheet, 	0, 0, 	32, 32);
@@ -69,6 +75,8 @@ public class SpriteSheet {
 		
 //		DEBUGGING Sprites	//
 		default_void_0 = new TextureRegion(new Texture(new Pixmap(64, 64, Format.RGB565)));
+		default_void_0_ico = new TextureRegion(default_void_0, 0, 0, iconWidthAndHeight, iconWidthAndHeight); 
+		
 	}
 	public static TextureRegion fetchTextureRegionFromEntityID(short ID) {
 		if(ID == Tile.VOID_ID) {
@@ -90,8 +98,19 @@ public class SpriteSheet {
 		}
 		return default_void_0;
 	}
-	public static TextureRegion fetchPixelFromEntityID(short ID, int w, int h) {
-		return new TextureRegion(fetchTextureRegionFromEntityID(ID), 0, 0, w - 1, h - 1);
+	public static TextureRegion fetchIconFromEntityID(short ID) {
+		if(ID == Tile.VOID_ID) {
+			return default_void_0_ico;
+		}else if(ID == Tile.GRASS_ID) {
+			return default_grass_0_ico;
+		}else if(ID == Tile.DIRT_ID) {
+			return default_dirt_0_ico;
+		}else if(ID == Tile.BRICK_ID) {
+			return default_brick_0_ico;
+		}else if(ID == Tile.WOOD_ID) {
+			return default_wood_0_ico;
+		}
+		return default_void_0_ico;
 	}
 	public static Image fetchImageFromEntityID(short ID) {
 		Image image = null;

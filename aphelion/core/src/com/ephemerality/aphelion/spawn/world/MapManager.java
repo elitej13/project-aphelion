@@ -140,12 +140,12 @@ public class MapManager {
 	public void renderMap(ScreenManager screen, EntityManager ent) {
 		float playerX = ent.player.body.x;
 		float playerY = ent.player.body.y;
-		for(int y = (int) ((playerY - (mapSimulatedHeight / 2)) / tileSize); y <= playerY + 2000; y++) {//((playerY + (mapSimulatedHeight / 2)) / tileSize) + 1; y++) {
-			for(int x = (int)((playerX - (mapSimulatedWidth / 2)) / tileSize); x <= ((playerX + (mapSimulatedWidth / 2)) / tileSize) + 1; x++) {
+		for(int y = (int) ((playerY - (mapSimulatedHeight / 2)) / tileSize); y <= (playerY + mapSimulatedHeight) / tileSize; y++) {//((playerY + (mapSimulatedHeight / 2)) / tileSize) + 1; y++) {
+			for(int x = (int)((playerX - (mapSimulatedWidth / 2)) / tileSize); x <= (playerX + mapSimulatedWidth) / tileSize; x++) {
 				short currentPixel = Tile.VOID_ID;
 				if(x > 0 && y > 0 && x < level.WIDTH && y < level.HEIGHT)
 					currentPixel = level.tiles[x + (y * level.WIDTH)];
-				renderOnMiniMap(screen, SpriteSheet.fetchPixelFromEntityID(currentPixel, (int) (tileSize * scale), (int) (tileSize * scale)), x - ((playerX - (mapSimulatedWidth / 2)) / tileSize), y  - ((playerY - (mapSimulatedHeight / 2)) / tileSize));
+				renderOnMiniMap(screen, SpriteSheet.fetchIconFromEntityID(currentPixel), x - ((playerX - (mapSimulatedWidth / 2)) / tileSize), y  - ((playerY - (mapSimulatedHeight / 2)) / tileSize));
 			}
 		}
 		
