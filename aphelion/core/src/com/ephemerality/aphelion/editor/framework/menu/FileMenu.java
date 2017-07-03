@@ -4,6 +4,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.utils.Array;
+import com.ephemerality.aphelion.spawn.world.Level;
 import com.ephemerality.aphelion.spawn.world.MapManager;
 import com.kotcrab.vis.ui.util.dialog.Dialogs;
 import com.kotcrab.vis.ui.util.dialog.Dialogs.OptionDialogType;
@@ -44,7 +45,7 @@ public class FileMenu extends ChangeListener {
 		FileChooser.setDefaultPrefsName("com.ephemerality.aphelion.filechooser");
 		
 		FileTypeFilter typeFilter = new FileTypeFilter(false);
-		typeFilter.addRule("Binary files (*.bin)", "bin");
+		typeFilter.addRule("Level Files (*" + Level.EXTENSION + ")", Level.EXTENSION.replace(".", ""));
 		saver = new FileChooser(Mode.SAVE);
 		saver.setFileTypeFilter(typeFilter);
 		saver.setMultiSelectionEnabled(false);

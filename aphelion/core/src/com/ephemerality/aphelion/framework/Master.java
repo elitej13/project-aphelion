@@ -55,6 +55,7 @@ public class Master extends ApplicationAdapter {
 		InputManager.update();
 		
 //------------------Very powerful debugging tool right here!!!!--------------//
+//------------------way better than watching memory for a leak---------------//
 //		System.out.println("Calls: " + GLProfiler.calls);
 //		System.out.println("Draw Calls: " + GLProfiler.drawCalls);
 //		System.out.println("Shader Switches: " + GLProfiler.shaderSwitches);
@@ -224,6 +225,7 @@ public class Master extends ApplicationAdapter {
 	
 	@Override
 	public void resize(int width, int height) {
+		super.resize(width, height);
 		screen.resize(width, height);
 	}
 	

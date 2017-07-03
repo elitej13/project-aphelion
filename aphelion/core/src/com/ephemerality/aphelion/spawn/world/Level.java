@@ -4,7 +4,7 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.math.Rectangle;
-import com.ephemerality.aphelion.spawn.entities.tiles.Tile;
+import com.ephemerality.aphelion.spawn.entities.nob.Tile;
 
 public class Level {
 	
@@ -44,7 +44,7 @@ public class Level {
 		
 
 		warps = new ArrayList<>();	
-		warps.add(new Warp("hut", "test", new Rectangle(0, 20, 130, 64), new Rectangle(256, 20, 64, 64)));
+//		warps.add(new Warp("hut", "test", new Rectangle(0, 20, 130, 64), new Rectangle(256, 20, 64, 64)));
 		
 	}
 	
@@ -69,13 +69,13 @@ public class Level {
 		HEIGHT = h;
 		WIDTH = w;
 	}
-//	END of EDITOR FUNCITON
-	
 	public void editTile(int x, int y, short tileID) {
 		if(x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
 			return;
 		tiles[x + y * WIDTH] = tileID;
 	}
+	
+//	END of EDITOR FUNCITON
 	
 	
 	/**

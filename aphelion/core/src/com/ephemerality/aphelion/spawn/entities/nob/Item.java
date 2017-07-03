@@ -1,4 +1,4 @@
-package com.ephemerality.aphelion.spawn.entities.nob.items;
+package com.ephemerality.aphelion.spawn.entities.nob;
 
 import com.ephemerality.aphelion.graphics.ScreenManager;
 import com.ephemerality.aphelion.spawn.entities.nob.Nob;

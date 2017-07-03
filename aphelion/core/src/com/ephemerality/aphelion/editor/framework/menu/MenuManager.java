@@ -1,3 +1,4 @@
+
 package com.ephemerality.aphelion.editor.framework.menu;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -17,8 +18,6 @@ public class MenuManager  {
 		root.add().expand().fill();
 
 		createMenus(map);
-		
-		
 		
 	}
 	private void createMenus (MapManager map) {

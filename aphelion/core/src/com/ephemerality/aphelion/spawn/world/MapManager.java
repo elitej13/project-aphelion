@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.ephemerality.aphelion.graphics.ScreenManager;
 import com.ephemerality.aphelion.graphics.SpriteSheet;
 import com.ephemerality.aphelion.spawn.entities.EntityManager;
-import com.ephemerality.aphelion.spawn.entities.tiles.Tile;
+import com.ephemerality.aphelion.spawn.entities.nob.Tile;
 import com.ephemerality.aphelion.util.FileManager;
 
 public class MapManager {
@@ -29,7 +29,7 @@ public class MapManager {
 	public Vector2 offset;
 	
 	public MapManager() {
-		level = new Level("largeTestMap", FileManager.readFromFile("maps/largeTestMap" + Level.EXTENSION, false));
+		level = new Level("overworld", FileManager.readFromFile("maps/overworld" + Level.EXTENSION, false));
 //		level = new Level(12,12);
 		mapPixelSize = new Vector2(level.WIDTH * MapManager.tileSize, level.HEIGHT * MapManager.tileSize);
 		offset = new Vector2(0, 0);
@@ -54,6 +54,7 @@ public class MapManager {
 	public void resize(int w, int h) {
 		level.resize(w, h);
 		mapPixelSize = new Vector2(level.WIDTH * MapManager.tileSize, level.HEIGHT * MapManager.tileSize);
+		System.out.println("Resizing: " + level.WIDTH + ", " + level.HEIGHT);
 	}
 	public boolean hasRecentlyReloaded() {
 		if(recentlyReloaded) {
@@ -133,6 +134,12 @@ public class MapManager {
 					screen.render(SpriteSheet.default_brick_0,  x * tileSize, y * tileSize);
 				}else if(currentPixel == Tile.WOOD_ID) {
 					screen.render(SpriteSheet.default_wood_0,  x * tileSize, y * tileSize);
+				}else if(currentPixel == Tile.SAND_ID) {
+					screen.render(SpriteSheet.default_sand_0,  x * tileSize, y * tileSize);
+				}else if(currentPixel == Tile.WATER_ID) {
+					screen.render(SpriteSheet.default_water_0,  x * tileSize, y * tileSize);
+				}else if(currentPixel == Tile.GRAVEL_ID) {
+					screen.render(SpriteSheet.default_gravel_0,  x * tileSize, y * tileSize);
 				}
 			}
 		}		

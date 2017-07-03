@@ -39,6 +39,7 @@ public class LoadManager {
 	
 	public static final String ITEM_SHEET = "textures/itemsheet.png";
 	public static final String TILE_SHEET = "textures/tilesheet.png";
+	public static final String ENVIRONMENT_SHEET = "textures/environmentsheet.png";
 	public static final String UI_SHEET = "textures/ui/mask.png";
 	
 
@@ -110,6 +111,7 @@ public class LoadManager {
 //		assets.load(ORC_SCML, Doll.class, param);
 		
 		//Spritesheets
+		assets.load(ENVIRONMENT_SHEET, Texture.class);
 		assets.load(ITEM_SHEET, Texture.class);
 		assets.load(TILE_SHEET, Texture.class);
 		assets.load(UI_SHEET, Texture.class);

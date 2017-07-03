@@ -4,7 +4,7 @@ import java.util.HashSet;
 
 import com.ephemerality.aphelion.framework.GameManager;
 import com.ephemerality.aphelion.graphics.ScreenManager;
-import com.ephemerality.aphelion.spawn.entities.nob.items.Item;
+import com.ephemerality.aphelion.spawn.entities.nob.Item;
 
 public class AchievementManager {
 
