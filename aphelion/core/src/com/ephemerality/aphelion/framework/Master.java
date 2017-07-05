@@ -3,7 +3,6 @@ package com.ephemerality.aphelion.framework;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.profiling.GLProfiler;
 import com.ephemerality.aphelion.graphics.LoadManager;
 import com.ephemerality.aphelion.graphics.ScreenManager;
 import com.ephemerality.aphelion.input.InputManager;
@@ -23,7 +22,7 @@ public class Master extends ApplicationAdapter {
 	GameManager game;
 	MenuManager main;	
 
-//	Strictly for debug
+//-----------------------Strictly for debug
 	private static String[] args;
 	private static boolean requested;
 	private Thread.UncaughtExceptionHandler _unCaughtExceptionHandler = new Thread.UncaughtExceptionHandler() {
@@ -35,7 +34,7 @@ public class Master extends ApplicationAdapter {
 			FileManager.writeToFile(Debug.log_name, Debug.full_log, false, false);
 		}
 	};
-//	End of debug
+//-------------------------End of debug
 	
 	@Override
 	public void create () {
@@ -47,23 +46,11 @@ public class Master extends ApplicationAdapter {
 		
 		Thread.getDefaultUncaughtExceptionHandler();
 		Thread.setDefaultUncaughtExceptionHandler(_unCaughtExceptionHandler);
-		GLProfiler.enable();
 	}
-
+	
 	
 	public void update() {	
 		InputManager.update();
-		
-//------------------Very powerful debugging tool right here!!!!--------------//
-//------------------way better than watching memory for a leak---------------//
-//		System.out.println("Calls: " + GLProfiler.calls);
-//		System.out.println("Draw Calls: " + GLProfiler.drawCalls);
-//		System.out.println("Shader Switches: " + GLProfiler.shaderSwitches);
-//		System.out.println("Texture Binding: " + GLProfiler.textureBindings);
-//		System.out.println("Vertex Count: " + GLProfiler.vertexCount.average);
-//		System.out.println("Calls: " + GLProfiler.calls);
-//		GLProfiler.reset();
-//-----------------------------------END--------------------------------------//
 		
 		debugUpdate();
 		SYSTEM_TIME += Gdx.graphics.getRawDeltaTime();

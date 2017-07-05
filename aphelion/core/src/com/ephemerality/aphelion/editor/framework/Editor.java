@@ -14,7 +14,7 @@ import com.ephemerality.aphelion.util.debug.Debug;
 public class Editor extends ApplicationAdapter {
 	
 
-	public static final String version = "0.0.6";
+	public static final String version = "0.0.7";
 	private ScreenManager screen;
 	private GUI gui;
 	private MapManager map;

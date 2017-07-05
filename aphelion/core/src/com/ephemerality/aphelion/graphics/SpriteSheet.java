@@ -138,6 +138,21 @@ public class SpriteSheet {
 		}else if(ID == Item.SWORD) {
 			return sword;
 		}
+		
+//-------------------EnvNobs---------------------------//
+		else if(ID == Environment.House.ID) {
+			return default_house;
+		}else if(ID == Environment.Fence.ID) {
+			return default_fence;
+		}else if(ID == Environment.Gate.ID) {
+			return default_gate;
+		}else if(ID == Environment.Bridge.ID) {
+			return default_bridge;
+		}else if(ID == Environment.Tree.ID) {
+			return default_tree;
+		}
+		
+		
 		return default_void_0;
 	}
 	public static TextureRegion fetchIconFromEntityID(short ID) {

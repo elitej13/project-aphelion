@@ -31,16 +31,7 @@ public class QuadTree {
 		N = new Rectangle(bW - offset, bH, offset * 2, bH);
 		E = new Rectangle(bW, bH - offset, bW, offset * 2);
 	}
-//	TODO : fine tune this time of the offset
 	public void update() {
-//		if(timer < 0.5f) {
-//			timer += Gdx.graphics.getDeltaTime();
-//		}else {
-//			timer = 0;
-		sortEntities();
-	}
-	
-	private void sortEntities() {
 		Set<Mob> mobs = new HashSet<>();
 		mobs.addAll(SW.getAndRemoveAllBugs());
 		mobs.addAll(NW.getAndRemoveAllBugs());
@@ -52,7 +43,7 @@ public class QuadTree {
 		while(iter.hasNext()) {
 			Mob m = iter.next();
 			addMob(m);
-		}		
+		}	
 	}
 
 	public void addEntity(Entity e) {

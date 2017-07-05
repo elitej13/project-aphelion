@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Set;
 
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector2;
 import com.ephemerality.aphelion.graphics.ScreenManager;
 import com.ephemerality.aphelion.spawn.entities.Entity;
 import com.ephemerality.aphelion.spawn.entities.mob.Mob;
@@ -108,18 +107,38 @@ public class QuadBranch {
 		return false;
 	}
 	public boolean checkMoveCollisions(Entity entity, Rectangle body) {
-		Entity grabbed = null;
+//---------------------Checking tiles--------------------------------------------------------//
+		int x0 = (int)Math.floor(body.x / MapManager.tileSize);
+		int y0 = (int)Math.floor(body.y / MapManager.tileSize);
+		int x1 = (int)((body.x + body.width) / MapManager.tileSize);
+		int y1 = (int)((body.y + body.height) / MapManager.tileSize);
+		if(body.x + body.width > x1 * MapManager.tileSize + MapManager.tileSize - 1) x1++;
+		if(body.y + body.height > y1 * MapManager.tileSize + MapManager.tileSize - 1) y1++;
+		for(int yi = y0; yi <= y1; yi++) {
+			for(int xi = x0; xi <= x1; xi++) {
+				if(yi < 0 || xi < 0 || yi >= map.level.HEIGHT || xi >= map.level.WIDTH)
+					return true;
+				if(map.level.tiles[xi + yi * map.level.WIDTH] < 0)
+					return true;
+			}
+		}
+//---------------------Checking mobs-----------------------------------------------------------//
 		for(Entity e : bugs) {
-			if(e.equals(entity))
-				continue;
-			if(body.overlaps(e.body)) {
+			if(!(e.equals(entity)) && body.overlaps(e.body)) {
 //				Debug.pushToConsole("Collision between " + entity.getID() + ", and " + e.getID(), false);
 				//TODO: Test if not having collision boxes for movement works okay.
 				return false;
 			}
 		}
+//---------------------Checking env-----------------------------------------------------------//
 		for(Entity e : leaves) {
-			if(e instanceof Item && entity instanceof Player) {
+			if(!(e instanceof Item) && body.overlaps(e.body))
+				return true;
+		}
+//---------------------Checking items----------------------------------------------------------//
+		Entity grabbed = null;
+		for(Entity e : leaves) {
+			if(entity instanceof Player && e instanceof Item) {
 				if(body.overlaps(e.body)) {
 					Player player = (Player) entity;
 					grabbed = e;
@@ -132,21 +151,6 @@ public class QuadBranch {
 			leaves.remove(grabbed);
 			grabbed.isRemoved = true;
 			return false;
-		}
-		Vector2 position = body.getPosition(new Vector2());
-		for(int y = (int) body.height; y > 0; y -= MapManager.tileSize) {
-			position.x = body.x;
-			for(int x = (int) body.width; x > 0; x -= MapManager.tileSize) {
-				for(Rectangle r : map.getSurroundingTiles(position)) {
-					if(r == null)
-						continue;
-					if(body.overlaps(r)) {
-						return true;
-					}
-				}
-				position.add(MapManager.tileSize, 0);
-			}
-			position.add(0, MapManager.tileSize);
 		}
 		return false;
 	}

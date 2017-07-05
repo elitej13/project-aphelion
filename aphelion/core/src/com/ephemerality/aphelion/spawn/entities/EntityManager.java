@@ -4,15 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.ephemerality.aphelion.graphics.LoadManager;
 import com.ephemerality.aphelion.graphics.ScreenManager;
 import com.ephemerality.aphelion.input.Save;
-import com.ephemerality.aphelion.persona.Equip;
-import com.ephemerality.aphelion.persona.Stats;
-import com.ephemerality.aphelion.spawn.entities.mob.Dummy;
-import com.ephemerality.aphelion.spawn.entities.nob.Item;
+import com.ephemerality.aphelion.spawn.entities.nob.Environment;
 import com.ephemerality.aphelion.spawn.entities.player.Player;
 import com.ephemerality.aphelion.spawn.world.MapManager;
 import com.ephemerality.aphelion.spawn.world.QuadTree;
@@ -26,41 +22,40 @@ public class EntityManager {
 	
 	public QuadTree quad;
 	public Player player;
-	
+	public MapManager map;
 	
 	public EntityManager(ScreenManager screen, LoadManager assets, MapManager map) {
-		float x = Gdx.graphics.getWidth();
-		float y = Gdx.graphics.getHeight();
-		
+		this.map = map;
 		deltaOffset = new Vector2();
 		entities = new ArrayList<>();
-//		particles = new ArrayList<>();
 		removed = new ArrayList<>();
 		quad = new QuadTree(map);
-		
 		player = new Player(screen, assets, 1000, 1000);
-		
+		initEnvNobs();
 		addEntity(player);
-//		addEntity(new Dummy(200, 200, assets, new Equip(new Stats())));
-//		addEntity(new Item(50, 50, 32, 32, Item.SWORD));
-//		addEntity(new Item(100, 50, 32, 32, Item.CHEST));
-		
-		//TODO : Fix the particle render/spawn bug.
-//		particles.add(new ParticleSpawner(200f, 200f, 1000, 100, 50));
 	}
 	public EntityManager(ScreenManager screen, LoadManager assets, MapManager map, Save save) {
-//		float x = Gdx.graphics.getWidth();
-//		float y = Gdx.graphics.getHeight();
-		
+		this.map = map;
 		deltaOffset = new Vector2();	
 		entities = new ArrayList<>();
-//		particles = new ArrayList<>();
 		removed = new ArrayList<>();
 		quad = new QuadTree(map);
-		
 		player = new Player(screen, assets, save.player);
+		initEnvNobs();
 	}
-	public void refreshQuad(MapManager map) {
+	public void initEnvNobs() {
+
+		addEntity(Environment.instantiateEnvNob(2000, 600, Environment.Tree.ID));
+		for(int y = 0; y < map.level.HEIGHT; y++) {
+			for(int x = 0; x < map.level.WIDTH; x++) {
+				short id = map.level.env[x + y * map.level.WIDTH];
+				if(id != 0) {
+					addEntity(Environment.instantiateEnvNob(x, y, id));
+				}
+			}
+		}
+	}
+	public void refreshQuad() {
 		quad = new QuadTree(map);
 		for(Entity e : entities) 
 			quad.addEntity(e);

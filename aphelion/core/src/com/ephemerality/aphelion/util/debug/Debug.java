@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
+import com.badlogic.gdx.graphics.profiling.GLProfiler;
 import com.ephemerality.aphelion.framework.Master;
 import com.ephemerality.aphelion.input.InputManager;
 import com.ephemerality.aphelion.input.Keyboard;
@@ -88,6 +89,8 @@ public class Debug {
 		
 		Date date = new Date();
 		log_name = "log_" + date.toString().replaceAll(" ", "-").replaceAll(":", ".") + LOG_EXTENSION;
+		
+		GLProfiler.enable();
 	}
 	
 	public static void update() {
@@ -160,15 +163,19 @@ public class Debug {
 	
 	public static void render(Batch batch, float xoffset, float yoffset) {
 		if(infoIsActive) {
-			//Info Panel
-			float fps = Gdx.graphics.getFramesPerSecond();
-			float x = Gdx.graphics.getWidth() - 250 + xoffset;
+			//Info Panel=
+			float x = Gdx.graphics.getWidth() - 275 + xoffset;
 			float y = Gdx.graphics.getHeight() - 10 + yoffset;
-			int offset = 1;			
+			int offset = 1;
 			logger.draw(batch, "Debug Info", x , y);
 			logger.draw(batch, "----------------------------------", x, y - fontheight * offset++);
 			logger.draw(batch, "System Time: " + getFormattedTime(systemTime), x, y - fontheight * offset++);
-			logger.draw(batch, "FPS: " + fps, x, y - fontheight * offset++);
+			logger.draw(batch, "FPS: " + Gdx.graphics.getFramesPerSecond(), x, y - fontheight * offset++);
+			logger.draw(batch, "GL Calls: " + GLProfiler.calls, x, y - fontheight * offset++);
+			logger.draw(batch, "Draw Calls: " + GLProfiler.drawCalls, x, y - fontheight * offset++);
+//			logger.draw(batch, "Shader Switches: " + GLProfiler.shaderSwitches, x, y - fontheight * offset++);
+//			logger.draw(batch, "Texture Bindings: " + GLProfiler.textureBindings, x, y - fontheight * offset++);
+//			logger.draw(batch, "Vertex Count: " + GLProfiler.vertexCount.count, x, y - fontheight * offset++);
 			
 			//Console Log
 			offset = 0;
@@ -179,6 +186,7 @@ public class Debug {
 				logger.draw(batch,log.get(i), x, y - fontheight * offset++);
 			}
 			
+			GLProfiler.reset();
 		}
 		if(consoleIsActive) {
 			//Console

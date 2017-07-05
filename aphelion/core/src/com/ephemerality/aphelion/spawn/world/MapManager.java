@@ -44,25 +44,6 @@ public class MapManager {
 	public void save(String location, boolean absolutepath) {
 		FileManager.writeToFile(location, level.toByteArray(), absolutepath);
 	}
-	public void editTile(int x, int y, short tileID) {
-		level.editTile((int)((offset.x / MapManager.tileSize) + x), (int)((offset.y / MapManager.tileSize) + y), tileID);
-	}
-	public void createNewLevel(int w, int h) {
-		bufferedLevel = level;
-		level = new Level(w, h);
-	}
-	public void resize(int w, int h) {
-		level.resize(w, h);
-		mapPixelSize = new Vector2(level.WIDTH * MapManager.tileSize, level.HEIGHT * MapManager.tileSize);
-		System.out.println("Resizing: " + level.WIDTH + ", " + level.HEIGHT);
-	}
-	public boolean hasRecentlyReloaded() {
-		if(recentlyReloaded) {
-			recentlyReloaded = false;
-			return true;
-		}
-		return false;
-	}
 	public Warp getWarp(Rectangle rect) {
 		for(Warp w : level.warps){
 			if(w.checkActivated(rect, level.name))
@@ -70,26 +51,8 @@ public class MapManager {
 		}
 		return null;
 	}
-	public Rectangle[] getSurroundingTiles(Vector2 vector) {
-		int x = (int)vector.x >> 6;
-		int y = (int)vector.y >> 6;
-		Rectangle[] tiles = new Rectangle[9];
-		int w = level.WIDTH;
-		int h = level.HEIGHT;
-		for(int yi = -1; yi <= 1; yi++) {
-			for(int xi = -1; xi <= 1; xi++) {
-				if(x + xi >= 0 && y + yi >= 0 && x + xi < w && y + yi < h) {
-					tiles[(xi + 1) + ((yi + 1) * 3)] = level.collidable[(x + xi) + ((y + yi) * w)];
-				}else {
-					tiles[(xi + 1) + ((yi + 1) * 3)] = new Rectangle((x + xi) * MapManager.tileSize, (y + yi) * MapManager.tileSize, MapManager.tileSize, MapManager.tileSize);
-				}
-			}
-		}
-		return tiles;
-	}
 	public void renderBackGround(ScreenManager screen) {
 		renderTiles(screen);
-		
 		//Debugging Purposes
 		for(Warp warp : level.warps) {
 			warp.render(screen, level.name);
@@ -155,13 +118,52 @@ public class MapManager {
 				renderOnMiniMap(screen, SpriteSheet.fetchIconFromEntityID(currentPixel), x - ((playerX - (mapSimulatedWidth / 2)) / tileSize), y  - ((playerY - (mapSimulatedHeight / 2)) / tileSize));
 			}
 		}
-		
 	}
 	public void renderOnMiniMap(ScreenManager screen, TextureRegion texture, float globalX, float globalY) {
 		screen.renderFixed(texture, Gdx.graphics.getWidth() - mapWidth + globalX * texture.getRegionWidth(), Gdx.graphics.getHeight() - mapHeight + globalY * texture.getRegionHeight(), texture.getRegionWidth(), texture.getRegionHeight());
 	}
-	
 	public Vector2 getMapSize() {
 		return mapPixelSize;
 	}
+	
+	
+	
+	
+//-----------------------------Editor Functionality-----------------------------------------------------------//
+	public void editTile(int x, int y, short tileID) {
+		int xx = (int)(offset.x / tileSize) + x;
+		int yy = (int)(offset.y / tileSize) + y;
+		if(xx < 0 || xx >= level.WIDTH || yy < 0 || yy >= level.HEIGHT)
+			return;
+		level.tiles[xx + yy * level.WIDTH] = tileID;
+	}
+	public void createNewLevel(int w, int h) {
+		bufferedLevel = level;
+		level = new Level(w, h);
+	}
+	public void resize(int w, int h) {
+		short[] buffer = new short[w * h];
+		for(int y = 0; y < h; y++) {
+			for(int x = 0; x < w; x++) {
+				if(y < level.HEIGHT && x < level.WIDTH) {
+					buffer[x + y * w] = level.tiles[x + y * level.WIDTH];
+				}else {
+					buffer[x + y * w] = Tile.GRASS_ID;
+				}
+			}
+		}
+		level.tiles = buffer;
+		level.HEIGHT = h;
+		level.WIDTH = w;
+		mapPixelSize = new Vector2(level.WIDTH * MapManager.tileSize, level.HEIGHT * MapManager.tileSize);
+		System.out.println("Resizing: " + level.WIDTH + ", " + level.HEIGHT);
+	}
+	public boolean hasRecentlyReloaded() {
+		if(recentlyReloaded) {
+			recentlyReloaded = false;
+			return true;
+		}
+		return false;
+	}
+//----------------------------------END EDITOR FUNCTIONS---------------------------------------//	
 }

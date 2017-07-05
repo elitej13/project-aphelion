@@ -5,7 +5,7 @@ import com.ephemerality.aphelion.graphics.ScreenManager;
 
 public abstract class Puppet {
 	
-	protected float x, y, w, h;
+	public float x, y, w, h;
 	
 	public Puppet(float x, float y, float w, float h) {
 		this.x = x;

@@ -18,18 +18,28 @@ import com.badlogic.gdx.math.Rectangle;
 //}
 public enum Environment {
 	
-	House	(new Rectangle(0, 0, 192, 192), 	(short) -20001),
-	Fence	(new Rectangle(0, 0, 64, 16), 		(short) -20002),
-	Gate	(new Rectangle(0, 0, 64, 16), 		(short) -20003),
-	Bridge	(null, 								(short)  20004),
-	Tree	(new Rectangle(48, 0, 72, 64), 		(short) -20005);
+	House	(new Rectangle(0, 0, 192, 192), 	192, 	192, 	(short) -20001),
+	Fence	(new Rectangle(0, 0, 64, 16), 		64, 	64, 	(short) -20002),
+	Gate	(new Rectangle(0, 0, 64, 16), 		64, 	64,		(short) -20003),
+	Bridge	(null, 								64, 	192,   	(short)  20004),
+	Tree	(new Rectangle(48, 0, 32, 32), 		128, 	128,	(short) -20005);
 	
-	public final Rectangle body;
+	public final Rectangle BODY;
 	public final short ID;
+	public final int WIDTH, HEIGHT;
 	
-	private Environment(Rectangle body, short ID) {
-		this.body = body;
-		this.ID = ID;
+	private Environment(Rectangle body, int w, int h, short id) {
+		this.BODY = body;
+		this.ID = id;
+		this.WIDTH = w;
+		this.HEIGHT = h;
 	}
-	
+	public static EnvNob instantiateEnvNob(float x, float y, short ID) {
+		for(Environment env : Environment.values()) {
+			if(ID == env.ID) {
+				return new EnvNob(env.BODY, x, y, env.WIDTH, env.HEIGHT, ID);
+			}
+		}
+		return null;
+	}
 }

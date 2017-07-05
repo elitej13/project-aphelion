@@ -7,6 +7,7 @@ public class ScriptManager {
 	
 	GameManager game;
 	AchievementManager chieves;
+	
 	public ScriptManager(GameManager game) {
 		this.game = game;
 		chieves = new AchievementManager(game);

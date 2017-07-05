@@ -76,11 +76,11 @@ public class GameManager {
 	}
 	public void loadLevel(String name, String path, boolean absolutepath) {
 		map.load(name, path, absolutepath);
-		ent.refreshQuad(map);
+		ent.refreshQuad();
 	}
 	public void resizeLevel(int w, int h) {
 		map.resize(w, h);
-		ent.refreshQuad(map);
+		ent.refreshQuad();
 	}
 	public void render(ScreenManager screen) {
 		//Background
