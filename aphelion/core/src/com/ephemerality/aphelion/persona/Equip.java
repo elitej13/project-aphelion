@@ -55,8 +55,8 @@ public class Equip {
 		if(armor != null) resist += armor.magicalResist;
 		return resist;
 	}
-	public String getFormattedDamage() {
-		return stats.getFormattedDamage();
+	public String getFormattedHealth() {
+		return stats.getFormattedHealth();
 	}
 	public float modHealth(float amount) {
 		return stats.modHealth(amount);

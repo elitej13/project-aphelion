@@ -161,6 +161,9 @@ public class ScreenManager {
 		font.setColor(col);
 		font.draw(sb, string, x + bounds.x, y + bounds.y);
 	}
+	public void renderFixedString(BitmapFont font, String string, float x, float y) {
+		font.draw(sb, string, x + bounds.x, y + bounds.y);
+	}
 	public void render(Texture texture, Color color, float x, float y) {
 		sb.setColor(color);
 		sb.draw(texture, x, y);

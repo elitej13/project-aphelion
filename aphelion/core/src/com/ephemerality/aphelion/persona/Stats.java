@@ -22,7 +22,7 @@ public class Stats {
 	public float getPercentDamaged() {
 		return health / health_max;
 	}
-	public String getFormattedDamage() {
+	public String getFormattedHealth() {
 		return health + "/" + health_max;
 	}
 	public void levelUp(boolean strength, boolean dexterity, boolean intelligence) {

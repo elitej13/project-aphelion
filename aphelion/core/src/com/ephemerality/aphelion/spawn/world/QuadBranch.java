@@ -98,7 +98,7 @@ public class QuadBranch {
 					m.gracePeriod = mob.equip.getStun();
 					System.out.println("Stunned for: " + mob.equip.getStun());
 					System.out.println("Damage: " + damage);
-					System.out.println("New Health: " + m.equip.getFormattedDamage());
+					System.out.println("New Health: " + m.equip.getFormattedHealth());
 					Debug.pushToConsole(mob.getID() + " attacked " + m.getID() + ", doing " + damage + " damage", false);
 				}
 				return true;
