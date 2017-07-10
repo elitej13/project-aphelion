@@ -3,6 +3,7 @@ package com.ephemerality.aphelion.framework;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.Rectangle;
 import com.ephemerality.aphelion.graphics.LoadManager;
 import com.ephemerality.aphelion.graphics.ScreenManager;
 import com.ephemerality.aphelion.input.InputManager;
@@ -213,7 +214,8 @@ public class Master extends ApplicationAdapter {
 	@Override
 	public void resize(int width, int height) {
 		super.resize(width, height);
-		screen.resize(width, height);
+		if(game != null) screen.resize(game.ent.player.body);
+		else screen.resize(new Rectangle());
 	}
 	
 	@Override
@@ -235,7 +237,7 @@ public class Master extends ApplicationAdapter {
 			game.render(screen);
 //			System.out.println("Render Stop Time: " + System.currentTimeMillis());
 		}
-		Debug.render(screen.getSpriteBatch(), screen.getBounds().x, screen.getBounds().y);
+		Debug.render(screen.sb, screen.bounds.x, screen.bounds.y);
 		screen.renderFixedString(Color.GOLD, version, Gdx.graphics.getWidth() - 175, 15);
 		screen.finish();
 	}

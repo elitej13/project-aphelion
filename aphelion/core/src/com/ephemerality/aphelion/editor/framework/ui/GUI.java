@@ -32,7 +32,7 @@ public class GUI {
 		this.screen = screen;
 		VisUI.load(SkinScale.X1);
 		
-		stage = new Stage(new ScreenViewport(), screen.getSpriteBatch());
+		stage = new Stage(new ScreenViewport(), screen.sb);
 		root = new Table();
 		root.setFillParent(true);
 		stage.addActor(root);

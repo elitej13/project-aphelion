@@ -102,7 +102,7 @@ public class LoadManager {
 		
 		//Character SCML Data
 		DollParameter param = new DollParameter();
-		param.batch = screen.getSpriteBatch();
+		param.batch = screen.sb;
 
 		assets.load(MONSTER_SCML, DollInfo.class, param);
 //		assets.load(BRAWLER_SCML, Doll.class, param);
@@ -150,8 +150,8 @@ public class LoadManager {
 	public void render(ScreenManager screen) {
 		int percent = (int)(assets.getProgress() * 100);
 		screen.renderFixed(loadFrames.get(currentFrame), animX, animY, animScale);
-		font.draw(screen.getSpriteBatch(), "Loading assets " + percent + "%", textX, textY);
-		font.draw(screen.getSpriteBatch(), "NecroHero", titleX, titleY);
+		screen.renderFixedString(font, "Loading assets " + percent + "%", textX, textY);
+		screen.renderFixedString(font, "NecroHero", titleX, titleY);
 	}
 	
 	public void dispose() {

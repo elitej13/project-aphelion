@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
-import com.badlogic.gdx.math.Vector2;
 import com.ephemerality.aphelion.graphics.ScreenManager;
 import com.ephemerality.aphelion.spawn.entities.player.Player;
 
@@ -17,19 +16,16 @@ public class ContextMenu {
 	public final static int FONT_SIZE = 14;
 	
 	Texture bkgd;
-	Vector2 resolution;
 	Player player;
 	BitmapFont stats;
 	float fontheight, fontwidth;
 	
 	public ContextMenu(Player player) {
 		this.player = player;
-		resolution = new Vector2(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		Pixmap backDrop = new Pixmap(1, 1, Pixmap.Format.RGB888);
 		backDrop.setColor(0.5f, 0.5f, 0.5f, 0.5f);
 		backDrop.fillRectangle(0, 0, 1, 1);
 		bkgd = new Texture(backDrop);
-		
 
 		//Font Generations
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/inconsolata/Inconsolata-Bold.ttf"));
@@ -39,7 +35,6 @@ public class ContextMenu {
 		parameter.color = Color.WHITE;
 		stats = generator.generateFont(parameter);
 		
-		
 		//Font Metrics
 		GlyphLayout glyphLayout = new GlyphLayout();
 		String item = "D";
@@ -47,11 +42,7 @@ public class ContextMenu {
 		glyphLayout.setText(stats,item);
 		fontheight = glyphLayout.height + 2f;
 		fontwidth = glyphLayout.width;
-		
-		
 	}
-	
-	
 	
 	
 	
@@ -67,16 +58,16 @@ public class ContextMenu {
 		int y = 0;
 //		int w = (int) (resolution.x * 0.75f);
 //		int h = (int) (resolution.y * 0.75f);
-		int w = (int) resolution.x;
-		int h = (int) resolution.y;
-		screen.getSpriteBatch().setColor(1f, 1f, 1f, 0.75f);
+		int w = (int) Gdx.graphics.getWidth();
+		int h = (int) Gdx.graphics.getHeight();
+		screen.sb.setColor(1f, 1f, 1f, 0.75f);
 		screen.renderFixed(bkgd, x, y, w, h);
-		screen.getSpriteBatch().setColor(1f, 1f, 1f, 1f);
+		screen.sb.setColor(1f, 1f, 1f, 1f);
 		player.inventory.render(screen);
-		x = (int) (resolution.x * 0.75f);
-		y = (int) (resolution.y * 0.05f);
-		w = (int) (resolution.x * 0.2f);
-		h = (int) (resolution.y * 0.9f);
+		x = (int) (w * 0.75f);
+		y = (int) (h * 0.05f);
+		w = (int) (w * 0.2f);
+		h = (int) (h * 0.9f);
 //		screen.renderFixed(bkgd, x, y, w, h);
 		x = x + 5;
 		y = y + h - 5;

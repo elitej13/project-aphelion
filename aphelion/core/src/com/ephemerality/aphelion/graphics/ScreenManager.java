@@ -14,35 +14,36 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.utils.ScissorStack;
 import com.ephemerality.aphelion.util.Direction;
 
 public class ScreenManager {
 	
-	SpriteBatch sb;
-	ShapeRenderer sr;
-	OrthographicCamera oc;
-	Rectangle bounds;
+	HashMap<Vector2, Texture> rectangles;
+	public SpriteBatch sb;
+	public OrthographicCamera oc;
+	public Rectangle bounds;
 	Color color;
 	BitmapFont font;
 	int FONT_SIZE = 12;
+	boolean batchHasBegun;
 	
+	public static final int WIDTH = 1000, HEIGHT = 600;
 	
 	public ScreenManager() {
-		sb = new SpriteBatch();
-		sr = new ShapeRenderer();
-		oc = new OrthographicCamera();
-		bounds = new Rectangle();
-		resize();
-		color = new Color(0f, 0f, 0f, 1f);
-		
+		float w = Gdx.graphics.getWidth();
+		float h = Gdx.graphics.getHeight();
 		
 		rectangles = new HashMap<>();
-		center = new Rectangle(Gdx.graphics.getWidth() / 2 - 1, Gdx.graphics.getHeight() / 2 - 1, 4f, 4f);
+		center = new Rectangle(w / 2 - 1, h / 2 - 1, 4f, 4f);
+		color = new Color(0f, 0f, 0f, 1f);
+		oc = new OrthographicCamera(w, h);
+		oc.setToOrtho(false, w, h);
+		sb = new SpriteBatch();
+		bounds = new Rectangle(0, 0, w, h);
+		update();
 
 		//Font Generations
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/inconsolata/Inconsolata-Bold.ttf"));
@@ -56,21 +57,24 @@ public class ScreenManager {
 		map.setColor(Color.BLACK);
 		pixel = new Texture(map);
 	}
-	
-	public void resize() {
-		oc.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		oc.viewportHeight = Gdx.graphics.getWidth();
-		oc.viewportWidth = Gdx.graphics.getHeight();
-		bounds.setWidth(Gdx.graphics.getWidth());
-		bounds.setHeight(Gdx.graphics.getHeight());
-		update();
+	public void update() {
+		oc.update();
+		sb.setProjectionMatrix(oc.combined);
 	}
-	public void resize(int width, int height) {
-		oc.viewportHeight = height;
-		oc.viewportWidth = width;
-		oc.setToOrtho(false, width, height);
-		bounds.setWidth(width);
-		bounds.setHeight(height);
+		
+	/**
+	 * @param body Body to center screen around
+	 */
+	public void resize(Rectangle body) {
+		int w = Gdx.graphics.getWidth();
+		int h = Gdx.graphics.getHeight();
+		float cx = body.x + (body.width / 2f);
+		float cy = body.y + (body.height / 2f);
+		oc = new OrthographicCamera(w, h);
+		oc.setToOrtho(false, w, h);
+		oc.position.set(cx, cy, 0);
+		bounds.set(cx - (w / 2f), cy - (h / 2f), w, h);
+		center.set(w / 2 - 1, h / 2 - 1, 4f, 4f);
 		update();
 	}
 	public void setPosition(float x, float y) {
@@ -91,25 +95,19 @@ public class ScreenManager {
 	public void start() {
 		Gdx.gl20.glClearColor(color.r, color.b, color.g, color.a);
 		Gdx.gl20.glClear(GL20.GL_COLOR_BUFFER_BIT);		
-		Gdx.gl20.glEnable(GL20.GL_BLEND);
-		sb.enableBlending();
+//		Gdx.gl20.glEnable(GL20.GL_BLEND);
+//		sb.enableBlending();
 		sb.begin();
+		batchHasBegun = true;
 	}
 	//Debug
 	static Rectangle center;
 	public void finish() {
 		renderRectangle(center, Color.RED, bounds.x, bounds.y);
-		Rectangle scissors = new Rectangle();
-		ScissorStack.calculateScissors(oc, sb.getTransformMatrix(), bounds, scissors);
-		ScissorStack.pushScissors(scissors);
 		sb.end();
+		batchHasBegun = false;
 	}
 	
-	public void update() {
-		oc.update();
-		sr.setProjectionMatrix(oc.combined);
-		sb.setProjectionMatrix(oc.combined);
-	}
 	public void translate(float x, float y) {
 		oc.translate(x, y);
 		bounds.setPosition(bounds.x + x, bounds.y + y);
@@ -130,7 +128,6 @@ public class ScreenManager {
 	}
 	
 	
-	HashMap<Vector2, Texture> rectangles;
 	public void renderRectangle(Rectangle body) {
 		renderRectangle(body, Color.PINK, 0, 0);
 	}
@@ -154,7 +151,10 @@ public class ScreenManager {
 		sb.draw(texture, body.x + x, body.y + y);
 	}
 	public void renderString(Color col, String string, float x, float y) {
-		font.setColor(col);
+		
+		font.setColor(col.r, col.g, col.b, col.a
+				
+				);;
 		font.draw(sb, string, x, y);
 	}
 	public void renderFixedString(Color col, String string, float x, float y) {
@@ -216,20 +216,6 @@ public class ScreenManager {
 	}
 	public void dispose() {
 		sb.dispose();
-		sr.dispose();
-	}
-	public Rectangle getBounds() {
-		return bounds;
-	}
-	public SpriteBatch getSpriteBatch() {
-		return sb;
-	}
-	
-	public ShapeRenderer getShapeRenderer() {
-		return sr;
-	}
-	
-	public OrthographicCamera getOrthographicCamera() {
-		return oc;
+//		sr.dispose();
 	}
 }

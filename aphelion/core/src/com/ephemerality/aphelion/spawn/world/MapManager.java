@@ -60,13 +60,13 @@ public class MapManager {
 	}
 	public void renderAlphaMask(ScreenManager screen) {
 		Gdx.gl.glColorMask(false, false, false, true);
-		screen.getSpriteBatch().setBlendFunction(GL20.GL_ONE, GL20.GL_ZERO);
+		screen.sb.setBlendFunction(GL20.GL_ONE, GL20.GL_ZERO);
 		screen.renderFixed(SpriteSheet.minimap_mask, Gdx.graphics.getWidth() - mapWidth, Gdx.graphics.getHeight() - mapHeight, SpriteSheet.minimap_mask.getWidth(), SpriteSheet.minimap_mask.getHeight());
-		screen.getSpriteBatch().flush();
+		screen.sb.flush();
 	}
 	public void renderForeGround(ScreenManager screen, EntityManager ent) {
 		Gdx.gl.glColorMask(true, true, true, true);
-		screen.getSpriteBatch().setBlendFunction(GL20.GL_DST_ALPHA, GL20.GL_ONE_MINUS_DST_ALPHA);
+		screen.sb.setBlendFunction(GL20.GL_DST_ALPHA, GL20.GL_ONE_MINUS_DST_ALPHA);
 		Gdx.gl.glEnable(GL20.GL_SCISSOR_TEST);
 		Gdx.gl.glScissor(Gdx.graphics.getWidth() - (int) mapWidth, Gdx.graphics.getHeight() - (int) mapHeight, SpriteSheet.minimap_mask.getWidth(), SpriteSheet.minimap_mask.getHeight());
 		renderMap(screen, ent);
@@ -74,11 +74,10 @@ public class MapManager {
 	}
 	public void renderTiles(ScreenManager screen) {
 		int tileSize = MapManager.tileSize;
-		Rectangle bounds = screen.getBounds();
-		int x0 = (int) Math.floor(bounds.x / tileSize);
-		int y0 = (int) Math.floor(bounds.y / tileSize);
-		int x1 = x0 + (int) Math.ceil(bounds.width / tileSize);
-		int y1 = y0 + (int) Math.ceil(bounds.height / tileSize);
+		int x0 = (int) Math.floor(screen.bounds.x / tileSize);
+		int y0 = (int) Math.floor(screen.bounds.y / tileSize);
+		int x1 = x0 + (int) Math.ceil(screen.bounds.width / tileSize);
+		int y1 = y0 + (int) Math.ceil(screen.bounds.height / tileSize);
 		for(int y = y0; y <= y1; y++) {
 			while(y < 0) y++;
 			if(y >= level.HEIGHT)

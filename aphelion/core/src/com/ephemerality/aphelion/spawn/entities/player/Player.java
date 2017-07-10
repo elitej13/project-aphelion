@@ -26,9 +26,9 @@ public class Player extends Mob {
 	int speed = 10;
 	
 	public Player(ScreenManager screen, LoadManager assets, float x, float y) {
-		super(x, y, 128, 64, Mob.PLAYER, assets, LoadManager.MONSTER_SCML, new Equip(new Stats()));
+		super(x, y, 128, 32, Mob.PLAYER, assets, LoadManager.MONSTER_SCML, new Equip(new Stats()));
 		this.screen = screen;		
-		screen.setPosition(x, y);
+		screen.setPosition(x + body.width / 2, y + body.height / 2);
 		inventory = new Inventory();
 	}
 	public Player(ScreenManager screen, LoadManager assets, byte[] data) {
@@ -37,6 +37,7 @@ public class Player extends Mob {
 		screen.setPosition(ByteBuffer.wrap(data).getFloat(0), ByteBuffer.wrap(data).getFloat(1));
 		byte[] inven = Arrays.copyOf(data, data.length - 2 * Float.BYTES);
 		inventory = new Inventory(inven);
+		screen.setPosition(body.x + body.width / 2, body.y + body.height / 2);
 	}
 	@Override
 	public void update() {

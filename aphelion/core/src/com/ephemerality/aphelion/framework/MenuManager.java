@@ -145,29 +145,29 @@ public class MenuManager {
 		
 		//Main
 		if(state == states.main) {
-			one.draw(screen.getSpriteBatch(), "Play", leftinset, topinset);
-			two.draw(screen.getSpriteBatch(), "Options", leftinset, topinset - 100);
-			three.draw(screen.getSpriteBatch(), "Quit", leftinset, topinset - 200);			
+			screen.renderFixedString(one, "Play", leftinset, topinset);
+			screen.renderFixedString(two, "Options", leftinset, topinset - 100f);
+			screen.renderFixedString(three, "Quit", leftinset, topinset - 200f);		
 		}
 		//Start
 		else if(state == states.start) {
-			one.draw(screen.getSpriteBatch(), "New Game", leftinset, topinset);
-			two.draw(screen.getSpriteBatch(), "Load Game", leftinset, topinset - 100);
-			three.draw(screen.getSpriteBatch(), "Back", leftinset, topinset - 200);			
+			screen.renderFixedString(one, "New Game", leftinset, topinset);
+			screen.renderFixedString(two, "Load Game", leftinset, topinset - 100f);
+			screen.renderFixedString(three, "Back", leftinset, topinset - 200f);	
 		}
 		//Load
 		else if(state == states.load) {	
-			one.draw(screen.getSpriteBatch(), "Selection One", leftinset, topinset);
-			two.draw(screen.getSpriteBatch(), "Selection Two", leftinset, topinset - 100);
-			three.draw(screen.getSpriteBatch(), "Selection Three", leftinset, topinset - 200);
-			four.draw(screen.getSpriteBatch(), "Back", leftinset, topinset - 300);		
+			screen.renderFixedString(one, "One", leftinset, topinset);
+			screen.renderFixedString(two, "Two", leftinset, topinset - 100f);
+			screen.renderFixedString(three, "Three", leftinset, topinset - 200f);
+			screen.renderFixedString(four, "Back", leftinset, topinset - 300f);
 		}
 		//Options
 		else if(state == states.options) {	
-			one.draw(screen.getSpriteBatch(), "Controls", leftinset, topinset);
-			two.draw(screen.getSpriteBatch(), "Graphics", leftinset, topinset - 100);
-			three.draw(screen.getSpriteBatch(), "Sound", leftinset, topinset - 200);
-			four.draw(screen.getSpriteBatch(), "Back", leftinset, topinset - 300);		
+			screen.renderFixedString(one, "Controls", leftinset, topinset);
+			screen.renderFixedString(two, "Graphics", leftinset, topinset - 100f);
+			screen.renderFixedString(three, "Sound", leftinset, topinset - 200f);
+			screen.renderFixedString(four, "Back", leftinset, topinset - 300f);	
 		}
 	}
 	
@@ -175,6 +175,7 @@ public class MenuManager {
 		one.dispose();
 		two.dispose();
 		three.dispose();
+		four.dispose();
 	}
 	
 }
