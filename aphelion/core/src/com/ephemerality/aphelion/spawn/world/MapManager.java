@@ -1,6 +1,7 @@
 package com.ephemerality.aphelion.spawn.world;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
@@ -29,7 +30,7 @@ public class MapManager {
 	public Vector2 offset;
 	
 	public MapManager() {
-		level = new Level("overworld", FileManager.readFromFile("maps/overworld" + Level.EXTENSION, false));
+		level = new Level("tst_01", FileManager.readFromFile("maps/tst_01" + Level.EXTENSION, false));
 //		level = new Level(12,12);
 		mapPixelSize = new Vector2(level.WIDTH * MapManager.tileSize, level.HEIGHT * MapManager.tileSize);
 		offset = new Vector2(0, 0);
@@ -46,16 +47,17 @@ public class MapManager {
 	}
 	public Warp getWarp(Rectangle rect) {
 		for(Warp w : level.warps){
-			if(w.checkActivated(rect, level.name))
+			if(rect.overlaps(w.local));
 				return w;
 		}
 		return null;
 	}
 	public void renderBackGround(ScreenManager screen) {
 		renderTiles(screen);
-		//Debugging Purposes
+		//----------Debugging Purposes------------------//
 		for(Warp warp : level.warps) {
-			warp.render(screen, level.name);
+			screen.renderRectangle(warp.local, Color.BLUE);
+			screen.renderString(Color.BLUE, warp.level, warp.local.x, warp.local.y - 5f);
 		}
 	}
 	public void renderAlphaMask(ScreenManager screen) {

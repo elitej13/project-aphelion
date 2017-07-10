@@ -2,6 +2,7 @@ package com.ephemerality.aphelion.spawn.entities;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import com.badlogic.gdx.math.Vector2;
@@ -44,15 +45,11 @@ public class EntityManager {
 		initEnvNobs();
 	}
 	public void initEnvNobs() {
-
 		addEntity(Environment.instantiateEnvNob(2000, 600, Environment.Tree.ID));
-		for(int y = 0; y < map.level.HEIGHT; y++) {
-			for(int x = 0; x < map.level.WIDTH; x++) {
-				short id = map.level.env[x + y * map.level.WIDTH];
-				if(id != 0) {
-					addEntity(Environment.instantiateEnvNob(x, y, id));
-				}
-			}
+		Iterator<Vector2> vIter = map.level.env.keySet().iterator();
+		while(vIter.hasNext()) {
+			Vector2 vect = vIter.next();
+			addEntity(Environment.instantiateEnvNob(vect.x, vect.y, map.level.env.get(vect)));
 		}
 	}
 	public void refreshQuad() {

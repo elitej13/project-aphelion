@@ -6,7 +6,6 @@ import com.ephemerality.aphelion.graphics.ScreenManager;
 import com.ephemerality.aphelion.input.InputManager;
 import com.ephemerality.aphelion.input.Save;
 import com.ephemerality.aphelion.spawn.entities.EntityManager;
-import com.ephemerality.aphelion.spawn.entities.player.Player;
 import com.ephemerality.aphelion.spawn.world.Level;
 import com.ephemerality.aphelion.spawn.world.MapManager;
 import com.ephemerality.aphelion.spawn.world.Warp;
@@ -65,13 +64,9 @@ public class GameManager {
 		warpTo = warp;
 	}
 	public Warp warp(Warp warp) {
-		if(!warp.inLevel) {
-			String name = warp.getDestination();
-			loadLevel(name, "maps/" + name + Level.EXTENSION, false);
-		}
-		Player player = ent.getPlayer();
-		warp.positionBody(player.body);
-		player.screen.setPosition(player.body.x, player.body.y);
+		loadLevel(warp.level, "maps/" + warp.level + Level.EXTENSION, false);
+		ent.player.body.setPosition(warp.dest);
+		ent.player.screen.resize(ent.player.body);
 		return warp;
 	}
 	public void loadLevel(String name, String path, boolean absolutepath) {
