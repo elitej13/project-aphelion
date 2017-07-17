@@ -2,7 +2,7 @@ package com.ephemerality.aphelion.desktop;
 
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.ephemerality.aphelion.editor.framework.Editor;
+import com.ephemerality.aphelion.customizer.Editor;
 
 public class EditorRuntime {
 	public static void main (String[] arg) {

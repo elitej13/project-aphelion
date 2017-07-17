@@ -26,7 +26,6 @@ public class MenuManager  {
 		WindowMenu windowMenu = new WindowMenu();
 		HelpMenu helpMenu = new HelpMenu();
 
-
 		menuBar.addMenu(fileMenu.menu);
 		menuBar.addMenu(editMenu.menu);
 		menuBar.addMenu(windowMenu.menu);

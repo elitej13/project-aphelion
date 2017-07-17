@@ -22,11 +22,11 @@ import com.ephemerality.aphelion.util.Direction;
 public class ScreenManager {
 	
 	HashMap<Vector2, Texture> rectangles;
+	public static BitmapFont font;
 	public SpriteBatch sb;
 	public OrthographicCamera oc;
 	public Rectangle bounds;
 	Color color;
-	BitmapFont font;
 	int FONT_SIZE = 12;
 	boolean batchHasBegun;
 	
@@ -38,7 +38,7 @@ public class ScreenManager {
 		
 		rectangles = new HashMap<>();
 		center = new Rectangle(w / 2 - 1, h / 2 - 1, 4f, 4f);
-		color = new Color(0f, 0f, 0f, 1f);
+		color = new Color(0, 0, 0, 1f);
 		oc = new OrthographicCamera(w, h);
 		oc.setToOrtho(false, w, h);
 		sb = new SpriteBatch();
@@ -77,20 +77,17 @@ public class ScreenManager {
 		center.set(w / 2 - 1, h / 2 - 1, 4f, 4f);
 		update();
 	}
-	public void setPosition(float x, float y) {
-		oc.position.set(x, y, 0f);
-		float xb = (float) (x - Math.floor(bounds.width / 2));
-		float yb =  (float) (y - Math.floor(bounds.height / 2));
-		bounds.setPosition(xb, yb);
+	public void resize() {
+		int w = Gdx.graphics.getWidth();
+		int h = Gdx.graphics.getHeight();
+		float cx = oc.position.x;
+		float cy = oc.position.y;
+		oc = new OrthographicCamera(w, h);
+		oc.setToOrtho(false, w, h);
+		oc.position.set(cx, cy, 0);
+		bounds.set(cx - (w / 2f), cy - (h / 2f), w, h);
+		center.set(w / 2 - 1, h / 2 - 1, 4f, 4f);
 		update();
-	}
-	public void rotate(float w, float x, float y, float z) {
-		Quaternion quat = new Quaternion();
-		quat.w = w;
-		quat.x = x;
-		quat.y = y;
-		quat.z = z;
-		oc.rotate(quat);
 	}
 	public void start() {
 		Gdx.gl20.glClearColor(color.r, color.b, color.g, color.a);
@@ -107,7 +104,25 @@ public class ScreenManager {
 		sb.end();
 		batchHasBegun = false;
 	}
-	
+
+	public void setPosition(float x, float y) {
+		oc.position.set(x, y, 0f);
+		float xb = (float) (x - Math.floor(bounds.width / 2));
+		float yb =  (float) (y - Math.floor(bounds.height / 2));
+		bounds.setPosition(xb, yb);
+		update();
+	}
+	public void rotate(float w, float x, float y, float z) {
+		Quaternion quat = new Quaternion();
+		quat.w = w;
+		quat.x = x;
+		quat.y = y;
+		quat.z = z;
+		oc.rotate(quat);
+	}
+	public void scrolled(int amount) {
+		oc.zoom += amount * 0.1f;
+	}
 	public void translate(float x, float y) {
 		oc.translate(x, y);
 		bounds.setPosition(bounds.x + x, bounds.y + y);
@@ -150,16 +165,17 @@ public class ScreenManager {
 		}
 		sb.draw(texture, body.x + x, body.y + y);
 	}
+	public void renderFixedString(String string, float x, float y) {
+		font.draw(sb, string, x + bounds.x, y + bounds.y);
+	}
 	public void renderString(Color col, String string, float x, float y) {
-		
-		font.setColor(col.r, col.g, col.b, col.a
-				
-				);;
+		Color previous = sb.getColor();
+		sb.setColor(col.r, col.g, col.b, col.a);
 		font.draw(sb, string, x, y);
+		sb.setColor(previous.r, previous.g, previous.b, previous.a);
 	}
 	public void renderFixedString(Color col, String string, float x, float y) {
-		font.setColor(col);
-		font.draw(sb, string, x + bounds.x, y + bounds.y);
+		renderString(col, string, x + bounds.x, y + bounds.y);
 	}
 	public void renderFixedString(BitmapFont font, String string, float x, float y) {
 		font.draw(sb, string, x + bounds.x, y + bounds.y);

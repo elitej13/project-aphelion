@@ -2,13 +2,11 @@ package com.ephemerality.aphelion.spawn.world;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.ephemerality.aphelion.graphics.ScreenManager;
 import com.ephemerality.aphelion.graphics.SpriteSheet;
-import com.ephemerality.aphelion.spawn.entities.EntityManager;
 import com.ephemerality.aphelion.spawn.entities.nob.Tile;
 import com.ephemerality.aphelion.util.FileManager;
 
@@ -30,8 +28,8 @@ public class MapManager {
 	public Vector2 offset;
 	
 	public MapManager() {
-		level = new Level("tst_01", FileManager.readFromFile("maps/tst_01" + Level.EXTENSION, false));
-//		level = new Level(12,12);
+//		level = new Level("tst_01", FileManager.readFromFile("maps/tst_01" + Level.EXTENSION, false));
+		level = new Level(12,12, Tile.GRASS_ID);
 		mapPixelSize = new Vector2(level.WIDTH * MapManager.tileSize, level.HEIGHT * MapManager.tileSize);
 		offset = new Vector2(0, 0);
 	}
@@ -60,20 +58,20 @@ public class MapManager {
 			screen.renderString(Color.BLUE, warp.level, warp.local.x, warp.local.y - 5f);
 		}
 	}
-	public void renderAlphaMask(ScreenManager screen) {
-		Gdx.gl.glColorMask(false, false, false, true);
-		screen.sb.setBlendFunction(GL20.GL_ONE, GL20.GL_ZERO);
-		screen.renderFixed(SpriteSheet.minimap_mask, Gdx.graphics.getWidth() - mapWidth, Gdx.graphics.getHeight() - mapHeight, SpriteSheet.minimap_mask.getWidth(), SpriteSheet.minimap_mask.getHeight());
-		screen.sb.flush();
-	}
-	public void renderForeGround(ScreenManager screen, EntityManager ent) {
-		Gdx.gl.glColorMask(true, true, true, true);
-		screen.sb.setBlendFunction(GL20.GL_DST_ALPHA, GL20.GL_ONE_MINUS_DST_ALPHA);
-		Gdx.gl.glEnable(GL20.GL_SCISSOR_TEST);
-		Gdx.gl.glScissor(Gdx.graphics.getWidth() - (int) mapWidth, Gdx.graphics.getHeight() - (int) mapHeight, SpriteSheet.minimap_mask.getWidth(), SpriteSheet.minimap_mask.getHeight());
-		renderMap(screen, ent);
-		Gdx.gl.glDisable(GL20.GL_SCISSOR_TEST);
-	}
+//	public void renderAlphaMask(ScreenManager screen) {
+//		Gdx.gl.glColorMask(false, false, false, true);
+//		screen.sb.setBlendFunction(GL20.GL_ONE, GL20.GL_ZERO);
+//		screen.renderFixed(SpriteSheet.minimap_mask, Gdx.graphics.getWidth() - mapWidth, Gdx.graphics.getHeight() - mapHeight, SpriteSheet.minimap_mask.getWidth(), SpriteSheet.minimap_mask.getHeight());
+//		screen.sb.flush();
+//	}
+//	public void renderForeGround(ScreenManager screen, EntityManager ent) {
+//		Gdx.gl.glColorMask(true, true, true, true);
+//		screen.sb.setBlendFunction(GL20.GL_DST_ALPHA, GL20.GL_ONE_MINUS_DST_ALPHA);
+//		Gdx.gl.glEnable(GL20.GL_SCISSOR_TEST);
+//		Gdx.gl.glScissor(Gdx.graphics.getWidth() - (int) mapWidth, Gdx.graphics.getHeight() - (int) mapHeight, SpriteSheet.minimap_mask.getWidth(), SpriteSheet.minimap_mask.getHeight());
+//		renderMap(screen, ent);
+//		Gdx.gl.glDisable(GL20.GL_SCISSOR_TEST);
+//	}
 	public void renderTiles(ScreenManager screen) {
 		int tileSize = MapManager.tileSize;
 		int x0 = (int) Math.floor(screen.bounds.x / tileSize);
@@ -108,18 +106,18 @@ public class MapManager {
 			}
 		}		
 	}
-	public void renderMap(ScreenManager screen, EntityManager ent) {
-		float playerX = ent.player.body.x;
-		float playerY = ent.player.body.y;
-		for(int y = (int) ((playerY - (mapSimulatedHeight / 2)) / tileSize); y <= (playerY + mapSimulatedHeight) / tileSize; y++) {//((playerY + (mapSimulatedHeight / 2)) / tileSize) + 1; y++) {
-			for(int x = (int)((playerX - (mapSimulatedWidth / 2)) / tileSize); x <= (playerX + mapSimulatedWidth) / tileSize; x++) {
-				short currentPixel = Tile.VOID_ID;
-				if(x > 0 && y > 0 && x < level.WIDTH && y < level.HEIGHT)
-					currentPixel = level.tiles[x + (y * level.WIDTH)];
-				renderOnMiniMap(screen, SpriteSheet.fetchIconFromEntityID(currentPixel), x - ((playerX - (mapSimulatedWidth / 2)) / tileSize), y  - ((playerY - (mapSimulatedHeight / 2)) / tileSize));
-			}
-		}
-	}
+//	public void renderMap(ScreenManager screen, EntityManager ent) {
+//		float playerX = ent.player.body.x;
+//		float playerY = ent.player.body.y;
+//		for(int y = (int) ((playerY - (mapSimulatedHeight / 2)) / tileSize); y <= (playerY + mapSimulatedHeight) / tileSize; y++) {//((playerY + (mapSimulatedHeight / 2)) / tileSize) + 1; y++) {
+//			for(int x = (int)((playerX - (mapSimulatedWidth / 2)) / tileSize); x <= (playerX + mapSimulatedWidth) / tileSize; x++) {
+//				short currentPixel = Tile.VOID_ID;
+//				if(x > 0 && y > 0 && x < level.WIDTH && y < level.HEIGHT)
+//					currentPixel = level.tiles[x + (y * level.WIDTH)];
+//				renderOnMiniMap(screen, SpriteSheet.fetchIconFromEntityID(currentPixel), x - ((playerX - (mapSimulatedWidth / 2)) / tileSize), y  - ((playerY - (mapSimulatedHeight / 2)) / tileSize));
+//			}
+//		}
+//	}
 	public void renderOnMiniMap(ScreenManager screen, TextureRegion texture, float globalX, float globalY) {
 		screen.renderFixed(texture, Gdx.graphics.getWidth() - mapWidth + globalX * texture.getRegionWidth(), Gdx.graphics.getHeight() - mapHeight + globalY * texture.getRegionHeight(), texture.getRegionWidth(), texture.getRegionHeight());
 	}
@@ -157,7 +155,6 @@ public class MapManager {
 		level.HEIGHT = h;
 		level.WIDTH = w;
 		mapPixelSize = new Vector2(level.WIDTH * MapManager.tileSize, level.HEIGHT * MapManager.tileSize);
-		System.out.println("Resizing: " + level.WIDTH + ", " + level.HEIGHT);
 	}
 	public boolean hasRecentlyReloaded() {
 		if(recentlyReloaded) {

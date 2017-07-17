@@ -51,6 +51,11 @@ public class InputManager {
 			return true;
 		}else return false;
 	}
+
+	
+	
+	
+	
 	
 	
 	

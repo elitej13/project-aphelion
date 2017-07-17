@@ -41,7 +41,6 @@ public class GUI {
 		
 		initActors(map);
 		initDebug();
-		
 	}
 	
 	public void initDebug() {
@@ -66,13 +65,6 @@ public class GUI {
 			}
 		});
 	}
-	
-	/**
-	 * Takes in the pixel precise position on viewport.
-	 * Transforms it to map to a tile position given screen bounds offset.
-	 * @param x
-	 * @param y
-	 */
 	
 	public void initActors(MapManager map) {
 		menu = new MenuManager(stage, root, map);
@@ -101,6 +93,8 @@ public class GUI {
 	}
 	public void resize(int width, int height) {
 		if (width == 0 && height == 0) return; //see https://github.com/libgdx/libgdx/issues/3673#issuecomment-177606278
+		tPane.resize(width, height);
+		tScreen.resize(width, height);
 		stage.getViewport().update(width, height, true);
 	}
 	public void dispose () {

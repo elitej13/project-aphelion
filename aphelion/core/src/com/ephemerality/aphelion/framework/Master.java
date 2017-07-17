@@ -3,11 +3,11 @@ package com.ephemerality.aphelion.framework;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.math.Rectangle;
 import com.ephemerality.aphelion.graphics.LoadManager;
 import com.ephemerality.aphelion.graphics.ScreenManager;
 import com.ephemerality.aphelion.input.InputManager;
 import com.ephemerality.aphelion.util.FileManager;
+import com.ephemerality.aphelion.util.State;
 import com.ephemerality.aphelion.util.debug.Debug;
 import com.ephemerality.aphelion.util.debug.DebugType;
 
@@ -16,12 +16,11 @@ public class Master extends ApplicationAdapter {
 	
 	public static final String version = "Pre-Alpha || Version 0.0.9";
 	public static float SYSTEM_TIME;
-	//-1 Exiting, 0 Main menu, 1 Game
-	private static int state = 0;
+	private static State state = State.LOADING;
 	ScreenManager screen;
 	LoadManager loader;
 	GameManager game;
-	MenuManager main;	
+	MenuManager main;
 
 //-----------------------Strictly for debug
 	private static String[] args;
@@ -55,16 +54,16 @@ public class Master extends ApplicationAdapter {
 		
 		debugUpdate();
 		SYSTEM_TIME += Gdx.graphics.getRawDeltaTime();
-		if(state == -1) {
+		if(state == State.EXITING) {
 			Gdx.app.exit();
-		}else if(state == 0) {
+		}else if(state == State.LOADING) {
 			loader.update();
-			if(state != 0) {
+			if(state != State.LOADING) {
 				game = new GameManager(screen, loader, "Josh");
 			}
-		}else if(state == 1) {
+		}else if(state == State.MAIN_MENU) {
 			main.update();
-		}else if(state == 2) {
+		}else if(state == State.GAME) {
 //			System.out.println("Update Start Time: " + System.currentTimeMillis());
 			game.update();
 //			System.out.println("Update Stop Time: " + System.currentTimeMillis());
@@ -191,19 +190,16 @@ public class Master extends ApplicationAdapter {
 	}
 	//End of Debugger methods
 	
-	public static void setState(int state){
-		if(state >= -1 && state <= 2) 
-			Master.state = state;
-		else 
-			System.out.println("Error changing state.");
+	public static void setState(State state){
+		Master.state = state;
 		
-		if(state == 0) {
+		if(state == State.LOADING) {
 			String[] args = {"set", "background", "0f", "0f", "0f", "1f"};
 			pushArgs(args);
-		}else if(state == 1) {
+		}else if(state == State.MAIN_MENU) {
 			String[] args = {"set", "background", "0.6f", "0.6f", "0.6f", "1f"};
 			pushArgs(args);
-		}else if(state == 2) {
+		}else if(state == State.GAME) {
 			String[] args = {"set", "background", "0f", "0f", "0f", "1f"};
 			pushArgs(args);
 		}
@@ -215,7 +211,7 @@ public class Master extends ApplicationAdapter {
 	public void resize(int width, int height) {
 		super.resize(width, height);
 		if(game != null) screen.resize(game.ent.player.body);
-		else screen.resize(new Rectangle());
+		else screen.resize();
 	}
 	
 	@Override
@@ -228,11 +224,11 @@ public class Master extends ApplicationAdapter {
 //	TODO : Have update on a fixed timer		
 		update();
 		screen.start();
-		if(state == 0) {
+		if(state == State.LOADING) {
 			loader.render(screen);
-		}else if(state == 1) {
+		}else if(state == State.MAIN_MENU) {
 			main.render(screen, loader);
-		}else if(state == 2) {
+		}else if(state == State.GAME) {
 //			System.out.println("Render Start Time: " + System.currentTimeMillis());
 			game.render(screen);
 //			System.out.println("Render Stop Time: " + System.currentTimeMillis());

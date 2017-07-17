@@ -15,6 +15,7 @@ import com.ephemerality.aphelion.framework.Master;
 import com.ephemerality.aphelion.input.DollInfo;
 import com.ephemerality.aphelion.input.SCMLLoader;
 import com.ephemerality.aphelion.input.SCMLLoader.DollParameter;
+import com.ephemerality.aphelion.util.State;
 import com.ephemerality.aphelion.util.debug.Debug;
 
 public class LoadManager {
@@ -142,7 +143,7 @@ public class LoadManager {
 		if(assets.getLoadedAssets() == TOTAL_ASSETS && assets.getProgress() == 1f) {
 			SpriteSheet.init(assets);
 			Debug.pushToConsole("Done loading assets", false);
-			Master.setState(1);
+			Master.setState(State.MAIN_MENU);
 		}
 	}
 	

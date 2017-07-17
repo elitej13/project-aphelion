@@ -39,7 +39,20 @@ public class Level {
 		env = new HashMap<>();
 		warps = new HashSet<>();
 	}
-	
+	public Level(int width, int height, short fill) {
+		this.name = "DEFAULT";
+		WIDTH = width;
+		HEIGHT = height;
+		tiles = new short[WIDTH * HEIGHT];
+		mobs = new short[WIDTH * HEIGHT];
+		env = new HashMap<>();
+		warps = new HashSet<>();
+		for(int y = 0; y < HEIGHT; y++) {
+			for(int x = 0; x < WIDTH; x++) {
+				tiles[x + y * WIDTH] = fill;
+			}
+		}
+	}
 	public Level(String name, byte[] data) {
 		this.name = name;
 		tiles = new short[WIDTH * HEIGHT];

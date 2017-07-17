@@ -17,18 +17,10 @@ public class TilePane extends VisWindow{
 	
 	public TilePane () {
 		super("Tile Selection");
-
 		TableUtils.setSpacingDefaults(this);
 		columnDefaults(0).left();
 		addTiles();
-
-		
-		int w = 150;
-		int h = Gdx.graphics.getHeight() - 25;
-		int x = Gdx.graphics.getWidth() - w;
-		int y = Gdx.graphics.getHeight() - h - 25;
-		setSize(w, h);
-		setPosition(x, y);
+		setMovable(false);
 	}
 
 	private void addTiles () {
@@ -130,7 +122,13 @@ public class TilePane extends VisWindow{
 		return Tile.VOID_ID;
 	}
 	
-	
+	public void resize(int width, int height) {
+		float sw = Gdx.graphics.getWidth();
+		float sh = Gdx.graphics.getHeight();
+		
+		setSize(sw * 0.12f, sh - 25f);
+		setPosition(sw - sw * 0.12f, 0);
+	}
 	
 	
 	
