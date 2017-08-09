@@ -24,7 +24,7 @@ public class ScreenManager {
 	HashMap<Vector2, Texture> rectangles;
 	public static BitmapFont font;
 	public SpriteBatch sb;
-	public OrthographicCamera oc;
+	public OrthographicCamera oc, uioc;
 	public Rectangle bounds;
 	Color color;
 	int FONT_SIZE = 12;
@@ -40,7 +40,9 @@ public class ScreenManager {
 		center = new Rectangle(w / 2 - 1, h / 2 - 1, 4f, 4f);
 		color = new Color(0, 0, 0, 1f);
 		oc = new OrthographicCamera(w, h);
+		uioc = new OrthographicCamera(w, h);
 		oc.setToOrtho(false, w, h);
+		uioc.setToOrtho(false, w, h);
 		sb = new SpriteBatch();
 		bounds = new Rectangle(0, 0, w, h);
 		update();
@@ -59,6 +61,7 @@ public class ScreenManager {
 	}
 	public void update() {
 		oc.update();
+		uioc.update();
 		sb.setProjectionMatrix(oc.combined);
 	}
 		
@@ -66,24 +69,28 @@ public class ScreenManager {
 	 * @param body Body to center screen around
 	 */
 	public void resize(Rectangle body) {
-		int w = Gdx.graphics.getWidth();
-		int h = Gdx.graphics.getHeight();
+		int w = (int) (Gdx.graphics.getWidth() * oc.zoom);
+		int h = (int) (Gdx.graphics.getHeight() * oc.zoom);
 		float cx = body.x + (body.width / 2f);
 		float cy = body.y + (body.height / 2f);
 		oc = new OrthographicCamera(w, h);
+		uioc = new OrthographicCamera(w, h);
 		oc.setToOrtho(false, w, h);
+		uioc.setToOrtho(false, w, h);
 		oc.position.set(cx, cy, 0);
 		bounds.set(cx - (w / 2f), cy - (h / 2f), w, h);
 		center.set(w / 2 - 1, h / 2 - 1, 4f, 4f);
 		update();
 	}
 	public void resize() {
-		int w = Gdx.graphics.getWidth();
-		int h = Gdx.graphics.getHeight();
+		int w = (int) (Gdx.graphics.getWidth() * oc.zoom);
+		int h = (int) (Gdx.graphics.getHeight() * oc.zoom);
 		float cx = oc.position.x;
 		float cy = oc.position.y;
 		oc = new OrthographicCamera(w, h);
+		uioc = new OrthographicCamera(w, h);
 		oc.setToOrtho(false, w, h);
+		uioc.setToOrtho(false, w, h);
 		oc.position.set(cx, cy, 0);
 		bounds.set(cx - (w / 2f), cy - (h / 2f), w, h);
 		center.set(w / 2 - 1, h / 2 - 1, 4f, 4f);
@@ -120,8 +127,12 @@ public class ScreenManager {
 		quat.z = z;
 		oc.rotate(quat);
 	}
-	public void scrolled(int amount) {
+	public static final float MAX_ZOOM = 0.5f;
+	public void zoom(int amount) {
 		oc.zoom += amount * 0.1f;
+		if(oc.zoom < MAX_ZOOM) oc.zoom = MAX_ZOOM;
+		
+		System.out.println(oc.viewportWidth);
 	}
 	public void translate(float x, float y) {
 		oc.translate(x, y);
@@ -137,8 +148,6 @@ public class ScreenManager {
 			translate(-1, 0);
 		}else if(dir == Direction.EAST){
 			translate(1, 0);		
-		}else {
-			System.out.println("Unhandeled direction");
 		}
 	}
 	
@@ -205,9 +214,14 @@ public class ScreenManager {
 	}
 	public void render(TextureRegion texture, Rectangle body) {
 		sb.draw(texture, body.x, body.y, body.width, body.height);
+		
 	}
+	
 	public void renderFixed(Texture texture, Rectangle body) {
-		sb.draw(texture, bounds.x + body.x, bounds.y + body.y, body.width, body.height);
+		float x = (bounds.x + body.x);
+		float y = (bounds.y + body.y);
+		sb.draw(texture, x, y, body.width, body.height);
+		
 	}
 	public void renderFixed(TextureRegion texture, Rectangle body) {
 		sb.draw(texture, bounds.x + body.x, bounds.y + body.y, body.width, body.height);

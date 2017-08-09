@@ -1,13 +1,17 @@
 package com.ephemerality.aphelion.customizer;
 
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Input.Keys;
 import com.ephemerality.aphelion.graphics.ScreenManager;
 
 public class InputManager implements InputProcessor{
 
+	public final static float SCROLL_SPEED = 4f;
+	
 	GUIManager gui;
 	GameManager game;
 	ScreenManager screen;
+	boolean[] keys = new boolean[256];
 	
 	public InputManager(ScreenManager screen, GUIManager gui, GameManager game) {
 		this.screen = screen;
@@ -15,16 +19,22 @@ public class InputManager implements InputProcessor{
 		this.game = game;
 	}
 	
+	public void update() {
+		if(keys[Keys.UP] || keys[Keys.W]) screen.translate(0, SCROLL_SPEED);
+		if(keys[Keys.DOWN] || keys[Keys.S]) screen.translate(0, -SCROLL_SPEED);
+		if(keys[Keys.LEFT] || keys[Keys.A]) screen.translate(-SCROLL_SPEED, 0);
+		if(keys[Keys.RIGHT] || keys[Keys.D]) screen.translate(SCROLL_SPEED, 0);
+	}
 	
 	@Override
 	public boolean keyDown(int keycode) {
-		// TODO Auto-generated method stub
+		keys[keycode] = true;
 		return false;
 	}
 
 	@Override
 	public boolean keyUp(int keycode) {
-		// TODO Auto-generated method stub
+		keys[keycode] = false;
 		return false;
 	}
 
@@ -60,9 +70,10 @@ public class InputManager implements InputProcessor{
 
 	@Override
 	public boolean scrolled(int amount) {
-		System.out.println(amount);
 		if(!gui.scrolled(amount)) {
-			screen.scrolled(amount);
+			screen.zoom(amount);
+			System.out.println(screen.oc.zoom);
+//			screen.resize();
 		}
 		return false;
 	}

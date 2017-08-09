@@ -16,6 +16,7 @@ public class Editor extends ApplicationAdapter {
 	GUIManager gui;
 	
 	
+	@Override
 	public void create() {
 		super.create();
 		SpriteSheet.init();
@@ -30,15 +31,9 @@ public class Editor extends ApplicationAdapter {
 	
 	public void update() {
 		Debug.update();
+		input.update();
 		game.update();
-		updateMove();
 		screen.update();
-	}
-	public void updateMove() {
-//		if(InputManager.up) screen.translate(0, 5);
-//		if(InputManager.down) screen.translate(0, -5);
-//		if(InputManager.left) screen.translate(-5, 0);
-//		if(InputManager.right) screen.translate(5, 0);
 	}
 	@Override
 	public void render () {
