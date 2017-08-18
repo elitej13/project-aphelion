@@ -18,19 +18,22 @@ import com.badlogic.gdx.math.Quaternion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.ephemerality.aphelion.util.Direction;
+import com.ephemerality.aphelion.util.Util;
 
 public class ScreenManager {
 	
 	HashMap<Vector2, Texture> rectangles;
+	final Color DEFAULT_COLOR, TINT_COLOR;
 	public static BitmapFont font;
 	public SpriteBatch sb;
-	public OrthographicCamera oc, uioc;
+	public OrthographicCamera oc;
 	public Rectangle bounds;
-	Color color;
-	int FONT_SIZE = 12;
 	boolean batchHasBegun;
+	int FONT_SIZE = 16;
+	Color color;
 	
-	public static final int WIDTH = 1000, HEIGHT = 600;
+	public static final float MIN_ZOOM = 0.5f;
+	public static final float MAX_ZOOM = 4f;
 	
 	public ScreenManager() {
 		float w = Gdx.graphics.getWidth();
@@ -40,9 +43,7 @@ public class ScreenManager {
 		center = new Rectangle(w / 2 - 1, h / 2 - 1, 4f, 4f);
 		color = new Color(0, 0, 0, 1f);
 		oc = new OrthographicCamera(w, h);
-		uioc = new OrthographicCamera(w, h);
 		oc.setToOrtho(false, w, h);
-		uioc.setToOrtho(false, w, h);
 		sb = new SpriteBatch();
 		bounds = new Rectangle(0, 0, w, h);
 		update();
@@ -58,10 +59,13 @@ public class ScreenManager {
 		Pixmap map = new Pixmap(1, 1, Format.RGBA8888);
 		map.setColor(Color.BLACK);
 		pixel = new Texture(map);
+		
+		
+		DEFAULT_COLOR = new Color(sb.getColor());
+		TINT_COLOR = new Color(0.2f, 0.2f, 0.2f, 1f);
 	}
 	public void update() {
 		oc.update();
-		uioc.update();
 		sb.setProjectionMatrix(oc.combined);
 	}
 		
@@ -74,9 +78,7 @@ public class ScreenManager {
 		float cx = body.x + (body.width / 2f);
 		float cy = body.y + (body.height / 2f);
 		oc = new OrthographicCamera(w, h);
-		uioc = new OrthographicCamera(w, h);
 		oc.setToOrtho(false, w, h);
-		uioc.setToOrtho(false, w, h);
 		oc.position.set(cx, cy, 0);
 		bounds.set(cx - (w / 2f), cy - (h / 2f), w, h);
 		center.set(w / 2 - 1, h / 2 - 1, 4f, 4f);
@@ -88,9 +90,7 @@ public class ScreenManager {
 		float cx = oc.position.x;
 		float cy = oc.position.y;
 		oc = new OrthographicCamera(w, h);
-		uioc = new OrthographicCamera(w, h);
 		oc.setToOrtho(false, w, h);
-		uioc.setToOrtho(false, w, h);
 		oc.position.set(cx, cy, 0);
 		bounds.set(cx - (w / 2f), cy - (h / 2f), w, h);
 		center.set(w / 2 - 1, h / 2 - 1, 4f, 4f);
@@ -107,7 +107,6 @@ public class ScreenManager {
 	//Debug
 	static Rectangle center;
 	public void finish() {
-		renderRectangle(center, Color.RED, bounds.x, bounds.y);
 		sb.end();
 		batchHasBegun = false;
 	}
@@ -127,12 +126,22 @@ public class ScreenManager {
 		quat.z = z;
 		oc.rotate(quat);
 	}
-	public static final float MAX_ZOOM = 0.5f;
 	public void zoom(int amount) {
+		float oldZoom = oc.zoom;
 		oc.zoom += amount * 0.1f;
-		if(oc.zoom < MAX_ZOOM) oc.zoom = MAX_ZOOM;
-		
-		System.out.println(oc.viewportWidth);
+		oc.zoom = (float) (Math.floor(oc.zoom * 10f) / 10f);
+		oc.zoom = Util.clamp(oc.zoom, MIN_ZOOM, MAX_ZOOM);
+		float dw = (oc.viewportWidth * oc.zoom) - (Gdx.graphics.getWidth() * oldZoom);
+		float dh = (oc.viewportHeight * oc.zoom) - (Gdx.graphics.getHeight() * oldZoom);
+		bounds.x = bounds.x - (dw / 2f);
+		bounds.y = bounds.y - (dh / 2f);
+		bounds.width = Gdx.graphics.getWidth() * oc.zoom;
+		bounds.height = Gdx.graphics.getHeight() * oc.zoom;
+		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/inconsolata/Inconsolata-Bold.ttf"));
+		FreeTypeFontParameter parameter = new FreeTypeFontParameter();
+		parameter.size = (int) (FONT_SIZE * oc.zoom);
+		parameter.color = new Color(0, 0, 0, 1.0f);
+		font = generator.generateFont(parameter);
 	}
 	public void translate(float x, float y) {
 		oc.translate(x, y);
@@ -156,7 +165,7 @@ public class ScreenManager {
 		renderRectangle(body, Color.PINK, 0, 0);
 	}
 	public void renderFixedRectangle(Rectangle body, Color col, float x, float y) {
-		renderRectangle(body, col, x + bounds.x, bounds.y);
+		renderRectangle(body, col, (x * oc.zoom) + bounds.x, (y * oc.zoom) + bounds.y);
 	}
 	public void renderRectangle(Rectangle body, Color color) {
 		renderRectangle(body, color, 0, 0);
@@ -175,7 +184,7 @@ public class ScreenManager {
 		sb.draw(texture, body.x + x, body.y + y);
 	}
 	public void renderFixedString(String string, float x, float y) {
-		font.draw(sb, string, x + bounds.x, y + bounds.y);
+		font.draw(sb, string, (x * oc.zoom) + bounds.x, (y * oc.zoom) + bounds.y);
 	}
 	public void renderString(Color col, String string, float x, float y) {
 		Color previous = sb.getColor();
@@ -184,10 +193,10 @@ public class ScreenManager {
 		sb.setColor(previous.r, previous.g, previous.b, previous.a);
 	}
 	public void renderFixedString(Color col, String string, float x, float y) {
-		renderString(col, string, x + bounds.x, y + bounds.y);
+		renderString(col, string, (x * oc.zoom) + bounds.x, (y * oc.zoom) + bounds.y);
 	}
 	public void renderFixedString(BitmapFont font, String string, float x, float y) {
-		font.draw(sb, string, x + bounds.x, y + bounds.y);
+		font.draw(sb, string, (x * oc.zoom) + bounds.x, (y * oc.zoom) + bounds.y);
 	}
 	public void render(Texture texture, Color color, float x, float y) {
 		sb.setColor(color);
@@ -206,9 +215,6 @@ public class ScreenManager {
 	public void render(Texture texture, float x, float y, float w, float h) {
 		sb.draw(texture, x, y, w, h);
 	}
-	public void renderFixed(TextureRegion texture, float x, float y, float w, float h) {
-		sb.draw(texture, x + bounds.x, bounds.y + y, w, h);
-	}
 	public void render(Texture texture, Rectangle body) {
 		sb.draw(texture, body.x, body.y, body.width, body.height);
 	}
@@ -216,27 +222,36 @@ public class ScreenManager {
 		sb.draw(texture, body.x, body.y, body.width, body.height);
 		
 	}
-	
 	public void renderFixed(Texture texture, Rectangle body) {
-		float x = (bounds.x + body.x);
-		float y = (bounds.y + body.y);
-		sb.draw(texture, x, y, body.width, body.height);
-		
+		sb.draw(texture, bounds.x + (body.x * oc.zoom), bounds.y + (body.y * oc.zoom), body.width * oc.zoom, body.height * oc.zoom);	
 	}
 	public void renderFixed(TextureRegion texture, Rectangle body) {
-		sb.draw(texture, bounds.x + body.x, bounds.y + body.y, body.width, body.height);
+		sb.draw(texture, bounds.x + (body.x * oc.zoom), bounds.y + (body.y * oc.zoom), body.width * oc.zoom, body.height * oc.zoom);
 	}
 	public void renderFixed(Texture texture, float x, float y, float w, float h) {
-		sb.draw(texture, x + bounds.x, y + bounds.y, w, h);
+		sb.draw(texture, bounds.x + (x * oc.zoom), bounds.y + (y * oc.zoom), w * oc.zoom, h * oc.zoom);
+	}
+	public void renderFixed(TextureRegion texture, float x, float y, float w, float h) {
+		sb.draw(texture, x + bounds.x, bounds.y + y, w, h);
 	}
 	public void renderFixed(Texture texture, float x, float y, float scale) {
 //		TODO: verify this draw call as accurate
-		sb.draw(texture, x + bounds.x, bounds.y + y, texture.getWidth() * scale, texture.getHeight() * scale);
+		sb.draw(texture, (x * oc.zoom) + bounds.x, (y * oc.zoom) + bounds.y, texture.getWidth() * scale * oc.zoom, texture.getHeight() * scale * oc.zoom);
 	}
 	public void renderFixed(TextureRegion texture, float x, float y, float scale) {
 //		TODO: verify this draw call as accurate
-		sb.draw(texture, x, y, texture.getRegionWidth() * scale, texture.getRegionHeight() * scale);
+		sb.draw(texture, (x * oc.zoom) + bounds.x, (y * oc.zoom) + bounds.y, texture.getRegionWidth() * scale * oc.zoom, texture.getRegionHeight() * scale * oc.zoom);
 	}
+	
+	
+	
+	public void tintRenderer() {
+		sb.setColor(TINT_COLOR);
+	}
+	public void untintRenderer() {
+		sb.setColor(DEFAULT_COLOR);
+	}
+	
 	Texture pixel;
 	public void renderPixel(float x, float y) {
 		sb.draw(pixel, x, y);

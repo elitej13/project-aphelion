@@ -9,7 +9,7 @@ import com.ephemerality.aphelion.util.debug.Debug;
 public class Editor extends ApplicationAdapter {
 	
 
-	public static final String version = "0.0.20";
+	public static final String version = "0.0.21";
 	ScreenManager screen;
 	InputManager input;
 	GameManager game;
@@ -41,7 +41,9 @@ public class Editor extends ApplicationAdapter {
 		screen.start();
 		game.render(screen);
 		gui.render(screen);
-		screen.finish();
+		
+//		screen.renderFixed(SpriteSheet.default_house, -100, -100)
+		screen.finish(); 
 		
 	}
 	

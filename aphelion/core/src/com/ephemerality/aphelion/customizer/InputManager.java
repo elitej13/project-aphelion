@@ -58,13 +58,17 @@ public class InputManager implements InputProcessor{
 
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		// TODO Auto-generated method stub
+		if(!gui.dragged(screenX, screenY)) {
+			
+		}
 		return false;
 	}
 
 	@Override
 	public boolean mouseMoved(int screenX, int screenY) {
-		gui.mouseMoved(screenX, screenY);
+		if(!gui.mouseMoved(screenX, screenY)) {
+			
+		}
 		return false;
 	}
 
@@ -72,7 +76,6 @@ public class InputManager implements InputProcessor{
 	public boolean scrolled(int amount) {
 		if(!gui.scrolled(amount)) {
 			screen.zoom(amount);
-			System.out.println(screen.oc.zoom);
 //			screen.resize();
 		}
 		return false;
