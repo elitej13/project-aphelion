@@ -49,7 +49,7 @@ public class GUIManager {
 		});
 		
 		
-		elements.put("Selection Pane", new TilePanel(0, 0f, 225f, height - 20f, "Selection Pane", windowPaneDefault, true) {
+		elements.put("Selection Pane", new TilePanel(width - 152f, 0f, 152f, height, "Selection Pane", windowPaneDefault, true) {
 			@Override
 			public void behavior() {
 				super.behavior();
@@ -81,6 +81,10 @@ public class GUIManager {
 							beingDragged = ep;
 						}
 					}
+					Iterator<EphElement> it = ep.children.values().iterator();
+					while(it.hasNext()) {
+						it.next().checkActive(mousePos);
+					}
 				}
 			}
 		}
@@ -89,7 +93,20 @@ public class GUIManager {
 	public boolean dragged(int screenX, int screenY) {
 		return false;
 	}
-	public boolean scrolled(int amount) {
+	
+	public boolean scrolled(int amount, Vector2 vect) {
+		Iterator<EphElement> iter = elements.values().iterator();
+		while(iter.hasNext()) {
+			EphElement el = iter.next();
+			if(el instanceof EphPanel) {
+				EphPanel ep = (EphPanel) el;
+				if(ep.checkActive(vect)) {
+					if(amount > 0) ep.scroll(ep.rowHeight);
+					else ep.scroll(-ep.rowHeight);
+					return true;
+				}				
+			}
+		}
 		return false;
 	}
 	public void render(ScreenManager screen) {

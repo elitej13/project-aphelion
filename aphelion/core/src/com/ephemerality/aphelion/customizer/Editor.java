@@ -9,7 +9,7 @@ import com.ephemerality.aphelion.util.debug.Debug;
 public class Editor extends ApplicationAdapter {
 	
 
-	public static final String version = "0.0.21";
+	public static final String version = "0.0.22";
 	ScreenManager screen;
 	InputManager input;
 	GameManager game;
