@@ -1,9 +1,10 @@
 package com.ephemerality.aphelion.customizer;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Buttons;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.Input.Keys;
 import com.ephemerality.aphelion.graphics.ScreenManager;
 
 public class InputManager implements InputProcessor{
@@ -24,17 +25,19 @@ public class InputManager implements InputProcessor{
 	
 	public void update() {
 		if(keys[Keys.SPACE]) {
-			if(keys[Keys.UP] || keys[Keys.W]) screen.translate(0, MAX_SCROLL_SPEED);
-			if(keys[Keys.DOWN] || keys[Keys.S]) screen.translate(0, -MAX_SCROLL_SPEED);
-			if(keys[Keys.LEFT] || keys[Keys.A]) screen.translate(-MAX_SCROLL_SPEED, 0);
-			if(keys[Keys.RIGHT] || keys[Keys.D]) screen.translate(MAX_SCROLL_SPEED, 0);			
+			if(keys[Keys.UP] || keys[Keys.W]) screen.translate(0, MAX_SCROLL_SPEED * screen.oc.zoom);
+			if(keys[Keys.DOWN] || keys[Keys.S]) screen.translate(0, -MAX_SCROLL_SPEED * screen.oc.zoom);
+			if(keys[Keys.LEFT] || keys[Keys.A]) screen.translate(-MAX_SCROLL_SPEED * screen.oc.zoom, 0);
+			if(keys[Keys.RIGHT] || keys[Keys.D]) screen.translate(MAX_SCROLL_SPEED * screen.oc.zoom, 0);			
 		}else {
-			if(keys[Keys.UP] || keys[Keys.W]) screen.translate(0, SCROLL_SPEED);
-			if(keys[Keys.DOWN] || keys[Keys.S]) screen.translate(0, -SCROLL_SPEED);
-			if(keys[Keys.LEFT] || keys[Keys.A]) screen.translate(-SCROLL_SPEED, 0);
-			if(keys[Keys.RIGHT] || keys[Keys.D]) screen.translate(SCROLL_SPEED, 0);				
+			if(keys[Keys.UP] || keys[Keys.W]) screen.translate(0, SCROLL_SPEED * screen.oc.zoom);
+			if(keys[Keys.DOWN] || keys[Keys.S]) screen.translate(0, -SCROLL_SPEED * screen.oc.zoom);
+			if(keys[Keys.LEFT] || keys[Keys.A]) screen.translate(-SCROLL_SPEED * screen.oc.zoom, 0);
+			if(keys[Keys.RIGHT] || keys[Keys.D]) screen.translate(SCROLL_SPEED * screen.oc.zoom, 0);				
 		}
 	}
+	
+	
 	
 	@Override
 	public boolean keyDown(int keycode) {
@@ -53,30 +56,39 @@ public class InputManager implements InputProcessor{
 		// TODO Auto-generated method stub
 		return false;
 	}
-
-	@Override
+	
+	public void editMap(int screenX, int screenY, int pointer) {
+		int x = (int) ((screenX * screen.oc.zoom) + screen.bounds.x);
+		int y = (int) (((Gdx.graphics.getHeight() - screenY) * screen.oc.zoom) + screen.bounds.y);
+		game.editMap(screen, x, y, GUIManager.active);
+		
+	}
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
+		if(!gui.mouseMoved(screenX, screenY, button == Buttons.LEFT)) {
+			editMap(screenX, screenY, pointer);
+		}
 		return false;
 	}
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		if(!gui.dragged(screenX, screenY)) {
+		if(!gui.mouseMoved(screenX, screenY, button == Buttons.LEFT)) {
 			
 		}
 		return false;
 	}
 
 	@Override
+	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		if(!gui.dragged(screenX, screenY)) {
+			editMap(screenX, screenY, pointer);
+		}
+		return false;
+	}
+
+	@Override
 	public boolean mouseMoved(int screenX, int screenY) {
-		if(!gui.mouseMoved(screenX, screenY)) {
+		if(!gui.mouseMoved(screenX, screenY,  Gdx.input.isButtonPressed(Buttons.LEFT))) {
 			
 		}
 		return false;

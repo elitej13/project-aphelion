@@ -23,13 +23,13 @@ public class MapManager {
 	//TODO: finish implementing thiss
 	Level bufferedLevel;
 	
-	public Level level;	
+	public Level level;
 	public Vector2 mapPixelSize;
 	public Vector2 offset;
 	
 	public MapManager() {
 //		level = new Level("tst_01", FileManager.readFromFile("maps/tst_01" + Level.EXTENSION, false));
-		level = new Level(12,12, Tile.GRASS_ID);
+		level = new Level(50,50, Tile.GRASS_ID);
 		mapPixelSize = new Vector2(level.WIDTH * MapManager.tileSize, level.HEIGHT * MapManager.tileSize);
 		offset = new Vector2(0, 0);
 	}
@@ -129,12 +129,16 @@ public class MapManager {
 	
 	
 //-----------------------------Editor Functionality-----------------------------------------------------------//
-	public void editTile(int x, int y, short tileID) {
+	public void editTile(int x, int y, short ID) {
 		int xx = (int)(offset.x / tileSize) + x;
 		int yy = (int)(offset.y / tileSize) + y;
 		if(xx < 0 || xx >= level.WIDTH || yy < 0 || yy >= level.HEIGHT)
 			return;
-		level.tiles[xx + yy * level.WIDTH] = tileID;
+		level.tiles[xx + yy * level.WIDTH] = ID;
+	}
+	public void editEnv(int x, int y, short ID) {
+		Vector2 pos = new Vector2(x, y);
+		level.env.put(pos, ID);
 	}
 	public void createNewLevel(int w, int h) {
 		bufferedLevel = level;

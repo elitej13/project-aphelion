@@ -25,6 +25,19 @@ public class EntityManager {
 	public Player player;
 	public MapManager map;
 	
+	/**
+	 * Constructor for usage of the editor
+	 * @param map
+	 */
+	public EntityManager(MapManager map) {
+		this.map = map;
+		deltaOffset = new Vector2();
+		entities = new ArrayList<>();
+		removed = new ArrayList<>();
+		quad = new QuadTree(map);
+		initEnvNobs();
+	}
+	
 	public EntityManager(ScreenManager screen, LoadManager assets, MapManager map) {
 		this.map = map;
 		deltaOffset = new Vector2();
@@ -45,7 +58,6 @@ public class EntityManager {
 		initEnvNobs();
 	}
 	public void initEnvNobs() {
-		addEntity(Environment.instantiateEnvNob(2000, 600, Environment.Tree.ID));
 		Iterator<Vector2> vIter = map.level.env.keySet().iterator();
 		while(vIter.hasNext()) {
 			Vector2 vect = vIter.next();
@@ -82,7 +94,7 @@ public class EntityManager {
 	}
 	
 	public void render(ScreenManager screen) {
-		quad.render(screen);
+//		quad.render(screen);
 		for(Entity e : entities) 
 			e.render(screen);
 //		for(ParticleSpawner ps : particles) 

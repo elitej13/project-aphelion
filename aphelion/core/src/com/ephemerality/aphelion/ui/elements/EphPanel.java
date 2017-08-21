@@ -37,16 +37,19 @@ public class EphPanel extends EphElement{
 		hTextInset = 5f;
 	}
 	
-	/**
-	 * Be sure to call this behavior ex: super.behavior();
-	 */
-	@Override
-	public void behavior() {
-		Iterator<EphElement> iter = children.values().iterator();
-		while(iter.hasNext()) {
-			iter.next().behavior();
-		}
-	}
+//	/**
+//	 * Be sure to call this behavior ex: super.behavior();
+//	 */
+//	@Override
+//	public void behavior() {
+//		Iterator<EphElement> iter = children.values().iterator();
+//		while(iter.hasNext()) {
+//			EphElement ep = iter.next();
+//			if(ep.active) {
+//				ep.behavior();
+//			}
+//		}
+//	}
 	/**
 	 * 
 	 * @param amount Positive to scroll up, negative to scroll down.

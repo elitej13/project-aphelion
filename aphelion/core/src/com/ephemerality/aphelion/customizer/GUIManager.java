@@ -4,24 +4,33 @@ import java.util.HashMap;
 import java.util.Iterator;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.ephemerality.aphelion.graphics.ScreenManager;
+import com.ephemerality.aphelion.ui.elements.EditPanel;
 import com.ephemerality.aphelion.ui.elements.EphButton;
 import com.ephemerality.aphelion.ui.elements.EphElement;
 import com.ephemerality.aphelion.ui.elements.EphPanel;
+import com.ephemerality.aphelion.ui.elements.FilePanel;
+import com.ephemerality.aphelion.ui.elements.InfoPanel;
 import com.ephemerality.aphelion.ui.elements.TilePanel;
+import com.ephemerality.aphelion.ui.elements.ViewPanel;
 
 public class GUIManager {
 	
 	
-	HashMap<String, EphElement> elements;
+	HashMap<String, EphElement> elements, disabled;
+	public static short active;
 	EphElement beingDragged;
 	boolean clicking;
+	ScreenManager screen;
+	GameManager game;
 	
-	public GUIManager() {
+	public GUIManager(ScreenManager screen, GameManager game) {
+		this.game = game;
+		this.screen = screen;
 		elements = new HashMap<>();
+		disabled = new HashMap<>();
 		setElements(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 	}
 	public void setElements(int width, int height) {		
@@ -32,36 +41,82 @@ public class GUIManager {
 		elements.put("File", new EphButton(0, height - 20f, 75f, 20f, "File", utilBarDefault, utilBarHighlight) {
 			@Override
 			public void behavior() {
-				
+				if (elements.get("File Panel") != null) {
+					disabled.put("File Panel", elements.get("File Panel"));
+					elements.remove("File Panel");
+				}else {
+					elements.put("File Panel", disabled.get("File Panel"));
+					disabled.remove("File Panel");
+
+					if (elements.get("Edit Panel") != null) {
+						disabled.put("Edit Panel", elements.get("Edit Panel"));
+						elements.remove("Edit Panel");
+					}
+					if (elements.get("View Panel") != null) {
+						disabled.put("View Panel", elements.get("View Panel"));
+						elements.remove("View Panel");
+					}
+				}
 			}
 		});
 		elements.put("Edit", new EphButton(75f, height - 20f, 75f, 20f, "Edit", utilBarDefault, utilBarHighlight) {
 			@Override
 			public void behavior() {
-				
+				if (elements.get("Edit Panel") != null) {
+					disabled.put("Edit Panel", elements.get("Edit Panel"));
+					elements.remove("Edit Panel");
+				}else {
+					if (elements.get("File Panel") != null) {
+						disabled.put("File Panel", elements.get("File Panel"));
+						elements.remove("File Panel");
+					}
+					
+					elements.put("Edit Panel", disabled.get("Edit Panel"));
+					disabled.remove("Edit Panel");
+					
+					if (elements.get("View Panel") != null) {
+						disabled.put("View Panel", elements.get("View Panel"));
+						elements.remove("View Panel");
+					}
+				}
 			}
 		});
 		elements.put("View", new EphButton(150f, height - 20f, 75f, 20f, "View", utilBarDefault, utilBarHighlight) {
 			@Override
 			public void behavior() {
-				
+				if (elements.get("View Panel") != null) {
+					disabled.put("View Panel", elements.get("View Panel"));
+					elements.remove("View Panel");
+				}else {
+					if (elements.get("File Panel") != null) {
+						disabled.put("File Panel", elements.get("File Panel"));
+						elements.remove("File Panel");
+					}
+					
+					if (elements.get("Edit Panel") != null) {
+						disabled.put("Edit Panel", elements.get("Edit Panel"));
+						elements.remove("Edit Panel");
+					}
+					
+					elements.put("View Panel", disabled.get("View Panel"));
+					disabled.remove("View Panel");
+				}
 			}
 		});
+		elements.put("Buffer Bar", new EphPanel(225f, height - 20f, width - 225f, 20f, "", utilBarDefault, false, 20f));
+		elements.put("Info Panel", new InfoPanel(0f, height - 92f, width - 152f, 72f, "Info Panel", windowPaneDefault, 24f));
 		
+		disabled.put("File Panel", new FilePanel(0f, height - 145f, 150f, 125f, "File Panel", utilBarDefault, 24f, game));
+		disabled.put("Edit Panel", new EditPanel(75f, height - 145f, 150f, 125f, "Edit Panel", utilBarDefault, 24f));
+		disabled.put("View Panel", new ViewPanel(150f, height - 145f, 150f, 125f, "View Panel", utilBarDefault, 24f));
 		
-		elements.put("Selection Pane", new TilePanel(width - 152f, 0f, 152f, height, "Selection Pane", windowPaneDefault, true) {
-			@Override
-			public void behavior() {
-				super.behavior();
-			}
-		});
+		elements.put("Selection Pane", new TilePanel(width - 152f, 0f, 152f, height - 20f, "Selection Pane", windowPaneDefault, true));
 	}
 	
-	public boolean mouseMoved(int screenX, int screenY) {
+	public synchronized boolean mouseMoved(int screenX, int screenY, boolean clicked) {
 		boolean activity = false;
 		Vector2 mousePos = new Vector2(screenX, Gdx.graphics.getHeight() - screenY);
 		Iterator<EphElement> iter = elements.values().iterator();
-		boolean clicked = Gdx.input.isButtonPressed(Buttons.LEFT);
 		if(!clicked) clicking = false;
 		while(iter.hasNext()) {
 			EphElement el = iter.next();
@@ -70,21 +125,27 @@ public class GUIManager {
 					el.behavior();
 					activity = true;
 					clicking = true;
+					return activity;
 				}				
 			}
 			else if(el instanceof EphPanel) {
-				if(el.checkActive(mousePos) ) {
+				if(el.checkActive(mousePos)) {
 					EphPanel ep = (EphPanel) el;
-					if(ep.movable) {
-						ep.behavior();
-						if(ep.moving) {
-							beingDragged = ep;
-						}
-					}
 					Iterator<EphElement> it = ep.children.values().iterator();
 					while(it.hasNext()) {
-						it.next().checkActive(mousePos);
+						EphElement ee = it.next();
+						if(ee.checkActive(mousePos) && clicked && !clicking) {
+							ee.behavior();
+							activity = true;
+							clicking = true;
+						}
 					}
+					ep.behavior();
+//					if(ep.movable) {
+//						if(ep.moving) {
+//							beingDragged = ep;
+//						}
+//					}
 				}
 			}
 		}

@@ -32,8 +32,8 @@ public class ScreenManager {
 	int FONT_SIZE = 16;
 	Color color;
 	
-	public static final float MIN_ZOOM = 0.5f;
-	public static final float MAX_ZOOM = 4f;
+	public static final float MIN_ZOOM = 1f;
+	public static final float MAX_ZOOM = 16f;
 	
 	public ScreenManager() {
 		float w = Gdx.graphics.getWidth();
@@ -128,8 +128,10 @@ public class ScreenManager {
 	}
 	public void zoom(int amount) {
 		float oldZoom = oc.zoom;
-		oc.zoom += amount * 0.1f;
-		oc.zoom = (float) (Math.floor(oc.zoom * 10f) / 10f);
+//		oc.zoom += amount * (oc.zoom / 1f);
+		if(amount > 0) oc.zoom += 1f;
+		else if(amount < 0) oc.zoom -= 1f;
+//		oc.zoom = (float) (Math.floor(oc.zoom * 1f) / 1f);
 		oc.zoom = Util.clamp(oc.zoom, MIN_ZOOM, MAX_ZOOM);
 		float dw = (oc.viewportWidth * oc.zoom) - (Gdx.graphics.getWidth() * oldZoom);
 		float dh = (oc.viewportHeight * oc.zoom) - (Gdx.graphics.getHeight() * oldZoom);
@@ -215,6 +217,9 @@ public class ScreenManager {
 	public void render(Texture texture, float x, float y, float w, float h) {
 		sb.draw(texture, x, y, w, h);
 	}
+	public void render(TextureRegion texture, float x, float y, float w, float h) {
+		sb.draw(texture, x, y, w, h);
+	}
 	public void render(Texture texture, Rectangle body) {
 		sb.draw(texture, body.x, body.y, body.width, body.height);
 	}
@@ -232,7 +237,7 @@ public class ScreenManager {
 		sb.draw(texture, bounds.x + (x * oc.zoom), bounds.y + (y * oc.zoom), w * oc.zoom, h * oc.zoom);
 	}
 	public void renderFixed(TextureRegion texture, float x, float y, float w, float h) {
-		sb.draw(texture, x + bounds.x, bounds.y + y, w, h);
+		sb.draw(texture, (x * oc.zoom) + bounds.x, (y * oc.zoom) + bounds.y, w * oc.zoom, h * oc.zoom);
 	}
 	public void renderFixed(Texture texture, float x, float y, float scale) {
 //		TODO: verify this draw call as accurate

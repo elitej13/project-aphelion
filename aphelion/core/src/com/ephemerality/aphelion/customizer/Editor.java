@@ -9,7 +9,7 @@ import com.ephemerality.aphelion.util.debug.Debug;
 public class Editor extends ApplicationAdapter {
 	
 
-	public static final String version = "0.0.22";
+	public static final String version = "0.0.23";
 	ScreenManager screen;
 	InputManager input;
 	GameManager game;
@@ -23,7 +23,7 @@ public class Editor extends ApplicationAdapter {
 		
 		screen = new ScreenManager();
 		game = new GameManager();
-		gui = new GUIManager();
+		gui = new GUIManager(screen, game);
 		input = new InputManager(screen, gui, game);
 		
 		Gdx.input.setInputProcessor(input);
