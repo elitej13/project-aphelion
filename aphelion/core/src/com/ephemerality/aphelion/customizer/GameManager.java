@@ -71,5 +71,12 @@ public class GameManager {
 	public void resize(int width, int height) {
 		
 	}
-	
+	public boolean saveMap(String name) {
+		return map.save(name);
+	}
+	public boolean loadMap(String name) {
+		if(!map.load(name)) return false;
+		ent.resetMapInitEnvs();
+		return true;
+	}
 }

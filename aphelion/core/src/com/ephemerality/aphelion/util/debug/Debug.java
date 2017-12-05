@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.graphics.profiling.GLProfiler;
+import com.ephemerality.aphelion.customizer.Editor;
 import com.ephemerality.aphelion.framework.Master;
 import com.ephemerality.aphelion.input.InputManager;
 import com.ephemerality.aphelion.input.Keyboard;
@@ -29,8 +30,8 @@ public class Debug {
 	public static boolean infoIsActive;
 	public static boolean logging;
 	
-	private static LinkedList<String> history = new LinkedList<String>();
-	private static LinkedList<String> log = new LinkedList<String>();
+	private static LinkedList<String> history = new LinkedList<>();
+	private static LinkedList<String> log = new LinkedList<>();
 	private static BitmapFont logger, console;
 	private static Texture textfield;
 	private static Texture cursor;
@@ -153,9 +154,11 @@ public class Debug {
 			if(consoleIsActive) {
 				String[] args = {"pause", "true"};
 				Master.pushArgs(args);
+				Editor.pushArgs(args);
 			}else {
 				String[] args = {"pause", "false"};
 				Master.pushArgs(args);
+				Editor.pushArgs(args);
 			}
 		}
 	}
@@ -243,7 +246,8 @@ public class Debug {
 	
 	public static void execute(String[] args) {
 		text = "";
-		Master.pushArgs(args);		
+		Master.pushArgs(args);
+		Editor.pushArgs(args);
 	}
 	
 	public static void dispose() {

@@ -40,6 +40,7 @@ public class SCMLLoader extends AsynchronousAssetLoader<DollInfo, SCMLLoader.Dol
 		this.info = null;
 		return info;
 	}
+	
 
 	@Override
 	@SuppressWarnings("rawtypes")

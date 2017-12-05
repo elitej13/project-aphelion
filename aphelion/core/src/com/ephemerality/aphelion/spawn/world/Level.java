@@ -55,17 +55,14 @@ public class Level {
 	}
 	public Level(String name, byte[] data) {
 		this.name = name;
-		tiles = new short[WIDTH * HEIGHT];
-		mobs = new short[WIDTH * HEIGHT];
-		env = new HashMap<>();
-		warps = new HashSet<>();
-		
 		ByteBuffer buffer = ByteBuffer.wrap(data);
 		WIDTH = buffer.getInt();
 		HEIGHT = buffer.getInt();
 		int eSize = buffer.getInt();
 		int wSize = buffer.getInt();
 		//-------------Tiles-------------------//
+		tiles = new short[WIDTH * HEIGHT];
+		mobs = new short[WIDTH * HEIGHT];
 		for(int y = 0; y < HEIGHT; y++) {
 			for(int x = 0; x < WIDTH; x++) {
 				short current = buffer.getShort();
@@ -73,6 +70,7 @@ public class Level {
 			}
 		}
 		//------------EnvNobs-----------------//
+		env = new HashMap<>();
 		for(int i = 0; i < eSize; i++) {
 			short ID = buffer.getShort();
 			float x = buffer.getFloat();
@@ -80,6 +78,7 @@ public class Level {
 			env.put(new Vector2(x, y), ID);
 		}
 		//-----------Warps---------------------//
+		warps = new HashSet<>();
 		for(int i = 0; i < wSize; i++) {
 			byte[] w = new byte[Warp.BYTES];
 			buffer.get(w);

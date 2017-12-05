@@ -64,6 +64,16 @@ public class EntityManager {
 			addEntity(Environment.instantiateEnvNob(vect.x, vect.y, map.level.env.get(vect)));
 		}
 	}
+	public void resetMapInitEnvs() {
+		entities = new ArrayList<>();
+		removed = new ArrayList<>();
+		quad = new QuadTree(map);
+		Iterator<Vector2> vIter = map.level.env.keySet().iterator();
+		while(vIter.hasNext()) {
+			Vector2 vect = vIter.next();
+			addEntity(Environment.instantiateEnvNob(vect.x, vect.y, map.level.env.get(vect)));
+		}
+	}
 	public void refreshQuad() {
 		quad = new QuadTree(map);
 		for(Entity e : entities) 

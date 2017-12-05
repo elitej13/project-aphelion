@@ -24,13 +24,13 @@ public class GameManager {
 	
 	public boolean isPaused;
 	
+	public static Warp warpTo;
 	public static float playTime;
 	public static boolean requestedWarp;
-	public static Warp warpTo;
 	
 	
 	public GameManager(ScreenManager screen, LoadManager assets, String name) {
-		map = new MapManager();
+		map = new MapManager("default");
 		ent = new EntityManager(screen, assets, map);
 		ui = new UIManager(ent.getPlayer());
 		script = new ScriptManager(this);
@@ -38,7 +38,7 @@ public class GameManager {
 	}
 	public GameManager(ScreenManager screen, LoadManager assets, Save save) {
 		this.save = save;
-		map = new MapManager();
+		map = new MapManager("default");
 		ent = new EntityManager(screen, assets, map);
 		ui = new UIManager(ent.getPlayer());
 		script = new ScriptManager(this);

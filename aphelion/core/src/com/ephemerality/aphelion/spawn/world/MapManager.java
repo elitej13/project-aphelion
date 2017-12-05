@@ -11,7 +11,8 @@ import com.ephemerality.aphelion.spawn.entities.nob.Tile;
 import com.ephemerality.aphelion.util.FileManager;
 
 public class MapManager {
-	
+
+	public static final String mapPath = "../core/assets/maps/";
 	public static int tileSize = 64;
 	public boolean recentlyReloaded;
 	public float mapWidth = 128f;
@@ -28,11 +29,14 @@ public class MapManager {
 	public Vector2 offset;
 	
 	public MapManager() {
-//		level = new Level("tst_01", FileManager.readFromFile("maps/tst_01" + Level.EXTENSION, false));
 		level = new Level(50,50, Tile.GRASS_ID);
 		mapPixelSize = new Vector2(level.WIDTH * MapManager.tileSize, level.HEIGHT * MapManager.tileSize);
 		offset = new Vector2(0, 0);
 	}
+	public MapManager(String name) {
+		load(name);
+	}
+	
 	public void load(String name, String location, boolean absolutepath) {
 		bufferedLevel = level;
 		level = new Level(name, FileManager.readFromFile(location, absolutepath));
@@ -40,8 +44,22 @@ public class MapManager {
 		offset = new Vector2(0, 0);
 		recentlyReloaded = true;
 	}
-	public void save(String location, boolean absolutepath) {
-		FileManager.writeToFile(location, level.toByteArray(), absolutepath);
+	public boolean save(String name, boolean absolutepath) {
+		return FileManager.writeToFile(mapPath + name + Level.EXTENSION, level.toByteArray(), absolutepath);
+	}
+	public boolean load(String name) {
+		//This probs won't work, as it's a pass by reference
+		bufferedLevel = level;
+		level = new Level(name, FileManager.readFromFile(mapPath + name + Level.EXTENSION, false));
+		mapPixelSize = new Vector2(level.WIDTH * MapManager.tileSize, level.HEIGHT * MapManager.tileSize);
+		offset = new Vector2(0, 0);
+		recentlyReloaded = true;
+		return true;
+	}
+	
+	
+	public boolean save(String name) {
+		return FileManager.writeToFile(mapPath + name + Level.EXTENSION, level.toByteArray(), false);
 	}
 	public Warp getWarp(Rectangle rect) {
 		for(Warp w : level.warps){

@@ -234,7 +234,7 @@ public class Master extends ApplicationAdapter {
 //			System.out.println("Render Stop Time: " + System.currentTimeMillis());
 		}
 		Debug.render(screen.sb, screen.bounds.x, screen.bounds.y);
-		screen.renderFixedString(Color.GOLD, version, Gdx.graphics.getWidth() - 175, 15);
+		screen.renderFixedString(Color.GOLD, version, Gdx.graphics.getWidth() - 250, 15);
 		screen.finish();
 	}
 	

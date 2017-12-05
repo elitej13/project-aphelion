@@ -21,19 +21,24 @@ public class InputManager implements InputProcessor{
 		this.screen = screen;
 		this.gui = gui;
 		this.game = game;
+		com.ephemerality.aphelion.input.InputManager.init();
 	}
 	
 	public void update() {
-		if(keys[Keys.SPACE]) {
-			if(keys[Keys.UP] || keys[Keys.W]) screen.translate(0, MAX_SCROLL_SPEED * screen.oc.zoom);
-			if(keys[Keys.DOWN] || keys[Keys.S]) screen.translate(0, -MAX_SCROLL_SPEED * screen.oc.zoom);
-			if(keys[Keys.LEFT] || keys[Keys.A]) screen.translate(-MAX_SCROLL_SPEED * screen.oc.zoom, 0);
-			if(keys[Keys.RIGHT] || keys[Keys.D]) screen.translate(MAX_SCROLL_SPEED * screen.oc.zoom, 0);			
-		}else {
-			if(keys[Keys.UP] || keys[Keys.W]) screen.translate(0, SCROLL_SPEED * screen.oc.zoom);
-			if(keys[Keys.DOWN] || keys[Keys.S]) screen.translate(0, -SCROLL_SPEED * screen.oc.zoom);
-			if(keys[Keys.LEFT] || keys[Keys.A]) screen.translate(-SCROLL_SPEED * screen.oc.zoom, 0);
-			if(keys[Keys.RIGHT] || keys[Keys.D]) screen.translate(SCROLL_SPEED * screen.oc.zoom, 0);				
+		com.ephemerality.aphelion.input.InputManager.update();
+
+		if(!Editor.paused) {
+			if(keys[Keys.SPACE]) {
+				if(keys[Keys.UP] || keys[Keys.W]) screen.translate(0, MAX_SCROLL_SPEED * screen.oc.zoom);
+				if(keys[Keys.DOWN] || keys[Keys.S]) screen.translate(0, -MAX_SCROLL_SPEED * screen.oc.zoom);
+				if(keys[Keys.LEFT] || keys[Keys.A]) screen.translate(-MAX_SCROLL_SPEED * screen.oc.zoom, 0);
+				if(keys[Keys.RIGHT] || keys[Keys.D]) screen.translate(MAX_SCROLL_SPEED * screen.oc.zoom, 0);			
+			}else {
+				if(keys[Keys.UP] || keys[Keys.W]) screen.translate(0, SCROLL_SPEED * screen.oc.zoom);
+				if(keys[Keys.DOWN] || keys[Keys.S]) screen.translate(0, -SCROLL_SPEED * screen.oc.zoom);
+				if(keys[Keys.LEFT] || keys[Keys.A]) screen.translate(-SCROLL_SPEED * screen.oc.zoom, 0);
+				if(keys[Keys.RIGHT] || keys[Keys.D]) screen.translate(SCROLL_SPEED * screen.oc.zoom, 0);				
+			}
 		}
 	}
 	
@@ -63,6 +68,7 @@ public class InputManager implements InputProcessor{
 		game.editMap(screen, x, y, GUIManager.active);
 		
 	}
+	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		if(!gui.mouseMoved(screenX, screenY, button == Buttons.LEFT)) {
 			editMap(screenX, screenY, pointer);

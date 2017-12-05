@@ -21,7 +21,7 @@ public enum Environment {
 	House	(new Rectangle(0, 0, 192, 192), 	192, 	192, 	(short) -20001),
 	Fence	(new Rectangle(0, 0, 64, 16), 		64, 	64, 	(short) -20002),
 	Gate	(new Rectangle(0, 0, 64, 16), 		64, 	64,		(short) -20003),
-	Bridge	(null, 								64, 	192,   	(short)  20004),
+	Bridge	(new Rectangle(0, 0, 64, 64),		64, 	192,   	(short)  20004),
 	Tree	(new Rectangle(48, 0, 32, 32), 		128, 	128,	(short) -20005);
 	
 	public final Rectangle BODY;

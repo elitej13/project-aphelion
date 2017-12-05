@@ -12,7 +12,13 @@ public enum DebugType {
 	Console_Logging ("Started Logging"),
 	
 	Game_save_Successful ("Game save successful"),
-	Game_save_Unsuccessful ("Game save unsuccessful");
+	Game_save_Unsuccessful ("Game save unsuccessful"),
+	
+	Map_save_Successful ("Map save successful"),
+	Map_save_Unsuccessful ("Map save unsuccessful"),
+	
+	Map_load_Successful ("Map load successful"),
+	Map_load_Unsuccessful ("Map load unsuccessful");
 	
 	
 	private final String string;
