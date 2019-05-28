@@ -1,8 +1,8 @@
 # About Project Aphelion
-Project Aphelion is a topdown 2D (for now maybe) rpg engine that aspires to one day be its own game.
-I am a university student soloing this project partly to help build up my portfolio, but mostly
-becuase I love programming and I definitely love video games. If you have any incling or desire
-to add to or just advise the creation of this project please email me at joshhess13@gmail.com!
+[![Build Status](https://travis-ci.org/euthyphro666/project-aphelion.svg?branch=master)](https://travis-ci.org/euthyphro666/project-aphelion)
+
+Project Aphelion is a topdown 2D (for now maybe) rpg engine that aspires to one day be its own game. I am a university student soloing this project partly to help build up my portfolio, but mostly becuase I love programming and I definitely love video games. If you have any desire to add to or just advise the creation of this project please email me at joshhess13@gmail.com!
+
 Thanks for stopping by!
 
 
